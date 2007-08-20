@@ -1,3 +1,9 @@
+Overview of changes between 0.4.1 and 0.4.2
+===========================================
+
+* Add constructor for clutter.ActorBox, clutter.Margin and clutter.Padding
+* Lazily initialise clutter when loading the module
+
 Overview of changes between 0.4.0 and 0.4.1
 ===========================================
 
