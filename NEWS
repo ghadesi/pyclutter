@@ -1,3 +1,10 @@
+Overview of changes between 0.4.0 and 0.4.1
+===========================================
+
+* Add clutter.threads API
+* Allow constructing the boxed types we wrap
+* Allow using a 4-tuple in clutter.Actor.set_geometry()
+
 Overview of changes between 0.3.0 and 0.4.0
 ===========================================
 
