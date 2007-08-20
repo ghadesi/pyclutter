@@ -40,9 +40,9 @@
 
   <release>
     <Version>
-      <created>2007-01-18</created>
-      <revision>0.2.0</revision>
-      <file-release rdf:resource="http://www.clutter-project.org/sources/pyclutter/0.2/pyclutter-0.2.0.tar.gz"/>
+      <created>2007-08-20</created>
+      <revision>0.4.1</revision>
+      <file-release rdf:resource="http://www.clutter-project.org/sources/pyclutter/0.4/pyclutter-0.4.1.tar.gz"/>
     </Version>
   </release>
 
@@ -51,6 +51,14 @@
       <created>2007-08-07</created>
       <revision>0.4.0</revision>
       <file-release rdf:resource="http://www.clutter-project.org/sources/pyclutter/0.4/pyclutter-0.4.0.tar.gz"/>
+    </Version>
+  </release>
+
+  <release>
+    <Version>
+      <created>2007-01-18</created>
+      <revision>0.2.0</revision>
+      <file-release rdf:resource="http://www.clutter-project.org/sources/pyclutter/0.2/pyclutter-0.2.0.tar.gz"/>
     </Version>
   </release>
 
