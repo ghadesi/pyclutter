@@ -36,6 +36,7 @@ ignore
   clutter_container_remove_valist
   clutter_effect_template_new
   clutter_effect_template_new_full
+  clutter_effect_depth
   clutter_effect_fade
   clutter_effect_move
   clutter_effect_scale
@@ -994,3 +995,32 @@ _wrap_clutter_box_query_nth_child (PyGObject *self,
         Py_INCREF (Py_None);
         return Py_None;
 }
+%%
+override clutter_threads_init noargs
+static PyObject *
+_wrap_clutter_threads_init (PyObject *self)
+{
+        if (pyg_enable_threads ())
+                return NULL;
+        
+        clutter_threads_init ();
+
+        Py_INCREF (Py_None);
+        return Py_None;
+}
+%%
+override clutter_threads_enter noargs
+static PyObject *
+_wrap_clutter_threads_enter (PyObject *self)
+{
+        /* must allow threads while acquiring lock, or no other python
+         * code will execute while we wait
+         */
+        pyg_begin_allow_threads;
+        clutter_threads_enter ();
+        pyg_end_allow_threads;
+
+        Py_INCREF (Py_None);
+        return Py_None;
+}
+%%

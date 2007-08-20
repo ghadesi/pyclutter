@@ -2024,6 +2024,19 @@
   )
 )
 
+(define-function effect_depth
+  (c-name "clutter_effect_depth")
+  (return-type "ClutterTimeline*")
+  (parameters
+    '("ClutterEffectTemplate*" "template_")
+    '("ClutterActor*" "actor")
+    '("gint" "start_depth")
+    '("gint" "end_depth")
+    '("ClutterEffectCompleteFunc" "completed_func")
+    '("gpointer" "completed_data")
+  )
+)
+
 (define-function effect_fade
   (c-name "clutter_effect_fade")
   (return-type "ClutterTimeline*")
@@ -2976,6 +2989,72 @@
 (define-function get_timestamp
   (c-name "clutter_get_timestamp")
   (return-type "gulong")
+)
+
+(define-function threads_init
+  (c-name "clutter_threads_init")
+  (return-type "none")
+)
+
+(define-function threads_set_lock_functions
+  (c-name "clutter_threads_set_lock_functions")
+  (return-type "none")
+  (parameters
+    '("GCallback" "enter_fn")
+    '("GCallback" "leave_fn")
+  )
+)
+
+(define-function threads_enter
+  (c-name "clutter_threads_enter")
+  (return-type "none")
+)
+
+(define-function threads_leave
+  (c-name "clutter_threads_leave")
+  (return-type "none")
+)
+
+(define-function threads_add_idle
+  (c-name "clutter_threads_add_idle")
+  (return-type "guint")
+  (parameters
+    '("GSourceFunc" "func")
+    '("gpointer" "data")
+  )
+)
+
+(define-function threads_add_idle_full
+  (c-name "clutter_threads_add_idle_full")
+  (return-type "guint")
+  (parameters
+    '("gint" "priority")
+    '("GSourceFunc" "func")
+    '("gpointer" "data")
+    '("GDestroyNotify" "notify")
+  )
+)
+
+(define-function threads_add_timeout
+  (c-name "clutter_threads_add_timeout")
+  (return-type "guint")
+  (parameters
+    '("guint" "interval")
+    '("GSourceFunc" "func")
+    '("gpointer" "data")
+  )
+)
+
+(define-function threads_add_timeout_full
+  (c-name "clutter_threads_add_timeout_full")
+  (return-type "guint")
+  (parameters
+    '("gint" "priority")
+    '("guint" "interval")
+    '("GSourceFunc" "func")
+    '("gpointer" "data")
+    '("GDestroyNotify" "notify")
+  )
 )
 
 

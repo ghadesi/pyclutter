@@ -1,3 +1,15 @@
+2007-08-20  Emmanuele Bassi  <ebassi@openedhand.com>
+
+	* README:
+	* configure.ac: Bump up to 0.4.1 and require the new stable relase
+	of Clutter
+
+	* clutter/clutter-base.defs: Add new API.
+
+	* clutter/clutter.override: Ignore clutter_effect_depth() and
+	override clutter_threads_enter() to release the Python interpreter
+	lock before acquiring the Clutter lock and reacquire it afterwards.
+
 2007-08-08  Emmanuele Bassi  <ebassi@openedhand.com>
 
 	Backport from trunk
