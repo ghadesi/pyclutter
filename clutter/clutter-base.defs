@@ -4,11 +4,6 @@
 
 ;; From clutter-actor.h
 
-(define-function actor_box_get_type
-  (c-name "clutter_actor_box_get_type")
-  (return-type "GType")
-)
-
 (define-function actor_get_type
   (c-name "clutter_actor_get_type")
   (return-type "GType")
@@ -3785,6 +3780,17 @@
 
 ;; From clutter-types.h
 
+(define-function actor_box_get_type
+  (c-name "clutter_actor_box_get_type")
+  (return-type "GType")
+)
+
+(define-function actor_box_new
+  (c-name "clutter_actor_box_new")
+  (is-constructor-of "ClutterActorBox")
+  (return-type "ClutterActorBox")
+)
+
 (define-function geometry_get_type
   (c-name "clutter_geometry_get_type")
   (return-type "GType")
@@ -3837,6 +3843,28 @@
   (parameters
     '("const-ClutterKnot*" "knot_b")
   )
+)
+
+(define-function margin_get_type
+  (c-name "clutter_margin_get_type")
+  (return-type "GType")
+)
+
+(define-function margin_new
+  (c-name "clutter_margin_new")
+  (is-constructor-of "ClutterMargin")
+  (return-type "ClutterMargin")
+)
+
+(define-function padding_get_type
+  (c-name "clutter_padding_get_type")
+  (return-type "GType")
+)
+
+(define-function padding_new
+  (c-name "clutter_padding_new")
+  (is-constructor-of "ClutterPadding")
+  (return-type "ClutterPadding")
 )
 
 
