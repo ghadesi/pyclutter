@@ -651,7 +651,7 @@ _wrap_clutter_behaviour_depth_new (PyGObject *self,
         ClutterAlpha *alpha;
 
         if (!PyArg_ParseTupleAndKeywords (args, kwargs,
-                                          "|Oii:clutter.BehaviourDepth.__init__",
+                                          "Oii|:clutter.BehaviourDepth.__init__",
                                           kwlist,
                                           &py_alpha, &depth_start, &depth_end))
                 return -1;
@@ -691,7 +691,7 @@ _wrap_clutter_behaviour_ellipse_new (PyGObject *self,
         ClutterAlpha *alpha;
 
         if (!PyArg_ParseTupleAndKeywords (args, kwargs,
-                                          "|Oiiiidd:clutter.BehaviourEllipse.__init__",
+                                          "O|iiiidd:clutter.BehaviourEllipse.__init__",
                                           kwlist,
                                           &py_alpha, &x, &y, &width, &height,
                                           &begin, &end))
@@ -762,7 +762,7 @@ _wrap_clutter_behaviour_opacity_new (PyGObject *self,
         ClutterAlpha *alpha;
 
         if (!PyArg_ParseTupleAndKeywords (args, kwargs,
-                                          "|Oii:clutter.BehaviourOpacity.__init__",
+                                          "O|ii:clutter.BehaviourOpacity.__init__",
                                           kwlist,
                                           &py_alpha, &begin, &end))
                 return -1;
@@ -802,7 +802,7 @@ _wrap_clutter_behaviour_rotate_new (PyGObject *self,
         ClutterAlpha *alpha;
 
         if (!PyArg_ParseTupleAndKeywords (args, kwargs,
-                                          "|Oiidd:clutter.BehaviourRotate.__init__",
+                                          "O|iidd:clutter.BehaviourRotate.__init__",
                                           kwlist,
                                           &py_alpha, &axis, &direction,
                                           &begin, &end))
@@ -870,7 +870,7 @@ _wrap_clutter_behaviour_scale_new (PyGObject *self,
         ClutterAlpha *alpha;
 
         if (!PyArg_ParseTupleAndKeywords (args, kwargs,
-                                          "|Oddi:clutter.BehaviourScale.__init__",
+                                          "Oddi:clutter.BehaviourScale.__init__",
                                           kwlist,
                                           &py_alpha, &begin, &end, &gravity))
                 return -1;
