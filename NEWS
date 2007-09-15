@@ -3,6 +3,13 @@ Overview of changes between 0.4.1 and 0.4.2
 
 * Add constructor for clutter.ActorBox, clutter.Margin and clutter.Padding
 * Lazily initialise clutter when loading the module
+* Fix the constructor of clutter.BehaviourDepth
+* Do not export the event copy and free functions
+* Pass the command line arguments to Clutter
+* Add more checks to the alpha functions wrappers
+* Fix bug #507 - Initialize color components [Giuliani Vito Ivan]
+* Fix bug #506 - Require the correct arguments to be passed to
+  the behaviour ctors to avoid a segfault [Giuliani Vito Ivan]
 
 Overview of changes between 0.4.0 and 0.4.1
 ===========================================
