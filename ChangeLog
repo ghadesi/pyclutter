@@ -1,3 +1,11 @@
+2007-09-15  Emmanuele Bassi  <ebassi@openedhand.com>
+
+	Backport from trunk
+
+	* clutter/clutter-color.override: Initialise the value of
+	the color components, so that clutter.Color() does the
+	right thing. (#507, Giuliani Vito Ivan)
+
 2007-09-13  Emmanuele Bassi  <ebassi@openedhand.com>
 
 	* clutter/clutter-behaviour.override: Add more sanity checks
