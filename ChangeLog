@@ -1,3 +1,9 @@
+2007-09-17  Emmanuele Bassi  <ebassi@openedhand.com>
+
+	* clutter/clutter-behaviour.override: Do not require the
+	gravity parameter for the clutter.BehaviourScale ctor,
+	but default to clutter.GRAVITY_NONE instead.
+
 2007-09-15  Emmanuele Bassi  <ebassi@openedhand.com>
 
 	Backport from trunk

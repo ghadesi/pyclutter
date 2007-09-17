@@ -866,11 +866,11 @@ _wrap_clutter_behaviour_scale_new (PyGObject *self,
         static char *kwlist[] = { "alpha", "begin", "end", "gravity", NULL};
         PyObject *py_alpha;
         double begin, end;
-        ClutterGravity gravity;
+        ClutterGravity gravity = CLUTTER_GRAVITY_NONE;
         ClutterAlpha *alpha;
 
         if (!PyArg_ParseTupleAndKeywords (args, kwargs,
-                                          "Oddi:clutter.BehaviourScale.__init__",
+                                          "Odd|i:clutter.BehaviourScale.__init__",
                                           kwlist,
                                           &py_alpha, &begin, &end, &gravity))
                 return -1;
