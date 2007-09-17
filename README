@@ -1,4 +1,4 @@
-PyClutter 0.4.1
+PyClutter 0.4.2
 ===============
 
 This archive contains the Python modules that allow you to use the
@@ -19,7 +19,7 @@ Requirements
 
 This release is supporting the following Clutter releases:
 
-        clutter-core    0.4.0
+        clutter-core    0.4.2
         clutter-gst     0.4.0
         clutter-gtk     0.4.0
         clutter-cairo   0.4.0
