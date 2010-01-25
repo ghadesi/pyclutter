@@ -17,7 +17,7 @@ pycogl_offscreen_new (PyTypeObject *type, PyObject *args, PyObject *kwargs)
 
   handle = cogl_offscreen_new_to_texture (texture->handle);
 
-  return pycogl_handle_from_handle (handle);
+  return pycogl_handle_from_handle_without_ref (handle);
 }
 
 

@@ -18,7 +18,7 @@ pycogl_material_new (PyTypeObject *type, PyObject *args, PyObject *kwargs)
                                     kwlist))
     return NULL;
 
-  return pycogl_handle_from_handle (cogl_material_new ());
+  return pycogl_handle_from_handle_without_ref (cogl_material_new ());
 }
 
 static PyObject *

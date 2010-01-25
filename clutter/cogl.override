@@ -57,6 +57,16 @@ pycogl_handle_from_handle (CoglHandle handle)
   return o;
 }
 
+PyObject *
+pycogl_handle_from_handle_without_ref (CoglHandle handle)
+{
+  PyObject *o = pycogl_handle_from_handle(handle);
+  if (o) {
+      cogl_handle_unref(handle);
+  }
+  return o;
+}
+
 static PyObject *
 pycogl_handle_new (PyTypeObject *type, PyObject *args, PyObject *kwargs)
 {

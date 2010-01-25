@@ -27,7 +27,7 @@ pycogl_shader_new (PyTypeObject *type, PyObject *args, PyObject *kwargs)
                           (gpointer)&shader_type))
     return NULL;
 
-  return pycogl_handle_from_handle (cogl_create_shader (shader_type));
+  return pycogl_handle_from_handle_without_ref (cogl_create_shader (shader_type));
 }
 
 static PyObject *
@@ -124,7 +124,7 @@ PyTypeObject PyCoglShader_Type = {
 static PyObject *
 pycogl_program_new (PyTypeObject *type, PyObject *args, PyObject *kwargs)
 {
-  return pycogl_handle_from_handle (cogl_create_program ());
+  return pycogl_handle_from_handle_without_ref (cogl_create_program ());
 }
 
 static PyObject *

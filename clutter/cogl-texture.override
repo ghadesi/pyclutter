@@ -223,7 +223,7 @@ _wrap_cogl_texture_new_with_size (PyObject *self,
 
   handle = cogl_texture_new_with_size (width, height, flags, format);
 
-  return pycogl_handle_from_handle (handle);
+  return pycogl_handle_from_handle_without_ref (handle);
 }
 
 %%
@@ -263,7 +263,7 @@ _wrap_cogl_texture_new_from_file (PyObject *self,
       return NULL;
     }
 
-  return pycogl_handle_from_handle (handle);
+  return pycogl_handle_from_handle_without_ref (handle);
 }
 
 %%
@@ -306,7 +306,7 @@ _wrap_cogl_texture_new_from_data (PyObject *self,
   handle = cogl_texture_new_from_data (width, height, flags, format,
                                        internal_format, rowstride, data);
 
-  return pycogl_handle_from_handle (handle);
+  return pycogl_handle_from_handle_without_ref (handle);
 }
 
 %%
@@ -338,7 +338,7 @@ _wrap_cogl_texture_new_from_foreign (PyObject *self,
   handle = cogl_texture_new_from_foreign (gl_handle, gl_target, width, height,
                                           x_pot_waste, y_pot_waste, format);
 
-  return pycogl_handle_from_handle (handle);
+  return pycogl_handle_from_handle_without_ref (handle);
 }
 
 %%
@@ -373,7 +373,7 @@ _wrap_cogl_texture_new_from_bitmap (PyObject *self,
 
   handle = cogl_texture_new_from_bitmap (bmp_handle->handle, flags, format);
 
-  return pycogl_handle_from_handle (handle);
+  return pycogl_handle_from_handle_without_ref (handle);
 }
 
 %%
