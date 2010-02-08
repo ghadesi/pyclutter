@@ -326,8 +326,10 @@ _wrap_clutter_event_tp_str (PyObject *self)
         gchar *str = NULL;
 
 #define ACTOR_NAME(a)   \
-        clutter_actor_get_name((a)) ? clutter_actor_get_name((a)) \
-                                    : G_OBJECT_TYPE_NAME ((a))
+        CLUTTER_IS_ACTOR ((a)) ? \
+        (clutter_actor_get_name((a)) ? clutter_actor_get_name((a)) \
+                                    : G_OBJECT_TYPE_NAME ((a))) : \
+        "None"
 
         event = pyg_boxed_get (self, ClutterEvent);
         if (event == NULL) {
