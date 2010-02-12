@@ -479,7 +479,7 @@ _wrap_cogl_rectangles (PyObject *self, PyObject *args)
       PyObject *coords = PyTuple_GetItem (args, i);
       gfloat x1, y1, x2, y2;
       if (!PyTuple_Check (coords) ||
-          !PyArg_ParseTuple (args, "ffff",
+          !PyArg_ParseTuple (coords, "ffff",
                              &x1, &y1, &x2, &y2))
         {
           PyErr_SetString (PyExc_ValueError,
