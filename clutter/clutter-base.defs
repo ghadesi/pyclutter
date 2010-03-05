@@ -1935,6 +1935,58 @@
   (return-type "CoglColor*")
 )
 
+(define-function color_hash
+  (c-name "clutter_color_hash")
+  (return-type "guint")
+  (parameters
+    '("gconstpointer" "v")
+  )
+)
+
+(define-function color_equal
+  (c-name "clutter_color_equal")
+  (return-type "gboolean")
+  (parameters
+    '("gconstpointer" "v1")
+    '("gconstpointer" "v2")
+  )
+)
+
+(define-function value_set_color
+  (c-name "clutter_value_set_color")
+  (return-type "none")
+  (parameters
+    '("GValue*" "value")
+    '("const-ClutterColor*" "color")
+  )
+)
+
+(define-function value_get_color
+  (c-name "clutter_value_get_color")
+  (return-type "const-ClutterColor*")
+  (parameters
+    '("const-GValue*" "value")
+  )
+)
+
+(define-function param_color_get_type
+  (c-name "clutter_param_color_get_type")
+  (return-type "GType")
+)
+
+(define-function param_spec_color
+  (c-name "clutter_param_spec_color")
+  (return-type "GParamSpec*")
+  (parameters
+    '("const-gchar*" "name")
+    '("const-gchar*" "nick")
+    '("const-gchar*" "blurb")
+    '("const-ClutterColor*" "default_value")
+    '("GParamFlags" "flags")
+  )
+)
+
+
 ;; From clutter-container.h
 
 (define-function container_get_type
@@ -2312,7 +2364,40 @@
   (return-type "GType")
 )
 
+(define-function allocation_flags_get_type
+  (c-name "clutter_allocation_flags_get_type")
+  (return-type "GType")
+)
 
+(define-function input_device_type_get_type
+  (c-name "clutter_input_device_type_get_type")
+  (return-type "GType")
+)
+
+(define-function path_node_type_get_type
+  (c-name "clutter_path_node_type_get_type")
+  (return-type "GType")
+)
+
+(define-function pick_mode_get_type
+  (c-name "clutter_pick_mode_get_type")
+  (return-type "GType")
+)
+
+(define-function animation_mode_get_type
+  (c-name "clutter_animation_mode_get_type")
+  (return-type "GType")
+)
+
+(define-function font_flags_get_type
+  (c-name "clutter_font_flags_get_type")
+  (return-type "GType")
+)
+
+(define-function unit_type_get_type
+  (c-name "clutter_unit_type_get_type")
+  (return-type "GType")
+)
 
 ;; From clutter-event.h
 
@@ -2511,7 +2596,67 @@
   (return-type "ClutterFeatureFlags")
 )
 
+;; From clutter-fixed.h
 
+(define-function param_fixed_get_type
+  (c-name "clutter_param_fixed_get_type")
+  (return-type "GType")
+)
+
+(define-function value_set_fixed
+  (c-name "clutter_value_set_fixed")
+  (return-type "none")
+  (parameters
+    '("GValue*" "value")
+    '("CoglFixed" "fixed_")
+  )
+)
+
+(define-function value_get_fixed
+  (c-name "clutter_value_get_fixed")
+  (return-type "CoglFixed")
+  (parameters
+    '("const-GValue*" "value")
+  )
+)
+
+(define-function param_spec_fixed
+  (c-name "clutter_param_spec_fixed")
+  (return-type "GParamSpec*")
+  (parameters
+    '("const-gchar*" "name")
+    '("const-gchar*" "nick")
+    '("const-gchar*" "blurb")
+    '("CoglFixed" "minimum")
+    '("CoglFixed" "maximum")
+    '("CoglFixed" "default_value")
+    '("GParamFlags" "flags")
+  )
+)
+
+;; From clutter-frame-source.h
+
+(define-function frame_source_add
+  (c-name "clutter_frame_source_add")
+  (return-type "guint")
+  (parameters
+    '("guint" "fps")
+    '("GSourceFunc" "func")
+    '("gpointer" "data")
+  )
+)
+
+(define-function frame_source_add_full
+  (c-name "clutter_frame_source_add_full")
+  (return-type "guint")
+  (parameters
+    '("gint" "priority")
+    '("guint" "fps")
+    '("GSourceFunc" "func")
+    '("gpointer" "data")
+    '("GDestroyNotify" "notify")
+  )
+)
 
 ;; From clutter-group.h
 
@@ -3287,6 +3432,39 @@
   (return-type "ClutterModelIter*")
 )
 
+(define-method appendv
+  (of-object "ClutterModel")
+  (c-name "clutter_model_appendv")
+  (return-type "none")
+  (parameters
+    '("guint" "n_columns")
+    '("guint*" "columns")
+    '("GValue*" "values")
+  )
+)
+
+(define-method prependv
+  (of-object "ClutterModel")
+  (c-name "clutter_model_prependv")
+  (return-type "none")
+  (parameters
+    '("guint" "n_columns")
+    '("guint*" "columns")
+    '("GValue*" "values")
+  )
+)
+
+(define-method insertv
+  (of-object "ClutterModel")
+  (c-name "clutter_model_insertv")
+  (return-type "none")
+  (parameters
+    '("guint" "row")
+    '("guint" "n_columns")
+    '("guint*" "columns")
+    '("GValue*" "values")
+  )
+)
 
 
 ;; From clutter-list-model.h
@@ -3829,6 +4007,79 @@
   (return-type "CoglHandle")
 )
 
+;; From clutter-shader-types.h
+
+(define-function shader_float_get_type
+  (c-name "clutter_shader_float_get_type")
+  (return-type "GType")
+)
+
+(define-function shader_int_get_type
+  (c-name "clutter_shader_int_get_type")
+  (return-type "GType")
+)
+
+(define-function shader_matrix_get_type
+  (c-name "clutter_shader_matrix_get_type")
+  (return-type "GType")
+)
+
+(define-function value_set_shader_float
+  (c-name "clutter_value_set_shader_float")
+  (return-type "none")
+  (parameters
+    '("GValue*" "value")
+    '("gint" "size")
+    '("const-gfloat*" "floats")
+  )
+)
+
+(define-function value_set_shader_int
+  (c-name "clutter_value_set_shader_int")
+  (return-type "none")
+  (parameters
+    '("GValue*" "value")
+    '("gint" "size")
+    '("const-gint*" "ints")
+  )
+)
+
+(define-function value_set_shader_matrix
+  (c-name "clutter_value_set_shader_matrix")
+  (return-type "none")
+  (parameters
+    '("GValue*" "value")
+    '("gint" "size")
+    '("const-gfloat*" "matrix")
+  )
+)
+
+(define-function value_get_shader_float
+  (c-name "clutter_value_get_shader_float")
+  (return-type "const-gfloat*")
+  (parameters
+    '("const-GValue*" "value")
+    '("gsize*" "length")
+  )
+)
+
+(define-function value_get_shader_int
+  (c-name "clutter_value_get_shader_int")
+  (return-type "const-gint*")
+  (parameters
+    '("const-GValue*" "value")
+    '("gsize*" "length")
+  )
+)
+
+(define-function value_get_shader_matrix
+  (c-name "clutter_value_get_shader_matrix")
+  (return-type "const-gfloat*")
+  (parameters
+    '("const-GValue*" "value")
+    '("gsize*" "length")
+  )
+)
 
 
 
@@ -4112,6 +4363,11 @@
   (return-type "GSList*")
 )
 
+(define-method peek_stages
+  (of-object "ClutterStageManager")
+  (c-name "clutter_stage_manager_peek_stages")
+  (return-type "const-GSList*")
+)
 
 
 ;; From clutter-texture.h
@@ -4693,6 +4949,18 @@
   )
 )
 
+(define-method copy
+  (of-object "ClutterActorBox")
+  (c-name "clutter_actor_box_copy")
+  (return-type "ClutterActorBox*")
+)
+
+(define-method free
+  (of-object "ClutterActorBox")
+  (c-name "clutter_actor_box_free")
+  (return-type "none")
+)
+
 (define-function geometry_get_type
   (c-name "clutter_geometry_get_type")
   (return-type "GType")
@@ -4713,6 +4981,27 @@
   (c-name "clutter_vertex_new")
   (is-constructor-of "ClutterVertex")
   (return-type "ClutterVertex")
+)
+
+(define-method copy
+  (of-object "ClutterVertex")
+  (c-name "clutter_vertex_copy")
+  (return-type "ClutterVertex*")
+)
+
+(define-method free
+  (of-object "ClutterVertex")
+  (c-name "clutter_vertex_free")
+  (return-type "none")
+)
+
+(define-method equal
+  (of-object "ClutterVertex")
+  (c-name "clutter_vertex_equal")
+  (return-type "gboolean")
+  (parameters
+    '("const-ClutterVertex*" "vertex_b")
+  )
 )
 
 (define-function knot_get_type
@@ -6087,6 +6376,20 @@
   )
 )
 
+(define-method animate_property
+  (of-object "ClutterAnimatable")
+  (c-name "clutter_animatable_animate_property")
+  (return-type "gboolean")
+  (parameters
+    '("ClutterAnimation*" "animation")
+    '("const-gchar*" "property_name")
+    '("const-GValue*" "initial_value")
+    '("const-GValue*" "final_value")
+    '("gdouble" "progress")
+    '("GValue*" "value")
+  )
+)
+
 
 ;; From clutter-units.h
 
@@ -6229,3 +6532,16 @@
     '("const-GValue*" "value")
   )
 )
+
+
+;; From clutter-util.h
+
+(define-function util_next_p2
+  (c-name "clutter_util_next_p2")
+  (return-type "int")
+  (parameters
+    '("int" "a")
+  )
+)
+
+

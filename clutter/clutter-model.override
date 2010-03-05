@@ -1,5 +1,8 @@
 ignore
     clutter_list_model_newv
+    clutter_model_appendv
+    clutter_model_prependv
+    clutter_model_insertv
 %%
 new-constructor CLUTTER_TYPE_LIST_MODEL
 %%

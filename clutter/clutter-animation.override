@@ -3,6 +3,7 @@ ignore
   clutter_actor_animatev
   clutter_actor_animate_with_timelinev
   clutter_actor_animate_with_alphav
+  clutter_animatable_animate_property
 %%
 override clutter_actor_animate
 static PyObject *

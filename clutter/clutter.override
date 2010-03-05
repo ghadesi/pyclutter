@@ -120,11 +120,20 @@ ignore
   clutter_param_spec_units
   clutter_value_set_units
   clutter_value_get_units
+  clutter_value_set_fixed
+  clutter_value_get_fixed
+  clutter_stage_manager_peek_stages
+  clutter_param_spec_fixed
+  clutter_frame_source_add
+  clutter_frame_source_add_full
+  clutter_util_next_p2
 %%
 ignore-glob
   *_quark
   *_get_type
   _*
+  clutter_value_set_shader*
+  clutter_value_get_shader*
 %%
 override clutter_init noargs
 static PyObject *

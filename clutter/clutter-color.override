@@ -1,6 +1,11 @@
 ignore
   clutter_color_copy
   clutter_color_free
+  clutter_color_hash
+  clutter_color_equal
+  clutter_value_set_color
+  clutter_value_get_color
+  clutter_param_spec_color
 %%
 override clutter_color_new kwargs
 static int
