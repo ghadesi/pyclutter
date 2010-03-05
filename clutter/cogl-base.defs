@@ -6,11 +6,11 @@
 ;; From cogl-bitmap.h
 
 (define-function bitmap_new_from_file
+  (c-name "cogl_bitmap_new_from_file")
   (docstring
   "Loads an image file from disk. This function can be safely called from\n"
   "within a thread. COGL_INVALID_HANDLE if loading the image failed.\n"
   )
-  (c-name "cogl_bitmap_new_from_file")
   (return-type "CoglHandle")
   (parameters
     '("const-gchar*" "filename")
@@ -19,11 +19,11 @@
 )
 
 (define-function bitmap_get_size_from_file
+  (c-name "cogl_bitmap_get_size_from_file")
   (docstring
   "Parses an image file enough to extract the width and height of the\n"
   "bitmap.\n"
   )
-  (c-name "cogl_bitmap_get_size_from_file")
   (return-type "gboolean")
   (parameters
     '("const-gchar*" "filename")
@@ -156,12 +156,12 @@
 )
 
 (define-function color_equal
+  (c-name "cogl_color_equal")
   (docstring
   "Compares two CoglColor<!-- -->s and checks if they are the same. This\n"
   "function can be passed to g_hash_table_new() as the key_equal_func\n"
   "parameter, when using CoglColor<!-- -->s as keys in a GHashTable.\n"
   )
-  (c-name "cogl_color_equal")
   (return-type "gboolean")
   (parameters
     '("gconstpointer" "v1")
@@ -260,6 +260,7 @@
 )
 
 (define-function read_pixels_flags_get_type
+  (c-name "cogl_read_pixels_flags_get_type")
   (docstring
   "(only COGL_READ_PIXELS_COLOR_BUFFER supported currently) (only\n"
   "COGL_PIXEL_FORMAT_RGBA_8888 supported currently) This reads a\n"
@@ -271,7 +272,6 @@
   "conversion you should either specify a format that doesn't use an\n"
   "alpha channel or use one of the formats ending in PRE.\n"
   )
-  (c-name "cogl_read_pixels_flags_get_type")
   (return-type "GType")
 )
 
@@ -281,47 +281,47 @@
 
 (define-method sin
   (of-object "CoglFixed")
+  (c-name "cogl_fixed_sin")
   (docstring
   "Computes the sine of angle.\n"
   )
-  (c-name "cogl_fixed_sin")
   (return-type "CoglFixed")
 )
 
 (define-method tan
   (of-object "CoglFixed")
+  (c-name "cogl_fixed_tan")
   (docstring
   "Computes the tangent of angle.\n"
   )
-  (c-name "cogl_fixed_tan")
   (return-type "CoglFixed")
 )
 
 (define-method cos
   (of-object "CoglFixed")
+  (c-name "cogl_fixed_cos")
   (docstring
   "Computes the cosine of angle.\n"
   )
-  (c-name "cogl_fixed_cos")
   (return-type "CoglFixed")
 )
 
 (define-method atani
   (of-object "CoglFixed")
+  (c-name "cogl_fixed_atani")
   (docstring
   "Computes the arc tangent of a.\n"
   )
-  (c-name "cogl_fixed_atani")
   (return-type "CoglFixed")
 )
 
 (define-method atan2
   (of-object "CoglFixed")
+  (c-name "cogl_fixed_atan2")
   (docstring
   "Computes the arc tangent of a / b but uses the sign of both arguments\n"
   "to return the angle in right quadrant. notation\n"
   )
-  (c-name "cogl_fixed_atan2")
   (return-type "CoglFixed")
   (parameters
     '("CoglFixed" "b")
@@ -330,19 +330,19 @@
 
 (define-method sqrt
   (of-object "CoglFixed")
+  (c-name "cogl_fixed_sqrt")
   (docstring
   "Computes the square root of x. notation\n"
   )
-  (c-name "cogl_fixed_sqrt")
   (return-type "CoglFixed")
 )
 
 (define-function fixed_log2
+  (c-name "cogl_fixed_log2")
   (docstring
   "Calculates base 2 logarithm. This function is some 2.5 times faster on\n"
   "x86, and over 12 times faster on fpu-less arm, than using libc log().\n"
   )
-  (c-name "cogl_fixed_log2")
   (return-type "CoglFixed")
   (parameters
     '("guint" "x")
@@ -351,10 +351,10 @@
 
 (define-method pow2
   (of-object "CoglFixed")
+  (c-name "cogl_fixed_pow2")
   (docstring
   "Calculates x to the y power.\n"
   )
-  (c-name "cogl_fixed_pow2")
   (return-type "guint")
 )
 
@@ -368,6 +368,7 @@
 )
 
 (define-function sqrti
+  (c-name "cogl_sqrti")
   (docstring
   "Very fast fixed point implementation of square root for integers. This\n"
   "function is at least 6x faster than clib sqrt() on x86, and (this is\n"
@@ -377,7 +378,6 @@
   "maximum argument that can be passed to this function is\n"
   "COGL_SQRTI_ARG_MAX.\n"
   )
-  (c-name "cogl_sqrti")
   (return-type "gint")
   (parameters
     '("gint" "x")
@@ -386,28 +386,28 @@
 
 (define-method sin
   (of-object "CoglAngle")
+  (c-name "cogl_angle_sin")
   (docstring
   "Computes the sine of angle\n"
   )
-  (c-name "cogl_angle_sin")
   (return-type "CoglFixed")
 )
 
 (define-method tan
   (of-object "CoglAngle")
+  (c-name "cogl_angle_tan")
   (docstring
   "Computes the tangent of angle\n"
   )
-  (c-name "cogl_angle_tan")
   (return-type "CoglFixed")
 )
 
 (define-method cos
   (of-object "CoglAngle")
+  (c-name "cogl_angle_cos")
   (docstring
   "Computes the cosine of angle\n"
   )
-  (c-name "cogl_angle_cos")
   (return-type "CoglFixed")
 )
 
@@ -416,31 +416,31 @@
 ;; From cogl.h
 
 (define-function get_option_group
+  (c-name "cogl_get_option_group")
   (docstring
   "Retrieves the GOptionGroup used by COGL to parse the command line\n"
-  "options. Clutter uses this to handle the COGL command line options\n"
+  "options. clutter. uses this to handle the COGL command line options\n"
   "during its initialization process.\n"
   )
-  (c-name "cogl_get_option_group")
   (return-type "GOptionGroup*")
 )
 
 (define-function get_features
+  (c-name "cogl_get_features")
   (docstring
   "Returns all of the features supported by COGL.\n"
   )
-  (c-name "cogl_get_features")
   (return-type "CoglFeatureFlags")
 )
 
 (define-function features_available
+  (c-name "cogl_features_available")
   (docstring
   "Checks whether the given COGL features are available. Multiple\n"
   "features can be checked for by or-ing them together with the '|'\n"
   "operator. TRUE is only returned if all of the requested features are\n"
   "available.\n"
   )
-  (c-name "cogl_features_available")
   (return-type "gboolean")
   (parameters
     '("CoglFeatureFlags" "features")
@@ -448,12 +448,12 @@
 )
 
 (define-function get_proc_address
+  (c-name "cogl_get_proc_address")
   (docstring
   "Gets a pointer to a given GL or GL ES extension function. This acts as\n"
   "a wrapper around glXGetProcAddress() or whatever is the appropriate\n"
   "function for the current backend. function is not available.\n"
   )
-  (c-name "cogl_get_proc_address")
   (return-type "CoglFuncPtr")
   (parameters
     '("const-gchar*" "name")
@@ -461,12 +461,12 @@
 )
 
 (define-function check_extension
+  (c-name "cogl_check_extension")
   (docstring
   "Check whether name occurs in list of extensions in ext. not\n"
   "appropriate to expose OpenGL extensions through the Cogl API. This\n"
   "function can be replaced by the following equivalent code: |[ ]|\n"
   )
-  (c-name "cogl_check_extension")
   (return-type "gboolean")
   (parameters
     '("const-gchar*" "name")
@@ -475,12 +475,12 @@
 )
 
 (define-function get_bitmasks
+  (c-name "cogl_get_bitmasks")
   (docstring
   "Gets the number of bitplanes used for each of the color components in\n"
   "the color buffer. Pass NULL for any of the arguments if the value is\n"
   "not required.\n"
   )
-  (c-name "cogl_get_bitmasks")
   (return-type "none")
   (parameters
     '("gint*" "red")
@@ -491,11 +491,11 @@
 )
 
 (define-function perspective
+  (c-name "cogl_perspective")
   (docstring
   "Replaces the current projection matrix with a perspective matrix based\n"
   "on the provided values.\n"
   )
-  (c-name "cogl_perspective")
   (return-type "none")
   (parameters
     '("float" "fovy")
@@ -506,11 +506,11 @@
 )
 
 (define-function frustum
+  (c-name "cogl_frustum")
   (docstring
   "Replaces the current projection matrix with a perspective matrix for\n"
   "the given viewing frustum.\n"
   )
-  (c-name "cogl_frustum")
   (return-type "none")
   (parameters
     '("float" "left")
@@ -523,12 +523,12 @@
 )
 
 (define-function ortho
+  (c-name "cogl_ortho")
   (docstring
   "the plane is behind the viewer) the plane is behind the viewer)\n"
   "Replaces the current projection matrix with a parallel projection\n"
   "matrix.\n"
   )
-  (c-name "cogl_ortho")
   (return-type "none")
   (parameters
     '("float" "left")
@@ -541,10 +541,10 @@
 )
 
 (define-function viewport
+  (c-name "cogl_viewport")
   (docstring
   "Replace the current viewport with the given values.\n"
   )
-  (c-name "cogl_viewport")
   (return-type "none")
   (parameters
     '("guint" "width")
@@ -553,28 +553,28 @@
 )
 
 (define-function push_matrix
+  (c-name "cogl_push_matrix")
   (docstring
   "Stores the current model-view matrix on the matrix stack. The matrix\n"
   "can later be restored with cogl_pop_matrix().\n"
   )
-  (c-name "cogl_push_matrix")
   (return-type "none")
 )
 
 (define-function pop_matrix
+  (c-name "cogl_pop_matrix")
   (docstring
   "Restores the current model-view matrix from the matrix stack.\n"
   )
-  (c-name "cogl_pop_matrix")
   (return-type "none")
 )
 
 (define-function scale
+  (c-name "cogl_scale")
   (docstring
   "Multiplies the current model-view matrix by one that scales the x, y\n"
   "and z axes by the given values.\n"
   )
-  (c-name "cogl_scale")
   (return-type "none")
   (parameters
     '("float" "x")
@@ -584,11 +584,11 @@
 )
 
 (define-function translate
+  (c-name "cogl_translate")
   (docstring
   "Multiplies the current model-view matrix by one that translates the\n"
   "model along all three axes according to the given values.\n"
   )
-  (c-name "cogl_translate")
   (return-type "none")
   (parameters
     '("float" "x")
@@ -598,13 +598,13 @@
 )
 
 (define-function rotate
+  (c-name "cogl_rotate")
   (docstring
   "Multiplies the current model-view matrix by one that rotates the model\n"
   "around the vertex specified by x, y and z. The rotation follows the\n"
   "right-hand thumb rule so for example rotating by 10 degrees about the\n"
   "vertex (0, 0, 1) causes a small counter-clockwise rotation.\n"
   )
-  (c-name "cogl_rotate")
   (return-type "none")
   (parameters
     '("float" "angle")
@@ -615,10 +615,10 @@
 )
 
 (define-function get_modelview_matrix
+  (c-name "cogl_get_modelview_matrix")
   (docstring
   "Stores the current model-view matrix in matrix.\n"
   )
-  (c-name "cogl_get_modelview_matrix")
   (return-type "none")
   (parameters
     '("CoglMatrix*" "matrix")
@@ -626,10 +626,10 @@
 )
 
 (define-function set_modelview_matrix
+  (c-name "cogl_set_modelview_matrix")
   (docstring
   "Loads matrix as the new model-view matrix.\n"
   )
-  (c-name "cogl_set_modelview_matrix")
   (return-type "none")
   (parameters
     '("CoglMatrix*" "matrix")
@@ -637,10 +637,10 @@
 )
 
 (define-function get_projection_matrix
+  (c-name "cogl_get_projection_matrix")
   (docstring
   "Stores the current projection matrix in matrix.\n"
   )
-  (c-name "cogl_get_projection_matrix")
   (return-type "none")
   (parameters
     '("CoglMatrix*" "matrix")
@@ -648,10 +648,10 @@
 )
 
 (define-function set_projection_matrix
+  (c-name "cogl_set_projection_matrix")
   (docstring
   "Loads matrix as the new projection matrix.\n"
   )
-  (c-name "cogl_set_projection_matrix")
   (return-type "none")
   (parameters
     '("CoglMatrix*" "matrix")
@@ -659,12 +659,12 @@
 )
 
 (define-function get_viewport
+  (c-name "cogl_get_viewport")
   (docstring
   "of float<!-- -->s to receive the viewport dimensions. Stores the\n"
   "current viewport in v. v[0] and v[1] get the x and y position of the\n"
   "viewport and v[2] and v[3] get the width and height.\n"
   )
-  (c-name "cogl_get_viewport")
   (return-type "none")
   (parameters
     '("float" "v[4]")
@@ -672,14 +672,14 @@
 )
 
 (define-function set_depth_test_enabled
+  (c-name "cogl_set_depth_test_enabled")
   (docstring
   "Sets whether depth testing is enabled. If it is disabled then the\n"
   "order that actors are layered on the screen depends solely on the\n"
-  "order specified using clutter_actor_raise() and clutter_actor_lower(),\n"
+  "order specified using clutter.Actor.raise() and clutter.Actor.lower(),\n"
   "otherwise it will also take into account the actor's depth. Depth\n"
   "testing is disabled by default.\n"
   )
-  (c-name "cogl_set_depth_test_enabled")
   (return-type "none")
   (parameters
     '("gboolean" "setting")
@@ -687,15 +687,16 @@
 )
 
 (define-function get_depth_test_enabled
+  (c-name "cogl_get_depth_test_enabled")
   (docstring
   "Queries if depth testing has been enabled via\n"
   "cogl_set_depth_test_enable()\n"
   )
-  (c-name "cogl_get_depth_test_enabled")
   (return-type "gboolean")
 )
 
 (define-function set_backface_culling_enabled
+  (c-name "cogl_set_backface_culling_enabled")
   (docstring
   "Sets whether textures positioned so that their backface is showing\n"
   "should be hidden. This can be used to efficiently draw two-sided\n"
@@ -703,7 +704,6 @@
   "only affects calls to the cogl_rectangle* family of functions and\n"
   "cogl_vertex_buffer_draw*. Backface culling is disabled by default.\n"
   )
-  (c-name "cogl_set_backface_culling_enabled")
   (return-type "none")
   (parameters
     '("gboolean" "setting")
@@ -711,15 +711,16 @@
 )
 
 (define-function get_backface_culling_enabled
+  (c-name "cogl_get_backface_culling_enabled")
   (docstring
   "Queries if backface culling has been enabled via\n"
   "cogl_set_backface_culling_enabled()\n"
   )
-  (c-name "cogl_get_backface_culling_enabled")
   (return-type "gboolean")
 )
 
 (define-function set_fog
+  (c-name "cogl_set_fog")
   (docstring
   "fogging blend factor. COGL_FOG_MODE_EXPONENTIAL_SQUARED equations.\n"
   "Enables fogging. Fogging causes vertices that are further away from\n"
@@ -736,7 +737,6 @@
   "only use fogging with fully opaque primitives. This might improve in\n"
   "the future when we can depend on fragment shaders.</note>\n"
   )
-  (c-name "cogl_set_fog")
   (return-type "none")
   (parameters
     '("const-CoglColor*" "fog_color")
@@ -748,21 +748,21 @@
 )
 
 (define-function disable_fog
+  (c-name "cogl_disable_fog")
   (docstring
   "This function disables fogging, so primitives drawn afterwards will\n"
   "not be blended with any previously set fog color.\n"
   )
-  (c-name "cogl_disable_fog")
   (return-type "none")
 )
 
 (define-function clear
+  (c-name "cogl_clear")
   (docstring
   "buffers to clear Clears all the auxiliary buffers identified in the\n"
   "buffers mask, and if that includes the color buffer then the specified\n"
   "color is used.\n"
   )
-  (c-name "cogl_clear")
   (return-type "none")
   (parameters
     '("const-CoglColor*" "color")
@@ -771,6 +771,7 @@
 )
 
 (define-function set_source
+  (c-name "cogl_set_source")
   (docstring
   "This function sets the source material that will be used to fill\n"
   "subsequent geometry emitted via the cogl API. <note>In the future we\n"
@@ -778,7 +779,6 @@
   "material, in which case this function will set both to the\n"
   "same.</note>\n"
   )
-  (c-name "cogl_set_source")
   (return-type "none")
   (parameters
     '("CoglHandle" "material")
@@ -786,6 +786,7 @@
 )
 
 (define-function set_source_color
+  (c-name "cogl_set_source_color")
   (docstring
   "This is a convenience function for creating a solid fill source\n"
   "material from the given color. This color will be used for any\n"
@@ -794,7 +795,6 @@
   "cogl_set_source_color4ub() and cogl_set_source_color4f() if you\n"
   "already have the color components.\n"
   )
-  (c-name "cogl_set_source_color")
   (return-type "none")
   (parameters
     '("const-CoglColor*" "color")
@@ -802,6 +802,7 @@
 )
 
 (define-function set_source_color4ub
+  (c-name "cogl_set_source_color4ub")
   (docstring
   "This is a convenience function for creating a solid fill source\n"
   "material from the given color using unsigned bytes for each component.\n"
@@ -809,7 +810,6 @@
   "value for each component is an unsigned byte in the range between 0\n"
   "and 255.\n"
   )
-  (c-name "cogl_set_source_color4ub")
   (return-type "none")
   (parameters
     '("guint8" "red")
@@ -820,6 +820,7 @@
 )
 
 (define-function set_source_color4f
+  (c-name "cogl_set_source_color4f")
   (docstring
   "This is a convenience function for creating a solid fill source\n"
   "material from the given color using normalized values for each\n"
@@ -828,7 +829,6 @@
   "range between 0 and 1.0. If the values passed in are outside that\n"
   "range, they will be clamped.\n"
   )
-  (c-name "cogl_set_source_color4f")
   (return-type "none")
   (parameters
     '("float" "red")
@@ -839,6 +839,7 @@
 )
 
 (define-function set_source_texture
+  (c-name "cogl_set_source_texture")
   (docstring
   "This is a convenience function for creating a material with the first\n"
   "layer set to texture_handle and setting that material as the source\n"
@@ -849,7 +850,6 @@
   "cogl_material_set_layer (material, 0, tex_handle); cogl_set_source\n"
   "(material); </programlisting>\n"
   )
-  (c-name "cogl_set_source_texture")
   (return-type "none")
   (parameters
     '("CoglHandle" "texture_handle")
@@ -857,6 +857,7 @@
 )
 
 (define-function clip_push_window_rect
+  (c-name "cogl_clip_push_window_rect")
   (docstring
   "Specifies a rectangular clipping area for all subsequent drawing\n"
   "operations. Any drawing commands that extend outside the rectangle\n"
@@ -869,7 +870,6 @@
   "extending up, it's awkward to use. Please use\n"
   "cogl_clip_push_rectangle() instead\n"
   )
-  (c-name "cogl_clip_push_window_rect")
   (return-type "none")
   (parameters
     '("float" "x_offset")
@@ -891,47 +891,48 @@
 )
 
 (define-function clip_push_from_path
+  (c-name "cogl_clip_push_from_path")
   (docstring
   "Sets a new clipping area using the current path. The current path is\n"
   "then cleared. The clipping area is intersected with the previous\n"
   "clipping area. To restore the previous clipping area, call\n"
   "cogl_clip_pop().\n"
   )
-  (c-name "cogl_clip_push_from_path")
   (return-type "none")
 )
 
 (define-function clip_push_from_path_preserve
+  (c-name "cogl_clip_push_from_path_preserve")
   (docstring
   "Sets a new clipping area using the current path. The current path is\n"
   "then cleared. The clipping area is intersected with the previous\n"
   "clipping area. To restore the previous clipping area, call\n"
   "cogl_clip_pop().\n"
   )
-  (c-name "cogl_clip_push_from_path_preserve")
   (return-type "none")
 )
 
 (define-function clip_pop
+  (c-name "cogl_clip_pop")
   (docstring
   "Reverts the clipping region to the state before the last call to\n"
   "cogl_clip_push().\n"
   )
-  (c-name "cogl_clip_pop")
   (return-type "none")
 )
 
 (define-function clip_ensure
+  (c-name "cogl_clip_ensure")
   (docstring
   "Ensures that the current clipping region has been set in GL. This will\n"
   "automatically be called before any Cogl primitives but it maybe be\n"
   "neccessary to call if you are using raw GL calls with clipping.\n"
   )
-  (c-name "cogl_clip_ensure")
   (return-type "none")
 )
 
 (define-function clip_stack_save
+  (c-name "cogl_clip_stack_save")
   (docstring
   "Save the entire state of the clipping stack and then clear all\n"
   "clipping. The previous state can be returned to with\n"
@@ -942,11 +943,11 @@
   "now own separate clip stacks which will be automatically switched\n"
   "between when a new buffer is set. Calling this function has no effect\n"
   )
-  (c-name "cogl_clip_stack_save")
   (return-type "none")
 )
 
 (define-function clip_stack_restore
+  (c-name "cogl_clip_stack_restore")
   (docstring
   "Restore the state of the clipping stack that was previously saved by\n"
   "cogl_clip_stack_save(). the clip stack when switching back from an\n"
@@ -955,11 +956,11 @@
   "switched between when a new buffer is set. Calling this function has\n"
   "no effect\n"
   )
-  (c-name "cogl_clip_stack_restore")
   (return-type "none")
 )
 
 (define-function set_draw_buffer
+  (c-name "cogl_set_draw_buffer")
   (docstring
   "are setting as the render target. then this is a CoglHandle for the\n"
   "offscreen buffer. Redirects all subsequent drawing to the specified\n"
@@ -967,7 +968,6 @@
   "cogl_offscreen_new_to_texture () or you can revert to your original on\n"
   "screen window buffer. the type of CoglHandle given instead.\n"
   )
-  (c-name "cogl_set_draw_buffer")
   (return-type "none")
   (parameters
     '("CoglBufferTarget" "target")
@@ -976,18 +976,18 @@
 )
 
 (define-function push_draw_buffer
+  (c-name "cogl_push_draw_buffer")
   (docstring
   "Save cogl_set_draw_buffer() state.\n"
   )
-  (c-name "cogl_push_draw_buffer")
   (return-type "none")
 )
 
 (define-function pop_draw_buffer
+  (c-name "cogl_pop_draw_buffer")
   (docstring
   "Restore cogl_set_draw_buffer() state.\n"
   )
-  (c-name "cogl_pop_draw_buffer")
   (return-type "none")
 )
 
@@ -1006,6 +1006,7 @@
 )
 
 (define-function flush
+  (c-name "cogl_flush")
   (docstring
   "This function should only need to be called in exceptional\n"
   "circumstances. As an optimization Cogl drawing functions may batch up\n"
@@ -1024,11 +1025,11 @@
   "likely break when Cogl starts to use ARBfb programs itself for the\n"
   "material API.\n"
   )
-  (c-name "cogl_flush")
   (return-type "none")
 )
 
 (define-function begin_gl
+  (c-name "cogl_begin_gl")
   (docstring
   "We do not advise nor reliably support the interleaving of raw GL\n"
   "drawing and Cogl drawing functions, but if you insist, cogl_begin_gl()\n"
@@ -1060,17 +1061,16 @@
   "stress, we do not advise the use of this API and if possible we would\n"
   "prefer to improve Cogl than have developers require raw OpenGL.\n"
   )
-  (c-name "cogl_begin_gl")
   (return-type "none")
 )
 
 (define-function end_gl
+  (c-name "cogl_end_gl")
   (docstring
   "This is the counterpart to cogl_begin_gl() used to delimit blocks of\n"
   "drawing code using raw OpenGL. Please refer to cogl_begin_gl() for\n"
   "full details.\n"
   )
-  (c-name "cogl_end_gl")
   (return-type "none")
 )
 
@@ -1087,18 +1087,18 @@
 ;; From cogl-material.h
 
 (define-function material_new
+  (c-name "cogl_material_new")
   (docstring
   "Allocates and initializes a blank white material\n"
   )
-  (c-name "cogl_material_new")
   (return-type "CoglHandle")
 )
 
 (define-function material_ref
+  (c-name "cogl_material_ref")
   (docstring
   "Increment the reference count for a cogl material.\n"
   )
-  (c-name "cogl_material_ref")
   (return-type "CoglHandle")
   (parameters
     '("CoglHandle" "handle")
@@ -1106,10 +1106,10 @@
 )
 
 (define-function material_unref
+  (c-name "cogl_material_unref")
   (docstring
   "Decrement the reference count for a cogl material.\n"
   )
-  (c-name "cogl_material_unref")
   (return-type "none")
   (parameters
     '("CoglHandle" "handle")
@@ -1117,11 +1117,11 @@
 )
 
 (define-function is_material
+  (c-name "cogl_is_material")
   (docstring
   "Gets whether the given handle references an existing material object.\n"
   "FALSE otherwise\n"
   )
-  (c-name "cogl_is_material")
   (return-type "gboolean")
   (parameters
     '("CoglHandle" "handle")
@@ -1129,6 +1129,7 @@
 )
 
 (define-function material_set_color
+  (c-name "cogl_material_set_color")
   (docstring
   "Sets the basic color of the material, used when no lighting is\n"
   "enabled. Note that if you don't add any layers to the material then\n"
@@ -1136,7 +1137,6 @@
   "blend semi-transparent red. See cogl_color_premultiply(). The default\n"
   "value is (1.0, 1.0, 1.0, 1.0)\n"
   )
-  (c-name "cogl_material_set_color")
   (return-type "none")
   (parameters
     '("CoglHandle" "material")
@@ -1145,11 +1145,11 @@
 )
 
 (define-function material_set_color4ub
+  (c-name "cogl_material_set_color4ub")
   (docstring
   "Sets the basic color of the material, used when no lighting is\n"
   "enabled. The default value is (0xff, 0xff, 0xff, 0xff)\n"
   )
-  (c-name "cogl_material_set_color4ub")
   (return-type "none")
   (parameters
     '("CoglHandle" "material")
@@ -1161,11 +1161,11 @@
 )
 
 (define-function material_set_color4f
+  (c-name "cogl_material_set_color4f")
   (docstring
   "Sets the basic color of the material, used when no lighting is\n"
   "enabled. The default value is (1.0, 1.0, 1.0, 1.0)\n"
   )
-  (c-name "cogl_material_set_color4f")
   (return-type "none")
   (parameters
     '("CoglHandle" "material")
@@ -1177,10 +1177,10 @@
 )
 
 (define-function material_get_color
+  (c-name "cogl_material_get_color")
   (docstring
   "Retrieves the current material color.\n"
   )
-  (c-name "cogl_material_get_color")
   (return-type "none")
   (parameters
     '("CoglHandle" "material")
@@ -1189,6 +1189,7 @@
 )
 
 (define-function material_set_ambient
+  (c-name "cogl_material_set_ambient")
   (docstring
   "Sets the material's ambient color, in the standard OpenGL lighting\n"
   "model. The ambient color affects the overall color of the object.\n"
@@ -1196,7 +1197,6 @@
   "surface directly, the ambient will be most apparent where the light\n"
   "hits at a slant. The default value is (0.2, 0.2, 0.2, 1.0)\n"
   )
-  (c-name "cogl_material_set_ambient")
   (return-type "none")
   (parameters
     '("CoglHandle" "material")
@@ -1205,10 +1205,10 @@
 )
 
 (define-function material_get_ambient
+  (c-name "cogl_material_get_ambient")
   (docstring
   "Retrieves the current ambient color for material\n"
   )
-  (c-name "cogl_material_get_ambient")
   (return-type "none")
   (parameters
     '("CoglHandle" "material")
@@ -1217,13 +1217,13 @@
 )
 
 (define-function material_set_diffuse
+  (c-name "cogl_material_set_diffuse")
   (docstring
   "Sets the material's diffuse color, in the standard OpenGL lighting\n"
   "model. The diffuse color is most intense where the light hits the\n"
   "surface directly - perpendicular to the surface. The default value is\n"
   "(0.8, 0.8, 0.8, 1.0)\n"
   )
-  (c-name "cogl_material_set_diffuse")
   (return-type "none")
   (parameters
     '("CoglHandle" "material")
@@ -1232,10 +1232,10 @@
 )
 
 (define-function material_get_diffuse
+  (c-name "cogl_material_get_diffuse")
   (docstring
   "Retrieves the current diffuse color for material\n"
   )
-  (c-name "cogl_material_get_diffuse")
   (return-type "none")
   (parameters
     '("CoglHandle" "material")
@@ -1244,13 +1244,13 @@
 )
 
 (define-function material_set_ambient_and_diffuse
+  (c-name "cogl_material_set_ambient_and_diffuse")
   (docstring
   "Conveniently sets the diffuse and ambient color of material at the\n"
   "same time. See cogl_material_set_ambient() and\n"
   "cogl_material_set_diffuse(). The default ambient color is (0.2, 0.2,\n"
   "0.2, 1.0) The default diffuse color is (0.8, 0.8, 0.8, 1.0)\n"
   )
-  (c-name "cogl_material_set_ambient_and_diffuse")
   (return-type "none")
   (parameters
     '("CoglHandle" "material")
@@ -1259,13 +1259,13 @@
 )
 
 (define-function material_set_specular
+  (c-name "cogl_material_set_specular")
   (docstring
   "Sets the material's specular color, in the standard OpenGL lighting\n"
   "model. The intensity of the specular color depends on the viewport\n"
   "position, and is brightest along the lines of reflection. The default\n"
   "value is (0.0, 0.0, 0.0, 1.0)\n"
   )
-  (c-name "cogl_material_set_specular")
   (return-type "none")
   (parameters
     '("CoglHandle" "material")
@@ -1274,10 +1274,10 @@
 )
 
 (define-function material_get_specular
+  (c-name "cogl_material_get_specular")
   (docstring
   "Retrieves the materials current specular color.\n"
   )
-  (c-name "cogl_material_get_specular")
   (return-type "none")
   (parameters
     '("CoglHandle" "material")
@@ -1286,12 +1286,12 @@
 )
 
 (define-function material_set_shininess
+  (c-name "cogl_material_set_shininess")
   (docstring
   "Sets the materials shininess, in the standard OpenGL lighting model,\n"
   "which determines how specular highlights are calculated. A higher The\n"
   "default value is 0.0\n"
   )
-  (c-name "cogl_material_set_shininess")
   (return-type "none")
   (parameters
     '("CoglHandle" "material")
@@ -1300,10 +1300,10 @@
 )
 
 (define-function material_get_shininess
+  (c-name "cogl_material_get_shininess")
   (docstring
   "Retrieves the materials current emission color.\n"
   )
-  (c-name "cogl_material_get_shininess")
   (return-type "float")
   (parameters
     '("CoglHandle" "material")
@@ -1311,12 +1311,12 @@
 )
 
 (define-function material_set_emission
+  (c-name "cogl_material_set_emission")
   (docstring
   "Sets the material's emissive color, in the standard OpenGL lighting\n"
   "model. It will look like the surface is a light source emitting this\n"
   "color. The default value is (0.0, 0.0, 0.0, 1.0)\n"
   )
-  (c-name "cogl_material_set_emission")
   (return-type "none")
   (parameters
     '("CoglHandle" "material")
@@ -1325,10 +1325,10 @@
 )
 
 (define-function material_get_emission
+  (c-name "cogl_material_get_emission")
   (docstring
   "Retrieves the materials current emission color.\n"
   )
-  (c-name "cogl_material_get_emission")
   (return-type "none")
   (parameters
     '("CoglHandle" "material")
@@ -1337,6 +1337,7 @@
 )
 
 (define-function material_set_alpha_test_function
+  (c-name "cogl_material_set_alpha_test_function")
   (docstring
   "to compare incoming fragments to. Before a primitive is blended with\n"
   "the framebuffer, it goes through an alpha test stage which lets you\n"
@@ -1345,7 +1346,6 @@
   "determine which fragments are discarded and which continue on to the\n"
   "blending stage. The default is COGL_MATERIAL_ALPHA_FUNC_ALWAYS\n"
   )
-  (c-name "cogl_material_set_alpha_test_function")
   (return-type "none")
   (parameters
     '("CoglHandle" "material")
@@ -1355,6 +1355,7 @@
 )
 
 (define-function material_set_blend
+  (c-name "cogl_material_set_blend")
   (docstring
   "describing the desired blend function. support if you give separate\n"
   "blend string statements for the alpha channel and RGB channels since\n"
@@ -1392,7 +1393,6 @@
   "there was an error, FALSE is returned and error is set accordingly (if\n"
   "present).\n"
   )
-  (c-name "cogl_material_set_blend")
   (return-type "gboolean")
   (parameters
     '("CoglHandle" "material")
@@ -1402,11 +1402,11 @@
 )
 
 (define-function material_set_blend_constant
+  (c-name "cogl_material_set_blend_constant")
   (docstring
   "When blending is setup to reference a CONSTANT blend factor then\n"
   "blending will depend on the constant set with this function.\n"
   )
-  (c-name "cogl_material_set_blend_constant")
   (return-type "none")
   (parameters
     '("CoglHandle" "material")
@@ -1415,6 +1415,7 @@
 )
 
 (define-function material_set_layer
+  (c-name "cogl_material_set_layer")
   (docstring
   "In addition to the standard OpenGL lighting model a Cogl material may\n"
   "have one or more layers comprised of textures that can be blended\n"
@@ -1425,7 +1426,6 @@
   "other types of material layers, such as purely GLSL based\n"
   "layers.</note>\n"
   )
-  (c-name "cogl_material_set_layer")
   (return-type "none")
   (parameters
     '("CoglHandle" "material")
@@ -1435,10 +1435,10 @@
 )
 
 (define-function material_remove_layer
+  (c-name "cogl_material_remove_layer")
   (docstring
   "This function removes a layer from your material\n"
   )
-  (c-name "cogl_material_remove_layer")
   (return-type "none")
   (parameters
     '("CoglHandle" "material")
@@ -1447,6 +1447,7 @@
 )
 
 (define-function material_set_layer_combine
+  (c-name "cogl_material_set_layer_combine")
   (docstring
   "describing the desired texture combine function. support. May be NULL,\n"
   "in which case a warning will be printed out if an error is\n"
@@ -1494,7 +1495,6 @@
   "underlying driver and or hardware. On failure, FALSE is returned and\n"
   "error is set\n"
   )
-  (c-name "cogl_material_set_layer_combine")
   (return-type "gboolean")
   (parameters
     '("CoglHandle" "material")
@@ -1505,12 +1505,12 @@
 )
 
 (define-function material_set_layer_combine_constant
+  (c-name "cogl_material_set_layer_combine_constant")
   (docstring
   "for texture combining When you are using the 'CONSTANT' color source\n"
   "in a layer combine description then you can use this function to\n"
   "define its value.\n"
   )
-  (c-name "cogl_material_set_layer_combine_constant")
   (return-type "none")
   (parameters
     '("CoglHandle" "material")
@@ -1520,11 +1520,11 @@
 )
 
 (define-function material_set_layer_matrix
+  (c-name "cogl_material_set_layer_matrix")
   (docstring
   "This function lets you set a matrix that can be used to e.g. translate\n"
   "and rotate a single layer of a material used to fill your geometry.\n"
   )
-  (c-name "cogl_material_set_layer_matrix")
   (return-type "none")
   (parameters
     '("CoglHandle" "material")
@@ -1534,13 +1534,13 @@
 )
 
 (define-function material_get_layers
+  (c-name "cogl_material_get_layers")
   (docstring
   "This function lets you access a materials internal list of layers for\n"
   "iteration. CoglHandle<!-- -->'s that can be passed to the\n"
   "cogl_material_layer_* functions. The list is owned by COGL and it\n"
   "should not be modified or freed\n"
   )
-  (c-name "cogl_material_get_layers")
   (return-type "const-GList*")
   (parameters
     '("CoglHandle" "material")
@@ -1548,10 +1548,10 @@
 )
 
 (define-function material_get_n_layers
+  (c-name "cogl_material_get_n_layers")
   (docstring
   "Retrieves the number of layers defined for the given material\n"
   )
-  (c-name "cogl_material_get_n_layers")
   (return-type "int")
   (parameters
     '("CoglHandle" "material")
@@ -1559,13 +1559,13 @@
 )
 
 (define-function material_layer_get_type
+  (c-name "cogl_material_layer_get_type")
   (docstring
   "Retrieves the type of the layer Currently there is only one type of\n"
   "layer defined: COGL_MATERIAL_LAYER_TYPE_TEXTURE, but considering we\n"
   "may add purely GLSL based layers in the future, you should write code\n"
   "that checks the type first.\n"
   )
-  (c-name "cogl_material_layer_get_type")
   (return-type "CoglMaterialLayerType")
   (parameters
     '("CoglHandle" "layer_handle")
@@ -1573,6 +1573,7 @@
 )
 
 (define-function material_layer_get_texture
+  (c-name "cogl_material_layer_get_texture")
   (docstring
   "Extracts a texture handle for a specific layer. <note>In the future\n"
   "Cogl may support purely GLSL based layers; for those layers this\n"
@@ -1582,7 +1583,6 @@
   "of type COGL_MATERIAL_LAYER_TYPE_TEXTURE before calling this\n"
   "function.</note>\n"
   )
-  (c-name "cogl_material_layer_get_texture")
   (return-type "CoglHandle")
   (parameters
     '("CoglHandle" "layer_handle")
@@ -1590,10 +1590,10 @@
 )
 
 (define-function material_layer_get_min_filter
+  (c-name "cogl_material_layer_get_min_filter")
   (docstring
   "Queries the currently set downscaling filter for a material layer\n"
   )
-  (c-name "cogl_material_layer_get_min_filter")
   (return-type "CoglMaterialFilter")
   (parameters
     '("CoglHandle" "layer_handle")
@@ -1601,10 +1601,10 @@
 )
 
 (define-function material_layer_get_mag_filter
+  (c-name "cogl_material_layer_get_mag_filter")
   (docstring
   "Queries the currently set downscaling filter for a material later\n"
   )
-  (c-name "cogl_material_layer_get_mag_filter")
   (return-type "CoglMaterialFilter")
   (parameters
     '("CoglHandle" "layer_handle")
@@ -1612,11 +1612,11 @@
 )
 
 (define-function material_set_layer_filters
+  (c-name "cogl_material_set_layer_filters")
   (docstring
   "Changes the decimation and interpolation filters used when a texture\n"
   "is drawn at other scales than 100.\n"
   )
-  (c-name "cogl_material_set_layer_filters")
   (return-type "none")
   (parameters
     '("CoglHandle" "handle")
@@ -1758,6 +1758,7 @@
 ;; From cogl-offscreen.h
 
 (define-function offscreen_new_to_texture
+  (c-name "cogl_offscreen_new_to_texture")
   (docstring
   "This creates an offscreen buffer object using the given texture as the\n"
   "primary color buffer. It doesn't just initialize the contents of the\n"
@@ -1767,7 +1768,6 @@
   "you can use the texture again. if it wasn't possible to create the\n"
   "buffer.\n"
   )
-  (c-name "cogl_offscreen_new_to_texture")
   (return-type "CoglHandle")
   (parameters
     '("CoglHandle" "handle")
@@ -1775,10 +1775,10 @@
 )
 
 (define-function offscreen_ref
+  (c-name "cogl_offscreen_ref")
   (docstring
   "Increments the reference count on the offscreen buffer.\n"
   )
-  (c-name "cogl_offscreen_ref")
   (return-type "CoglHandle")
   (parameters
     '("CoglHandle" "handle")
@@ -1786,11 +1786,11 @@
 )
 
 (define-function is_offscreen
+  (c-name "cogl_is_offscreen")
   (docstring
   "Determines whether the given CoglHandle references an offscreen buffer\n"
   "object. FALSE otherwise\n"
   )
-  (c-name "cogl_is_offscreen")
   (return-type "gboolean")
   (parameters
     '("CoglHandle" "handle")
@@ -1798,11 +1798,11 @@
 )
 
 (define-function offscreen_unref
+  (c-name "cogl_offscreen_unref")
   (docstring
   "Decreases the reference count for the offscreen buffer and frees it\n"
   "when the count reaches 0.\n"
   )
-  (c-name "cogl_offscreen_unref")
   (return-type "none")
   (parameters
     '("CoglHandle" "handle")
@@ -1914,11 +1914,11 @@
 ;; From cogl-path.h
 
 (define-function rectangle
+  (c-name "cogl_rectangle")
   (docstring
   "Fills a rectangle at the given coordinates with the current source\n"
   "material\n"
   )
-  (c-name "cogl_rectangle")
   (return-type "none")
   (parameters
     '("float" "x_1")
@@ -1929,58 +1929,58 @@
 )
 
 (define-function path_fill
+  (c-name "cogl_path_fill")
   (docstring
   "Fills the constructed shape using the current drawing color. The\n"
   "current path is then cleared. To use the path again, call\n"
   "cogl_path_fill_preserve() instead.\n"
   )
-  (c-name "cogl_path_fill")
   (return-type "none")
 )
 
 (define-function path_fill_preserve
+  (c-name "cogl_path_fill_preserve")
   (docstring
   "Fills the constructed shape using the current drawing color and\n"
   "preserves the path to be used again.\n"
   )
-  (c-name "cogl_path_fill_preserve")
   (return-type "none")
 )
 
 (define-function path_stroke
+  (c-name "cogl_path_stroke")
   (docstring
   "Strokes the constructed shape using the current drawing color and a\n"
   "width of 1 pixel (regardless of the current transformation matrix). To\n"
   "current path is then cleared. To use the path again, call\n"
   "cogl_path_stroke_preserve() instead.\n"
   )
-  (c-name "cogl_path_stroke")
   (return-type "none")
 )
 
 (define-function path_stroke_preserve
+  (c-name "cogl_path_stroke_preserve")
   (docstring
   "Strokes the constructed shape using the current drawing color and\n"
   "preserves the path to be used again.\n"
   )
-  (c-name "cogl_path_stroke_preserve")
   (return-type "none")
 )
 
 (define-function path_new
+  (c-name "cogl_path_new")
   (docstring
   "Clears the current path and starts a new one.\n"
   )
-  (c-name "cogl_path_new")
   (return-type "none")
 )
 
 (define-function path_move_to
+  (c-name "cogl_path_move_to")
   (docstring
   "Moves the pen to the given location. If there is an existing path this\n"
   "will start a new disjoint subpath.\n"
   )
-  (c-name "cogl_path_move_to")
   (return-type "none")
   (parameters
     '("float" "x")
@@ -1989,12 +1989,12 @@
 )
 
 (define-function path_rel_move_to
+  (c-name "cogl_path_rel_move_to")
   (docstring
   "Moves the pen to the given offset relative to the current pen\n"
   "location. If there is an existing path this will start a new disjoint\n"
   "subpath.\n"
   )
-  (c-name "cogl_path_rel_move_to")
   (return-type "none")
   (parameters
     '("float" "x")
@@ -2003,12 +2003,12 @@
 )
 
 (define-function path_line_to
+  (c-name "cogl_path_line_to")
   (docstring
   "Constructs a straight line shape starting and ending at the given\n"
   "coordinates. If there is an existing path this will start a new\n"
   "disjoint sub-path.\n"
   )
-  (c-name "cogl_path_line_to")
   (return-type "none")
   (parameters
     '("float" "x")
@@ -2017,11 +2017,11 @@
 )
 
 (define-function path_rel_line_to
+  (c-name "cogl_path_rel_line_to")
   (docstring
   "Adds a straight line segment to the current path that ends at the\n"
   "given coordinates relative to the current pen location.\n"
   )
-  (c-name "cogl_path_rel_line_to")
   (return-type "none")
   (parameters
     '("float" "x")
@@ -2030,13 +2030,13 @@
 )
 
 (define-function path_arc
+  (c-name "cogl_path_arc")
   (docstring
   "Adds an elliptical arc segment to the current path. A straight line\n"
   "segment will link the current pen location with the first vertex of\n"
   "the arc. If you perform a move_to to the arcs start just before\n"
   "drawing it you create a free standing arc.\n"
   )
-  (c-name "cogl_path_arc")
   (return-type "none")
   (parameters
     '("float" "center_x")
@@ -2049,12 +2049,12 @@
 )
 
 (define-function path_curve_to
+  (c-name "cogl_path_curve_to")
   (docstring
   "Adds a cubic bezier curve segment to the current path with the given\n"
   "second, third and fourth control points and using current pen location\n"
   "as the first control point.\n"
   )
-  (c-name "cogl_path_curve_to")
   (return-type "none")
   (parameters
     '("float" "x_1")
@@ -2067,13 +2067,13 @@
 )
 
 (define-function path_rel_curve_to
+  (c-name "cogl_path_rel_curve_to")
   (docstring
   "Adds a cubic bezier curve segment to the current path with the given\n"
   "second, third and fourth control points and using current pen location\n"
   "as the first control point. The given coordinates are relative to the\n"
   "current pen location.\n"
   )
-  (c-name "cogl_path_rel_curve_to")
   (return-type "none")
   (parameters
     '("float" "x_1")
@@ -2086,11 +2086,11 @@
 )
 
 (define-function path_close
+  (c-name "cogl_path_close")
   (docstring
   "Closes the path being constructed by adding a straight line segment to\n"
   "it that ends at the first vertex of the path.\n"
   )
-  (c-name "cogl_path_close")
   (return-type "none")
 )
 
@@ -2106,6 +2106,7 @@
 )
 
 (define-function path_polyline
+  (c-name "cogl_path_polyline")
   (docstring
   "array of fixed-point values that specify the vertex coordinates.\n"
   "Constructs a series of straight line segments, starting from the first\n"
@@ -2118,7 +2119,6 @@
   "same fashion for the rest of the vertices. (num_points - 1) segments\n"
   "will be constructed.\n"
   )
-  (c-name "cogl_path_polyline")
   (return-type "none")
   (parameters
     '("float*" "coords")
@@ -2127,6 +2127,7 @@
 )
 
 (define-function path_polygon
+  (c-name "cogl_path_polygon")
   (docstring
   "an array of fixed-point values that specify the vertex coordinates.\n"
   "Constructs a polygonal shape of the given number of vertices. If there\n"
@@ -2136,7 +2137,6 @@
   "represents the Y coordinate of the first vertex, continuing in the\n"
   "same fashion for the rest of the vertices.\n"
   )
-  (c-name "cogl_path_polygon")
   (return-type "none")
   (parameters
     '("float*" "coords")
@@ -2145,11 +2145,11 @@
 )
 
 (define-function path_rectangle
+  (c-name "cogl_path_rectangle")
   (docstring
   "Constructs a rectangular shape at the given coordinates. If there is\n"
   "an existing path this will start a new disjoint sub-path.\n"
   )
-  (c-name "cogl_path_rectangle")
   (return-type "none")
   (parameters
     '("float" "x_1")
@@ -2160,11 +2160,11 @@
 )
 
 (define-function path_ellipse
+  (c-name "cogl_path_ellipse")
   (docstring
   "Constructs an ellipse shape. If there is an existing path this will\n"
   "start a new disjoint sub-path.\n"
   )
-  (c-name "cogl_path_ellipse")
   (return-type "none")
   (parameters
     '("float" "center_x")
@@ -2175,11 +2175,11 @@
 )
 
 (define-function path_round_rectangle
+  (c-name "cogl_path_round_rectangle")
   (docstring
   "the corner arcs. Constructs a rectangular shape with rounded corners.\n"
   "If there is an existing path this will start a new disjoint sub-path.\n"
   )
-  (c-name "cogl_path_round_rectangle")
   (return-type "none")
   (parameters
     '("float" "x_1")
@@ -2196,11 +2196,11 @@
 ;; From cogl-shader.h
 
 (define-function create_shader
+  (c-name "cogl_create_shader")
   (docstring
   "Create a new shader handle, use cogl_shader_source to set the source\n"
   "code to be used on it.\n"
   )
-  (c-name "cogl_create_shader")
   (return-type "CoglHandle")
   (parameters
     '("CoglShaderType" "shader_type")
@@ -2208,10 +2208,10 @@
 )
 
 (define-function shader_ref
+  (c-name "cogl_shader_ref")
   (docstring
   "Add an extra reference to a shader.\n"
   )
-  (c-name "cogl_shader_ref")
   (return-type "CoglHandle")
   (parameters
     '("CoglHandle" "handle")
@@ -2219,11 +2219,11 @@
 )
 
 (define-function shader_unref
+  (c-name "cogl_shader_unref")
   (docstring
   "Removes a reference to a shader. If it was the last reference the\n"
   "shader object will be destroyed.\n"
   )
-  (c-name "cogl_shader_unref")
   (return-type "none")
   (parameters
     '("CoglHandle" "handle")
@@ -2231,11 +2231,11 @@
 )
 
 (define-function is_shader
+  (c-name "cogl_is_shader")
   (docstring
   "Gets whether the given handle references an existing shader object.\n"
   "FALSE otherwise\n"
   )
-  (c-name "cogl_is_shader")
   (return-type "gboolean")
   (parameters
     '("CoglHandle" "handle")
@@ -2243,11 +2243,11 @@
 )
 
 (define-function shader_source
+  (c-name "cogl_shader_source")
   (docstring
   "Replaces the current GLSL source associated with a shader with a new\n"
   "one.\n"
   )
-  (c-name "cogl_shader_source")
   (return-type "none")
   (parameters
     '("CoglHandle" "shader")
@@ -2256,11 +2256,11 @@
 )
 
 (define-function shader_compile
+  (c-name "cogl_shader_compile")
   (docstring
   "Compiles the shader, no return value, but the shader is now ready for\n"
   "linking into a program.\n"
   )
-  (c-name "cogl_shader_compile")
   (return-type "none")
   (parameters
     '("CoglHandle" "handle")
@@ -2268,13 +2268,13 @@
 )
 
 (define-function shader_get_info_log
+  (c-name "cogl_shader_get_info_log")
   (docstring
   "Retrieves the information log for a coglobject, can be used in\n"
   "conjunction with cogl_shader_get_parameteriv() to retrieve the\n"
   "compiler warnings/error messages that caused a shader to not compile\n"
   "correctly, mainly useful for debugging purposes. g_free() to free it\n"
   )
-  (c-name "cogl_shader_get_info_log")
   (return-type "gchar*")
   (parameters
     '("CoglHandle" "handle")
@@ -2282,11 +2282,11 @@
 )
 
 (define-function shader_get_type
+  (c-name "cogl_shader_get_type")
   (docstring
   "Retrieves the type of a shader CoglHandle or COGL_SHADER_TYPE_FRAGMENT\n"
   "if the shader is a frament processor\n"
   )
-  (c-name "cogl_shader_get_type")
   (return-type "CoglShaderType")
   (parameters
     '("CoglHandle" "handle")
@@ -2294,10 +2294,10 @@
 )
 
 (define-function shader_is_compiled
+  (c-name "cogl_shader_is_compiled")
   (docstring
   "Retrieves whether a shader CoglHandle has been compiled\n"
   )
-  (c-name "cogl_shader_is_compiled")
   (return-type "gboolean")
   (parameters
     '("CoglHandle" "handle")
@@ -2305,19 +2305,19 @@
 )
 
 (define-function create_program
+  (c-name "cogl_create_program")
   (docstring
   "Create a new cogl program object that can be used to replace parts of\n"
   "the GL rendering pipeline with custom code.\n"
   )
-  (c-name "cogl_create_program")
   (return-type "CoglHandle")
 )
 
 (define-function program_ref
+  (c-name "cogl_program_ref")
   (docstring
   "Add an extra reference to a program.\n"
   )
-  (c-name "cogl_program_ref")
   (return-type "CoglHandle")
   (parameters
     '("CoglHandle" "handle")
@@ -2325,11 +2325,11 @@
 )
 
 (define-function program_unref
+  (c-name "cogl_program_unref")
   (docstring
   "Removes a reference to a program. If it was the last reference the\n"
   "program object will be destroyed.\n"
   )
-  (c-name "cogl_program_unref")
   (return-type "none")
   (parameters
     '("CoglHandle" "handle")
@@ -2337,11 +2337,11 @@
 )
 
 (define-function is_program
+  (c-name "cogl_is_program")
   (docstring
   "Gets whether the given handle references an existing program object.\n"
   "FALSE otherwise\n"
   )
-  (c-name "cogl_is_program")
   (return-type "gboolean")
   (parameters
     '("CoglHandle" "handle")
@@ -2349,11 +2349,11 @@
 )
 
 (define-function program_attach_shader
+  (c-name "cogl_program_attach_shader")
   (docstring
   "Attaches a shader to a program object, a program can have one vertex\n"
   "shader and one fragment shader attached.\n"
   )
-  (c-name "cogl_program_attach_shader")
   (return-type "none")
   (parameters
     '("CoglHandle" "program_handle")
@@ -2362,10 +2362,10 @@
 )
 
 (define-function program_link
+  (c-name "cogl_program_link")
   (docstring
   "Links a program making it ready for use.\n"
   )
-  (c-name "cogl_program_link")
   (return-type "none")
   (parameters
     '("CoglHandle" "handle")
@@ -2373,12 +2373,12 @@
 )
 
 (define-function program_use
+  (c-name "cogl_program_use")
   (docstring
   "Activate a specific shader program replacing that part of the GL\n"
   "rendering pipeline, if passed in COGL_INVALID_HANDLE the default\n"
   "behavior of GL is reinstated.\n"
   )
-  (c-name "cogl_program_use")
   (return-type "none")
   (parameters
     '("CoglHandle" "handle")
@@ -2386,6 +2386,7 @@
 )
 
 (define-function program_get_uniform_location
+  (c-name "cogl_program_get_uniform_location")
   (docstring
   "Retrieve the location (offset) of a uniform variable in a shader\n"
   "program, a uniform is a variable that is constant for all\n"
@@ -2393,7 +2394,6 @@
   "external parameter. This uniform can be set using\n"
   "cogl_program_uniform_1f() when the program is in use.\n"
   )
-  (c-name "cogl_program_get_uniform_location")
   (return-type "int")
   (parameters
     '("CoglHandle" "handle")
@@ -2402,11 +2402,11 @@
 )
 
 (define-function program_uniform_1f
+  (c-name "cogl_program_uniform_1f")
   (docstring
   "Changes the value of a floating point uniform in the currently used\n"
   "(see cogl_program_use()) shader program.\n"
   )
-  (c-name "cogl_program_uniform_1f")
   (return-type "none")
   (parameters
     '("int" "uniform_no")
@@ -2415,11 +2415,11 @@
 )
 
 (define-function program_uniform_1i
+  (c-name "cogl_program_uniform_1i")
   (docstring
   "Changes the value of an integer uniform in the currently used (see\n"
   "cogl_program_use()) shader program.\n"
   )
-  (c-name "cogl_program_uniform_1i")
   (return-type "none")
   (parameters
     '("int" "uniform_no")
@@ -2428,11 +2428,11 @@
 )
 
 (define-function program_uniform_float
+  (c-name "cogl_program_uniform_float")
   (docstring
   "Changes the value of a float vector uniform, or uniform array in the\n"
   "currently used (see cogl_program_use()) shader program.\n"
   )
-  (c-name "cogl_program_uniform_float")
   (return-type "none")
   (parameters
     '("int" "uniform_no")
@@ -2443,11 +2443,11 @@
 )
 
 (define-function program_uniform_int
+  (c-name "cogl_program_uniform_int")
   (docstring
   "Changes the value of a int vector uniform, or uniform array in the\n"
   "currently used (see cogl_program_use()) shader program.\n"
   )
-  (c-name "cogl_program_uniform_int")
   (return-type "none")
   (parameters
     '("int" "uniform_no")
@@ -2458,12 +2458,12 @@
 )
 
 (define-function program_uniform_matrix
+  (c-name "cogl_program_uniform_matrix")
   (docstring
   "Changes the value of a matrix uniform, or uniform array in the\n"
   "currently used (see cogl_program_use()) shader program. The size\n"
   "parameter is used to determine the square size of the matrix.\n"
   )
-  (c-name "cogl_program_uniform_matrix")
   (return-type "none")
   (parameters
     '("int" "uniform_no")
@@ -2479,11 +2479,11 @@
 ;; From cogl-texture.h
 
 (define-function texture_new_with_size
+  (c-name "cogl_texture_new_with_size")
   (docstring
   "texture. Creates a new COGL texture with the specified dimensions and\n"
   "pixel format. COGL_INVALID_HANDLE on failure\n"
   )
-  (c-name "cogl_texture_new_with_size")
   (return-type "CoglHandle")
   (parameters
     '("guint" "width")
@@ -2494,6 +2494,7 @@
 )
 
 (define-function texture_new_from_file
+  (c-name "cogl_texture_new_from_file")
   (docstring
   "texture. If COGL_PIXEL_FORMAT_ANY is given then a premultiplied format\n"
   "similar to the format of the source data will be used. The default\n"
@@ -2504,7 +2505,6 @@
   "straight blending. Creates a COGL texture from an image file.\n"
   "COGL_INVALID_HANDLE on failure\n"
   )
-  (c-name "cogl_texture_new_from_file")
   (return-type "CoglHandle")
   (parameters
     '("const-gchar*" "filename")
@@ -2515,6 +2515,7 @@
 )
 
 (define-function texture_new_from_data
+  (c-name "cogl_texture_new_from_data")
   (docstring
   "the buffer on the GPU. If COGL_PIXEL_FORMAT_ANY is given then a\n"
   "premultiplied format similar to the format of the source data will be\n"
@@ -2526,7 +2527,6 @@
   "new COGL texture based on data residing in memory. COGL_INVALID_HANDLE\n"
   "on failure\n"
   )
-  (c-name "cogl_texture_new_from_data")
   (return-type "CoglHandle")
   (parameters
     '("guint" "width")
@@ -2540,6 +2540,7 @@
 )
 
 (define-function texture_new_from_foreign
+  (c-name "cogl_texture_new_from_foreign")
   (docstring
   "Creates a COGL texture based on an existing OpenGL texture; the width,\n"
   "height and format are passed along since it is not always possible to\n"
@@ -2551,7 +2552,6 @@
   "should be mapped to the texture coordinate range [0:1].\n"
   "COGL_INVALID_HANDLE on failure\n"
   )
-  (c-name "cogl_texture_new_from_foreign")
   (return-type "CoglHandle")
   (parameters
     '("GLuint" "gl_handle")
@@ -2565,11 +2565,11 @@
 )
 
 (define-function texture_new_from_bitmap
+  (c-name "cogl_texture_new_from_bitmap")
   (docstring
   "texture Creates a COGL texture from a CoglBitmap. COGL_INVALID_HANDLE\n"
   "on failure\n"
   )
-  (c-name "cogl_texture_new_from_bitmap")
   (return-type "CoglHandle")
   (parameters
     '("CoglHandle" "bmp_handle")
@@ -2579,11 +2579,11 @@
 )
 
 (define-function is_texture
+  (c-name "cogl_is_texture")
   (docstring
   "Gets whether the given handle references an existing texture object.\n"
   "FALSE otherwise\n"
   )
-  (c-name "cogl_is_texture")
   (return-type "gboolean")
   (parameters
     '("CoglHandle" "handle")
@@ -2591,10 +2591,10 @@
 )
 
 (define-function texture_get_width
+  (c-name "cogl_texture_get_width")
   (docstring
   "Queries the width of a cogl texture.\n"
   )
-  (c-name "cogl_texture_get_width")
   (return-type "guint")
   (parameters
     '("CoglHandle" "handle")
@@ -2602,10 +2602,10 @@
 )
 
 (define-function texture_get_height
+  (c-name "cogl_texture_get_height")
   (docstring
   "Queries the height of a cogl texture.\n"
   )
-  (c-name "cogl_texture_get_height")
   (return-type "guint")
   (parameters
     '("CoglHandle" "handle")
@@ -2613,10 +2613,10 @@
 )
 
 (define-function texture_get_format
+  (c-name "cogl_texture_get_format")
   (docstring
   "Queries the CoglPixelFormat of a cogl texture.\n"
   )
-  (c-name "cogl_texture_get_format")
   (return-type "CoglPixelFormat")
   (parameters
     '("CoglHandle" "handle")
@@ -2624,10 +2624,10 @@
 )
 
 (define-function texture_get_rowstride
+  (c-name "cogl_texture_get_rowstride")
   (docstring
   "Queries the rowstride of a cogl texture.\n"
   )
-  (c-name "cogl_texture_get_rowstride")
   (return-type "guint")
   (parameters
     '("CoglHandle" "handle")
@@ -2635,11 +2635,11 @@
 )
 
 (define-function texture_get_max_waste
+  (c-name "cogl_texture_get_max_waste")
   (docstring
   "Queries the maximum wasted (unused) pixels in one dimension of a GPU\n"
   "side texture.\n"
   )
-  (c-name "cogl_texture_get_max_waste")
   (return-type "gint")
   (parameters
     '("CoglHandle" "handle")
@@ -2647,11 +2647,11 @@
 )
 
 (define-function texture_is_sliced
+  (c-name "cogl_texture_is_sliced")
   (docstring
   "Queries if a texture is sliced (stored as multiple GPU side tecture\n"
   "objects). is stored as a single GPU texture\n"
   )
-  (c-name "cogl_texture_is_sliced")
   (return-type "gboolean")
   (parameters
     '("CoglHandle" "handle")
@@ -2659,13 +2659,13 @@
 )
 
 (define-function texture_get_gl_texture
+  (c-name "cogl_texture_get_gl_texture")
   (docstring
   "textures GL handle, or NULL. GL target type, or NULL. Queries the GL\n"
   "handles for a GPU side texture through its CoglHandle. If the texture\n"
   "is spliced the data for the first sub texture will be queried. if the\n"
   "handle was invalid\n"
   )
-  (c-name "cogl_texture_get_gl_texture")
   (return-type "gboolean")
   (parameters
     '("CoglHandle" "handle")
@@ -2675,12 +2675,12 @@
 )
 
 (define-function texture_get_data
+  (c-name "cogl_texture_get_data")
   (docstring
   "specified. only querying the data size through the return value.\n"
   "Copies the pixel data from a cogl texture to system memory. is not\n"
   "valid\n"
   )
-  (c-name "cogl_texture_get_data")
   (return-type "gint")
   (parameters
     '("CoglHandle" "handle")
@@ -2691,11 +2691,11 @@
 )
 
 (define-function texture_set_region
+  (c-name "cogl_texture_set_region")
   (docstring
   "specified) Sets the pixels in a rectangular subregion of handle from\n"
   "an in-memory buffer containing pixel data. FALSE otherwise\n"
   )
-  (c-name "cogl_texture_set_region")
   (return-type "gboolean")
   (parameters
     '("CoglHandle" "handle")
@@ -2714,10 +2714,10 @@
 )
 
 (define-function texture_ref
+  (c-name "cogl_texture_ref")
   (docstring
   "Increment the reference count for a cogl texture.\n"
   )
-  (c-name "cogl_texture_ref")
   (return-type "CoglHandle")
   (parameters
     '("CoglHandle" "handle")
@@ -2725,10 +2725,10 @@
 )
 
 (define-function texture_unref
+  (c-name "cogl_texture_unref")
   (docstring
   "Decrement the reference count for a cogl texture.\n"
   )
-  (c-name "cogl_texture_unref")
   (return-type "none")
   (parameters
     '("CoglHandle" "handle")
@@ -2736,12 +2736,12 @@
 )
 
 (define-function rectangle_with_texture_coords
+  (c-name "cogl_rectangle_with_texture_coords")
   (docstring
   "Draw a rectangle using the current material and supply texture\n"
   "coordinates to be used for the first texture layer of the material. To\n"
   "draw the entire texture pass in tx1=0.0 ty1=0.0 tx2=1.0 ty2=1.0.\n"
   )
-  (c-name "cogl_rectangle_with_texture_coords")
   (return-type "none")
   (parameters
     '("float" "x1")
@@ -2756,6 +2756,7 @@
 )
 
 (define-function rectangle_with_multitexture_coords
+  (c-name "cogl_rectangle_with_multitexture_coords")
   (docstring
   "coordinates; one for the upper left texel, and one for the lower right\n"
   "texel. Each value should be between 0.0 and 1.0, where the coordinate\n"
@@ -2769,7 +2770,6 @@
   "coordinates than there are layers in the current source material then\n"
   "default texture coordinates (0.0, 0.0, 1.0, 1.0) are generated.\n"
   )
-  (c-name "cogl_rectangle_with_multitexture_coords")
   (return-type "none")
   (parameters
     '("float" "x1")
@@ -2782,6 +2782,7 @@
 )
 
 (define-function rectangles_with_texture_coords
+  (c-name "cogl_rectangles_with_texture_coords")
   (docstring
   "Draws a series of rectangles in the same way that cogl_rectangle()\n"
   "does. In some situations it can give a significant performance boost\n"
@@ -2789,7 +2790,6 @@
   "for each rectangle. parameters x1, y1, x2, and y2, and have the same\n"
   "meaning as in cogl_rectangle().\n"
   )
-  (c-name "cogl_rectangles_with_texture_coords")
   (return-type "none")
   (parameters
     '("const-float*" "verts")
@@ -2807,6 +2807,7 @@
 )
 
 (define-function polygon
+  (c-name "cogl_polygon")
   (docstring
   "Draws a convex polygon using the current source material to fill /\n"
   "texture with according to the texture coordinates passed. If use_color\n"
@@ -2820,7 +2821,6 @@
   "minifying and magnifying functions are both set to\n"
   "COGL_MATERIAL_FILTER_NEAREST.\n"
   )
-  (c-name "cogl_polygon")
   (return-type "none")
   (parameters
     '("CoglTextureVertex*" "vertices")
@@ -2860,10 +2860,10 @@
 ;; From cogl-vertex-buffer.h
 
 (define-function vertex_buffer_new
+  (c-name "cogl_vertex_buffer_new")
   (docstring
   "Creates a new vertex buffer that you can use to add attributes.\n"
   )
-  (c-name "cogl_vertex_buffer_new")
   (return-type "CoglHandle")
   (parameters
     '("guint" "n_vertices")
@@ -2871,10 +2871,10 @@
 )
 
 (define-function vertex_buffer_get_n_vertices
+  (c-name "cogl_vertex_buffer_get_n_vertices")
   (docstring
   "Retrieves the number of vertices that handle represents\n"
   )
-  (c-name "cogl_vertex_buffer_get_n_vertices")
   (return-type "guint")
   (parameters
     '("CoglHandle" "handle")
@@ -2882,6 +2882,7 @@
 )
 
 (define-function vertex_buffer_add
+  (c-name "cogl_vertex_buffer_add")
   (docstring
   "variable name and standard attribute types must use one of following\n"
   "<itemizedlist> <listitem>gl_Color</listitem>\n"
@@ -2918,7 +2919,6 @@
   "<programlisting> |- - - - -0-0-0-0-0-0 0 0 0 0| </programlisting>\n"
   "(Though you can have multiple groups of interleved attributes)</note>\n"
   )
-  (c-name "cogl_vertex_buffer_add")
   (return-type "none")
   (parameters
     '("CoglHandle" "handle")
@@ -2932,12 +2932,12 @@
 )
 
 (define-function vertex_buffer_delete
+  (c-name "cogl_vertex_buffer_delete")
   (docstring
   "Deletes an attribute from a buffer. You will need to call\n"
   "cogl_vertex_buffer_submit() or issue a draw call to commit this change\n"
   "to the GPU.\n"
   )
-  (c-name "cogl_vertex_buffer_delete")
   (return-type "none")
   (parameters
     '("CoglHandle" "handle")
@@ -2946,6 +2946,7 @@
 )
 
 (define-function vertex_buffer_submit
+  (c-name "cogl_vertex_buffer_submit")
   (docstring
   "Submits all the user added attributes to the GPU; once submitted, the\n"
   "attributes can be used for drawing. You should aim to minimize calls\n"
@@ -2954,7 +2955,6 @@
   "rendering) and potentially a format conversion cost if the GPU doesn't\n"
   "natively support any of the given attribute formats.\n"
   )
-  (c-name "cogl_vertex_buffer_submit")
   (return-type "none")
   (parameters
     '("CoglHandle" "handle")
@@ -2962,6 +2962,7 @@
 )
 
 (define-function vertex_buffer_disable
+  (c-name "cogl_vertex_buffer_disable")
   (docstring
   "Disables a previosuly added attribute. Since it can be costly to add\n"
   "and remove new attributes to buffers; to make individual buffers more\n"
@@ -2969,7 +2970,6 @@
   "a buffer for drawing. You don't need to call\n"
   "cogl_vertex_buffer_submit() after using this function.\n"
   )
-  (c-name "cogl_vertex_buffer_disable")
   (return-type "none")
   (parameters
     '("CoglHandle" "handle")
@@ -2978,6 +2978,7 @@
 )
 
 (define-function vertex_buffer_enable
+  (c-name "cogl_vertex_buffer_enable")
   (docstring
   "Enables a previosuly disabled attribute. Since it can be costly to add\n"
   "and remove new attributes to buffers; to make individual buffers more\n"
@@ -2985,7 +2986,6 @@
   "a buffer for drawing. You don't need to call\n"
   "cogl_vertex_buffer_submit() after using this function\n"
   )
-  (c-name "cogl_vertex_buffer_enable")
   (return-type "none")
   (parameters
     '("CoglHandle" "handle")
@@ -2994,12 +2994,12 @@
 )
 
 (define-function vertex_buffer_draw
+  (c-name "cogl_vertex_buffer_draw")
   (docstring
   "interpreted. Allows you to draw geometry using all or a subset of the\n"
   "vertices in a vertex buffer. Any un-submitted attribute changes are\n"
   "automatically submitted before drawing.\n"
   )
-  (c-name "cogl_vertex_buffer_draw")
   (return-type "none")
   (parameters
     '("CoglHandle" "handle")
@@ -3010,6 +3010,7 @@
 )
 
 (define-function vertex_buffer_indices_new
+  (c-name "cogl_vertex_buffer_indices_new")
   (docstring
   "the indices. your array of indices Depending on how much geometry you\n"
   "are submitting it can be worthwhile optimizing the number of redundant\n"
@@ -3017,7 +3018,6 @@
   "vertices multiple times, for example during triangle strips.\n"
   "cogl_vertex_buffer_draw_elements().\n"
   )
-  (c-name "cogl_vertex_buffer_indices_new")
   (return-type "CoglHandle")
   (parameters
     '("CoglIndicesType" "indices_type")
@@ -3027,10 +3027,10 @@
 )
 
 (define-function vertex_buffer_indices_get_type
+  (c-name "cogl_vertex_buffer_indices_get_type")
   (docstring
   "Queries back the data type used for the given indices\n"
   )
-  (c-name "cogl_vertex_buffer_indices_get_type")
   (return-type "CoglIndicesType")
   (parameters
     '("CoglHandle" "indices")
@@ -3047,6 +3047,7 @@
 ;;)
 
 (define-function vertex_buffer_draw_elements
+  (c-name "cogl_vertex_buffer_draw_elements")
   (docstring
   "interpreted. cogl_vertex_buffer_indices_new () index to use for\n"
   "drawing. This function lets you use an array of indices to specify the\n"
@@ -3055,7 +3056,6 @@
   "Any un-submitted attribute changes are automatically submitted before\n"
   "drawing.\n"
   )
-  (c-name "cogl_vertex_buffer_draw_elements")
   (return-type "none")
   (parameters
     '("CoglHandle" "handle")
@@ -3069,10 +3069,10 @@
 )
 
 (define-function vertex_buffer_ref
+  (c-name "cogl_vertex_buffer_ref")
   (docstring
   "Increment the reference count for a vertex buffer\n"
   )
-  (c-name "cogl_vertex_buffer_ref")
   (return-type "CoglHandle")
   (parameters
     '("CoglHandle" "handle")
@@ -3080,10 +3080,10 @@
 )
 
 (define-function vertex_buffer_unref
+  (c-name "cogl_vertex_buffer_unref")
   (docstring
   "Decrement the reference count for a vertex buffer\n"
   )
-  (c-name "cogl_vertex_buffer_unref")
   (return-type "none")
   (parameters
     '("CoglHandle" "handle")
@@ -3091,6 +3091,7 @@
 )
 
 (define-function vertex_buffer_indices_get_for_quads
+  (c-name "cogl_vertex_buffer_indices_get_for_quads")
   (docstring
   "Creates a vertex buffer containing the indices needed to draw pairs of\n"
   "triangles from a list of vertices grouped as quads. There will be at\n"
@@ -3102,7 +3103,6 @@
   "1        2           2 ]| owned by Cogl and should not be modified or\n"
   "unref'd.\n"
   )
-  (c-name "cogl_vertex_buffer_indices_get_for_quads")
   (return-type "CoglHandle")
   (parameters
     '("guint" "n_indices")
