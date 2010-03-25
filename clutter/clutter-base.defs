@@ -9473,6 +9473,15 @@
   )
 )
 
+(define-method from_cm
+  (of-object "ClutterUnits")
+  (c-name "clutter_units_from_cm")
+  (return-type "none")
+  (parameters
+    '("gfloat" "cm")
+  )
+)
+
 (define-method to_string
   (of-object "ClutterUnits")
   (c-name "clutter_units_to_string")
