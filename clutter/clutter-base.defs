@@ -4476,6 +4476,36 @@
   (return-type "gdouble")
 )
 
+(define-method set_subtitle_uri
+  (of-object "ClutterMedia")
+  (c-name "clutter_media_set_subtitle_uri")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "uri")
+  )
+)
+
+(define-method get_subtitle_uri
+  (of-object "ClutterMedia")
+  (c-name "clutter_media_get_subtitle_uri")
+  (return-type "gchar*")
+)
+
+(define-method set_subtitle_font_name
+  (of-object "ClutterMedia")
+  (c-name "clutter_media_set_subtitle_font_name")
+  (return-type "none")
+  (parameters
+    '("const-char*" "font_name")
+  )
+)
+
+(define-method get_subtitle_font_name
+  (of-object "ClutterMedia")
+  (c-name "clutter_media_get_subtitle_font_name")
+  (return-type "gchar*")
+)
+
 
 ;; From clutter-model.h
 
