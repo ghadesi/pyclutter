@@ -9627,4 +9627,11 @@
   )
 )
 
+;; From clutter-stage-window.h
+
+(define-function stage_window_get_type
+  (c-name "clutter_stage_window_get_type")
+  (return-type "GType")
+)
+
 
