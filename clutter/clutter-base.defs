@@ -8374,6 +8374,32 @@
   )
 )
 
+(define-method set_font_description
+  (of-object "ClutterText")
+  (c-name "clutter_text_set_font_description")
+  (docstring
+  "Sets font_desc as the font description for a clutter.Text The\n"
+  "PangoFontDescription is copied by the clutter.Text actor so you can\n"
+  "safely call pango_font_description_free() on it after calling this\n"
+  "function.\n"
+  )
+  (return-type "none")
+  (parameters
+    '("PangoFontDescription*" "font_desc")
+  )
+)
+
+(define-method get_font_description
+  (of-object "ClutterText")
+  (c-name "clutter_text_get_font_description")
+  (docstring
+  "Retrieves the PangoFontDescription used by self by the clutter.Text\n"
+  "actor and it should not be modified or freed\n"
+  )
+  (return-type "PangoFontDescription*")
+)
+
+
 
 ;; From clutter-clone.h
 
