@@ -10042,4 +10042,158 @@
   )
 )
 
+;; From clutter-flow-layout.h
+
+(define-function flow_layout_get_type
+  (c-name "clutter_flow_layout_get_type")
+  (return-type "GType")
+)
+
+(define-function flow_layout_new
+  (c-name "clutter_flow_layout_new")
+  (is-constructor-of "ClutterFlowLayout")
+  (return-type "ClutterLayoutManager*")
+  (properties
+    '("orientation")
+  )
+)
+
+(define-method set_orientation
+  (of-object "ClutterFlowLayout")
+  (c-name "clutter_flow_layout_set_orientation")
+  (docstring
+  "Sets the orientation of the flow layout The orientation controls the\n"
+  "direction used to allocate orientation also controls the direction of\n"
+  "the overflowing\n"
+  )
+  (return-type "none")
+  (parameters
+    '("ClutterFlowOrientation" "orientation")
+  )
+)
+
+(define-method get_orientation
+  (of-object "ClutterFlowLayout")
+  (c-name "clutter_flow_layout_get_orientation")
+  (docstring
+  "Retrieves the orientation of the layout\n"
+  )
+  (return-type "ClutterFlowOrientation")
+)
+
+(define-method set_homogeneous
+  (of-object "ClutterFlowLayout")
+  (c-name "clutter_flow_layout_set_homogeneous")
+  (docstring
+  "Sets whether the layout should allocate the same space for each child\n"
+  )
+  (return-type "none")
+  (parameters
+    '("gboolean" "homogeneous")
+  )
+)
+
+(define-method get_homogeneous
+  (of-object "ClutterFlowLayout")
+  (c-name "clutter_flow_layout_get_homogeneous")
+  (docstring
+  "Retrieves whether the layout is homogeneous\n"
+  )
+  (return-type "gboolean")
+)
+
+(define-method set_column_spacing
+  (of-object "ClutterFlowLayout")
+  (c-name "clutter_flow_layout_set_column_spacing")
+  (docstring
+  "Sets the space between columns, in pixels\n"
+  )
+  (return-type "none")
+  (parameters
+    '("gfloat" "spacing")
+  )
+)
+
+(define-method get_column_spacing
+  (of-object "ClutterFlowLayout")
+  (c-name "clutter_flow_layout_get_column_spacing")
+  (docstring
+  "Retrieves the spacing between columns in pixels\n"
+  )
+  (return-type "gfloat")
+)
+
+(define-method set_row_spacing
+  (of-object "ClutterFlowLayout")
+  (c-name "clutter_flow_layout_set_row_spacing")
+  (docstring
+  "Sets the spacing between rows, in pixels\n"
+  )
+  (return-type "none")
+  (parameters
+    '("gfloat" "spacing")
+  )
+)
+
+(define-method get_row_spacing
+  (of-object "ClutterFlowLayout")
+  (c-name "clutter_flow_layout_get_row_spacing")
+  (docstring
+  "Retrieves the spacing between rows in pixels\n"
+  )
+  (return-type "gfloat")
+)
+
+(define-method set_column_width
+  (of-object "ClutterFlowLayout")
+  (c-name "clutter_flow_layout_set_column_width")
+  (docstring
+  "Sets the minimum and maximum widths that a column can have\n"
+  )
+  (return-type "none")
+  (parameters
+    '("gfloat" "min_width")
+    '("gfloat" "max_width")
+  )
+)
+
+(define-method get_column_width
+  (of-object "ClutterFlowLayout")
+  (c-name "clutter_flow_layout_get_column_width")
+  (docstring
+  "Retrieves the minimum and maximum column widths\n"
+  )
+  (return-type "none")
+  (parameters
+    '("gfloat*" "min_width")
+    '("gfloat*" "max_width")
+  )
+)
+
+(define-method set_row_height
+  (of-object "ClutterFlowLayout")
+  (c-name "clutter_flow_layout_set_row_height")
+  (docstring
+  "Sets the minimum and maximum heights that a row can have\n"
+  )
+  (return-type "none")
+  (parameters
+    '("gfloat" "min_height")
+    '("gfloat" "max_height")
+  )
+)
+
+(define-method get_row_height
+  (of-object "ClutterFlowLayout")
+  (c-name "clutter_flow_layout_get_row_height")
+  (docstring
+  "Retrieves the minimum and maximum row heights\n"
+  )
+  (return-type "none")
+  (parameters
+    '("gfloat*" "min_height")
+    '("gfloat*" "max_height")
+  )
+)
+
 

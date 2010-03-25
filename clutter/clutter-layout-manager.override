@@ -616,3 +616,26 @@ _wrap_clutter_bin_layout_get_alignment (PyGObject *self,
                                              y_align));
 
 }
+%%
+override clutter_flow_layout_get_column_width noargs
+static PyObject *
+_wrap_clutter_flow_layout_get_column_width (PyGObject *self)
+{
+  gfloat min_width, max_width;
+
+  clutter_flow_layout_get_column_width (CLUTTER_FLOW_LAYOUT (self->obj),
+                                        &min_width, &max_width);
+  return Py_BuildValue ("(dd)", min_width, max_width);
+}
+%%
+override clutter_flow_layout_get_row_height noargs
+static PyObject *
+_wrap_clutter_flow_layout_get_row_height (PyGObject *self)
+{
+  gfloat min_height, max_height;
+
+  clutter_flow_layout_get_row_height (CLUTTER_FLOW_LAYOUT (self->obj),
+                                      &min_height, &max_height);
+  return Py_BuildValue ("(dd)", min_height, max_height);
+}
+

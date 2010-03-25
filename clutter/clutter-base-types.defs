@@ -369,6 +369,13 @@
   (gtype-id "CLUTTER_TYPE_BIN_LAYOUT")
 )
 
+(define-object FlowLayout
+  (in-module "Clutter")
+  (parent "ClutterLayoutManager")
+  (c-name "ClutterFlowLayout")
+  (gtype-id "CLUTTER_TYPE_FLOW_LAYOUT")
+)
+
 ;; Enumerations and flags ...
 
 (define-flags EventFlags
@@ -750,3 +757,12 @@
   )
 )
 
+(define-enum FlowOrientation
+  (in-module "Clutter")
+  (c-name "ClutterFlowOrientation")
+  (gtype-id "CLUTTER_TYPE_FLOW_ORIENTATION")
+  (values
+    '("horizontal" "CLUTTER_FLOW_HORIZONTAL")
+    '("vertical" "CLUTTER_FLOW_VERTICAL")
+  )
+)
