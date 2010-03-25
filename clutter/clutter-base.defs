@@ -4370,6 +4370,17 @@
   (return-type "PangoFontMap*")
 )
 
+(define-function get_default_text_direction
+  (c-name "clutter_get_default_text_direction")
+  (docstring
+  "Retrieves the default direction for the text. The text direction is\n"
+  "determined by the locale and/or by the CLUTTER_TEXT_DIRECTION\n"
+  "environment variable The default text direction can be overridden on a\n"
+  "per-actor basis by using clutter.Actor.set_text_direction()\n"
+  )
+  (return-type "ClutterTextDirection")
+)
+
 
 ;; From clutter-media.h
 
