@@ -673,3 +673,25 @@
     '("point" "CLUTTER_UNIT_POINT")
   )
 )
+
+(define-flags RedrawFlags
+  (in-module "Clutter")
+  (c-name "ClutterRedrawFlags")
+  (gtype-id "CLUTTER_TYPE_REDRAW_FLAGS")
+  (values
+    '("box" "CLUTTER_REDRAW_CLIPPED_TO_BOX")
+    '("allocation" "CLUTTER_REDRAW_CLIPPED_TO_ALLOCATION")
+  )
+)
+
+(define-enum TextDirection
+  (in-module "Clutter")
+  (c-name "ClutterTextDirection")
+  (gtype-id "CLUTTER_TYPE_TEXT_DIRECTION")
+  (values
+    '("default" "CLUTTER_TEXT_DIRECTION_DEFAULT")
+    '("ltr" "CLUTTER_TEXT_DIRECTION_LTR")
+    '("rtl" "CLUTTER_TEXT_DIRECTION_RTL")
+  )
+)
+

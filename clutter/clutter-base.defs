@@ -1604,6 +1604,83 @@
   (return-type "ClutterRequestMode")
 )
 
+(define-method has_pointer
+  (of-object "ClutterActor")
+  (c-name "clutter_actor_has_pointer")
+  (docstring
+  "Checks whether an actor contains the the pointer of a\n"
+  "clutter.InputDevice FALSE otherwise\n"
+  )
+  (return-type "gboolean")
+)
+
+(define-method set_text_direction
+  (of-object "ClutterActor")
+  (c-name "clutter_actor_set_text_direction")
+  (docstring
+  "Sets the clutter.TextDirection for an actor The passed text direction\n"
+  "must not be CLUTTER_TEXT_DIRECTION_DEFAULT If self implements\n"
+  "clutter.Container then this function will recurse inside all the\n"
+  "children of self (including the internal ones). Composite actors not\n"
+  "implementing clutter.Container, or actors requiring special handling\n"
+  "when the text direction changes, should connect to the GObject::notify\n"
+  "signal for the clutter.Actor:text-direction property\n"
+  )
+  (return-type "none")
+  (parameters
+    '("ClutterTextDirection" "text_dir")
+  )
+)
+
+(define-method get_text_direction
+  (of-object "ClutterActor")
+  (c-name "clutter_actor_get_text_direction")
+  (docstring
+  "Retrieves the value set using clutter.Actor.set_text_direction() If no\n"
+  "text direction has been previously set, the default text direction, as\n"
+  "returned by clutter_get_default_text_direction(), will be returned\n"
+  "instead\n"
+  )
+  (return-type "ClutterTextDirection")
+)
+
+(define-method push_internal
+  (of-object "ClutterActor")
+  (c-name "clutter_actor_push_internal")
+  (docstring
+  "Should be used by actors implementing the clutter.Container and with\n"
+  "internal children added through clutter.Actor.set_parent(), for\n"
+  "instance: |[ static void my_actor_init (MyActor *self) { self->priv =\n"
+  "SELF_ACTOR_GET_PRIVATE (self); clutter.Actor.push_internal\n"
+  "(CLUTTER_ACTOR (self)); /&ast; calling clutter.Actor.set_parent() now\n"
+  "will result in &ast; the internal flag being set on a child of MyActor\n"
+  "&ast;/ self->priv->background_tex = clutter_texture_new ();\n"
+  "clutter.Actor.set_parent (self->priv->background_tex, CLUTTER_ACTOR\n"
+  "(self)); self->priv->label = clutter_text_new ();\n"
+  "clutter.Actor.set_parent (self->priv->label, CLUTTER_ACTOR (self));\n"
+  "clutter.Actor.pop_internal (CLUTTER_ACTOR (self)); /&ast; calling\n"
+  "clutter.Actor.set_parent() now will not result in &ast; the internal\n"
+  "flag being set on a child of MyActor &ast;/ } ]| This function will be\n"
+  "used by clutter. to toggle an internal child flag whenever\n"
+  "clutter.Actor.set_parent() is called; internal children are handled\n"
+  "differently by clutter., specifically when destroying their parent.\n"
+  "Call clutter.Actor.pop_internal() when you finished adding internal\n"
+  "children. Nested calls to clutter.Actor.push_internal() are allowed,\n"
+  "but each one must by followed by a clutter.Actor.pop_internal() call.\n"
+  )
+  (return-type "none")
+)
+
+(define-method pop_internal
+  (of-object "ClutterActor")
+  (c-name "clutter_actor_pop_internal")
+  (docstring
+  "Disables the effects of clutter.Actor.pop_internal()\n"
+  )
+  (return-type "none")
+)
+
+
 ;; From clutter-alpha.h
 
 (define-function alpha_get_type
