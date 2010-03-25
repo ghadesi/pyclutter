@@ -9974,3 +9974,72 @@
 )
 
 
+;; From clutter-bin-layout.h
+
+(define-function bin_layout_get_type
+  (c-name "clutter_bin_layout_get_type")
+  (return-type "GType")
+)
+
+(define-function bin_layout_new
+  (c-name "clutter_bin_layout_new")
+  (is-constructor-of "ClutterBinLayout")
+  (return-type "ClutterLayoutManager*")
+  (properties
+    '("x_align")
+    '("y_align")
+  )
+)
+
+(define-method set_alignment
+  (of-object "ClutterBinLayout")
+  (c-name "clutter_bin_layout_set_alignment")
+  (docstring
+  "inside container inside container Sets the horizontal and vertical\n"
+  "alignment policies to be applied to a child of self If child is NULL\n"
+  "then the x_align and y_align values will be set as the default\n"
+  "alignment policies\n"
+  )
+  (return-type "none")
+  (parameters
+    '("ClutterActor*" "child")
+    '("ClutterBinAlignment" "x_align")
+    '("ClutterBinAlignment" "y_align")
+  )
+)
+
+(define-method get_alignment
+  (of-object "ClutterBinLayout")
+  (c-name "clutter_bin_layout_get_alignment")
+  (docstring
+  "alignment policy alignment policy Retrieves the horizontal and\n"
+  "vertical alignment policies for a child of self If child is NULL the\n"
+  "default alignment policies will be returned instead\n"
+  )
+  (return-type "none")
+  (parameters
+    '("ClutterActor*" "child")
+    '("ClutterBinAlignment*" "x_align")
+    '("ClutterBinAlignment*" "y_align")
+  )
+)
+
+(define-method add
+  (of-object "ClutterBinLayout")
+  (c-name "clutter_bin_layout_add")
+  (docstring
+  "Adds a clutter.Actor to the container using self and sets the\n"
+  "alignment policies for it This function is equivalent to\n"
+  "clutter.Container.add_actor() and\n"
+  "clutter_layout_manager_child_set_property() but it does not require a\n"
+  "pointer to the clutter.Container associated to the clutter.BinLayout\n"
+  )
+  (return-type "none")
+  (parameters
+    '("ClutterActor*" "child")
+    '("ClutterBinAlignment" "x_align")
+    '("ClutterBinAlignment" "y_align")
+  )
+)
+
+

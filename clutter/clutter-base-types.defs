@@ -362,6 +362,13 @@
   (gtype-id "CLUTTER_TYPE_FIXED_LAYOUT")
 )
 
+(define-object BinLayout
+  (in-module "Clutter")
+  (parent "ClutterLayoutManager")
+  (c-name "ClutterBinLayout")
+  (gtype-id "CLUTTER_TYPE_BIN_LAYOUT")
+)
+
 ;; Enumerations and flags ...
 
 (define-flags EventFlags
@@ -727,6 +734,19 @@
     '("default" "CLUTTER_TEXT_DIRECTION_DEFAULT")
     '("ltr" "CLUTTER_TEXT_DIRECTION_LTR")
     '("rtl" "CLUTTER_TEXT_DIRECTION_RTL")
+  )
+)
+
+(define-enum BinAlignment
+  (in-module "Clutter")
+  (c-name "ClutterBinAlignment")
+  (gtype-id "CLUTTER_TYPE_BIN_ALIGNMENT")
+  (values
+    '("fixed" "CLUTTER_BIN_ALIGNMENT_FIXED")
+    '("fill" "CLUTTER_BIN_ALIGNMENT_FILL")
+    '("start" "CLUTTER_BIN_ALIGNMENT_START")
+    '("end" "CLUTTER_BIN_ALIGNMENT_END")
+    '("center" "CLUTTER_BIN_ALIGNMENT_CENTER")
   )
 )
 
