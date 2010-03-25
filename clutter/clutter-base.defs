@@ -3604,6 +3604,16 @@
   (return-type "gint")
 )
 
+(define-function get_current_event
+  (c-name "clutter_get_current_event")
+  (docstring
+  "If an event is currently being processed, return that event. This\n"
+  "function is intended to be used to access event state that might not\n"
+  "be exposed by higher-level widgets.  For example, to get the key\n"
+  "modifier state from a Button 'clicked' event.\n"
+  )
+  (return-type "const-ClutterEvent*")
+)
 
 
 ;; From clutter-feature.h
