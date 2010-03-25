@@ -4381,6 +4381,22 @@
   (return-type "ClutterTextDirection")
 )
 
+(define-function check_version
+  (c-name "clutter_check_version")
+  (docstring
+  "Run-time version check, to check the version the clutter. library that\n"
+  "an application is currently linked against This is the run-time\n"
+  "equivalent of the compile-time CLUTTER_CHECK_VERSION pre-processor\n"
+  "macro greater than (major, minor, micro), and FALSE otherwise\n"
+  )
+  (return-type "gboolean")
+  (parameters
+    '("guint" "major")
+    '("guint" "minor")
+    '("guint" "micro")
+  )
+)
+
 
 ;; From clutter-media.h
 
