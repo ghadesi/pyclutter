@@ -253,7 +253,7 @@ _wrap_cogl_pango_render_layout(PyObject *self,
     static char *kwlist[] = { "layout", "x", "y", "color", "flags", NULL };
     PyGObject *layout;
     int x, y, flags;
-    CoglColor *color = NULL;
+    CoglColor color;
     PyObject *py_color;
 
     if (!PyArg_ParseTupleAndKeywords(args, kwargs,
@@ -264,7 +264,7 @@ _wrap_cogl_pango_render_layout(PyObject *self,
                                      &x, &y, &py_color, &flags))
         return NULL;
 
-    if (!pycogl_color_from_pyobject (py_color, color))
+    if (!pycogl_color_from_pyobject (py_color, &color))
     {
         PyErr_Clear ();
         PyErr_SetString (PyExc_TypeError,
@@ -273,7 +273,7 @@ _wrap_cogl_pango_render_layout(PyObject *self,
     }
 
     
-    cogl_pango_render_layout(PANGO_LAYOUT(layout->obj), x, y, color, flags);
+    cogl_pango_render_layout(PANGO_LAYOUT(layout->obj), x, y, &color, flags);
     
     Py_INCREF(Py_None);
     return Py_None;
@@ -288,7 +288,7 @@ _wrap_cogl_pango_render_layout_subpixel(PyObject *self,
     static char *kwlist[] = { "layout", "x", "y", "color", "flags", NULL };
     PyGObject *layout;
     int x, y, flags;
-    CoglColor *color = NULL;
+    CoglColor color;
     PyObject *py_color;
 
     if (!PyArg_ParseTupleAndKeywords(args, kwargs,
@@ -299,7 +299,7 @@ _wrap_cogl_pango_render_layout_subpixel(PyObject *self,
                                      &x, &y, &py_color, &flags))
         return NULL;
 
-    if (!pycogl_color_from_pyobject (py_color, color))
+    if (!pycogl_color_from_pyobject (py_color, &color))
     {
         PyErr_Clear ();
         PyErr_SetString (PyExc_TypeError,
@@ -308,7 +308,7 @@ _wrap_cogl_pango_render_layout_subpixel(PyObject *self,
     }
 
     
-    cogl_pango_render_layout_subpixel(PANGO_LAYOUT(layout->obj), x, y, color, flags);
+    cogl_pango_render_layout_subpixel(PANGO_LAYOUT(layout->obj), x, y, &color, flags);
     
     Py_INCREF(Py_None);
     return Py_None;
@@ -324,7 +324,7 @@ _wrap_cogl_pango_render_layout_line(PyObject *self,
     PangoLayoutLine *line = NULL;
     PyObject *py_line, *py_color;
     int x, y;
-    CoglColor *color = NULL;
+    CoglColor color;
 
     if (!PyArg_ParseTupleAndKeywords(args, kwargs,
                                      "OiiO:pango_render_layout_line",
@@ -337,7 +337,7 @@ _wrap_cogl_pango_render_layout_line(PyObject *self,
         return NULL;
     }
     
-    if (!pycogl_color_from_pyobject (py_color, color))
+    if (!pycogl_color_from_pyobject (py_color, &color))
     {
         PyErr_Clear ();
         PyErr_SetString (PyExc_TypeError,
@@ -345,7 +345,7 @@ _wrap_cogl_pango_render_layout_line(PyObject *self,
         return NULL;
     }
 
-    cogl_pango_render_layout_line(line, x, y, color);
+    cogl_pango_render_layout_line(line, x, y, &color);
     
     Py_INCREF(Py_None);
     return Py_None;
@@ -356,7 +356,7 @@ static PyObject *
 _wrap_cogl_set_fog(PyObject *self, PyObject *args, PyObject *kwargs)
 {
     static char *kwlist[] = { "fog_color", "mode", "density", "z_near", "z_far", NULL };
-    CoglColor *fog_color = NULL;
+    CoglColor fog_color;
     PyObject *py_fog_color, *py_mode = NULL;
     double density, z_near, z_far;
     CoglFogMode mode;
@@ -368,7 +368,7 @@ _wrap_cogl_set_fog(PyObject *self, PyObject *args, PyObject *kwargs)
                                      &density, &z_near, &z_far))
         return NULL;
 
-    if (!pycogl_color_from_pyobject (py_fog_color, fog_color))
+    if (!pycogl_color_from_pyobject (py_fog_color, &fog_color))
     {
         PyErr_Clear ();
         PyErr_SetString (PyExc_TypeError,
@@ -379,7 +379,7 @@ _wrap_cogl_set_fog(PyObject *self, PyObject *args, PyObject *kwargs)
     if (pyg_enum_get_value(COGL_TYPE_FOG_MODE, py_mode, (gpointer)&mode))
         return NULL;
     
-    cogl_set_fog(fog_color, mode, density, z_near, z_far);
+    cogl_set_fog(&fog_color, mode, density, z_near, z_far);
     
     Py_INCREF(Py_None);
     return Py_None;
@@ -390,14 +390,14 @@ static PyObject *
 _wrap_cogl_clear(PyObject *self, PyObject *args, PyObject *kwargs)
 {
     static char *kwlist[] = { "color", "buffers", NULL };
-    CoglColor *color = NULL;
+    CoglColor color;
     PyObject *py_color;
     unsigned long buffers;
 
     if (!PyArg_ParseTupleAndKeywords(args, kwargs,"Ok:clear", kwlist, &py_color, &buffers))
         return NULL;
 
-    if (!pycogl_color_from_pyobject (py_color, color))
+    if (!pycogl_color_from_pyobject (py_color, &color))
     {
         PyErr_Clear ();
         PyErr_SetString (PyExc_TypeError,
@@ -405,7 +405,7 @@ _wrap_cogl_clear(PyObject *self, PyObject *args, PyObject *kwargs)
         return NULL;
     }
 
-    cogl_clear(color, buffers);
+    cogl_clear(&color, buffers);
     
     Py_INCREF(Py_None);
     return Py_None;
