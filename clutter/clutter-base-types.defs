@@ -355,6 +355,13 @@
   (gtype-id "CLUTTER_TYPE_LAYOUT_META")
 )
 
+(define-object FixedLayout
+  (in-module "Clutter")
+  (parent "ClutterLayoutManager")
+  (c-name "ClutterFixedLayout")
+  (gtype-id "CLUTTER_TYPE_FIXED_LAYOUT")
+)
+
 ;; Enumerations and flags ...
 
 (define-flags EventFlags

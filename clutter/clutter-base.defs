@@ -9959,3 +9959,18 @@
   (return-type "ClutterLayoutManager*")
 )
 
+
+;; From clutter-fixed-layout.h
+
+(define-function fixed_layout_get_type
+  (c-name "clutter_fixed_layout_get_type")
+  (return-type "GType")
+)
+
+(define-function fixed_layout_new
+  (c-name "clutter_fixed_layout_new")
+  (is-constructor-of "ClutterFixedLayout")
+  (return-type "ClutterLayoutManager*")
+)
+
+
