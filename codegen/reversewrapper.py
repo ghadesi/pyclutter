@@ -543,7 +543,7 @@ class IntReturn(ReturnType):
 
 for argtype in ('int', 'gint', 'guint', 'short', 'gshort', 'gushort', 'long',
                 'glong', 'gsize', 'gssize', 'guint8', 'gint8', 'guint16',
-                'gint16', 'gint32', 'GTime'):
+                'gint16', 'gint32', 'GTime', 'gulong', 'GType'):
     argtypes.matcher.register_reverse(argtype, IntParam)
     argtypes.matcher.register_reverse_ret(argtype, IntReturn)
 del argtype
