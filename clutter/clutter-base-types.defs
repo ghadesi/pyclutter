@@ -383,6 +383,13 @@
   (gtype-id "CLUTTER_TYPE_BOX_LAYOUT")
 )
 
+(define-object Box
+  (in-module "Clutter")
+  (parent "ClutterActor")
+  (c-name "ClutterBox")
+  (gtype-id "CLUTTER_TYPE_BOX")
+)
+
 ;; Enumerations and flags ...
 
 (define-flags EventFlags

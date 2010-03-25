@@ -10457,3 +10457,160 @@
   (return-type "guint")
 )
 
+
+;; From clutter-box.h
+
+(define-function box_get_type
+  (c-name "clutter_box_get_type")
+  (return-type "GType")
+)
+
+(define-function box_new
+  (c-name "clutter_box_new")
+  (is-constructor-of "ClutterBox")
+  (return-type "ClutterActor*")
+  (properties
+    '("layout-manager")
+  )
+)
+
+(define-method set_layout_manager
+  (of-object "ClutterBox")
+  (c-name "clutter_box_set_layout_manager")
+  (docstring
+  "Sets the clutter.LayoutManager for box A clutter.LayoutManager is a\n"
+  "delegate object that controls the layout of the children of box\n"
+  )
+  (return-type "none")
+  (parameters
+    '("ClutterLayoutManager*" "manager")
+  )
+)
+
+(define-method get_layout_manager
+  (of-object "ClutterBox")
+  (c-name "clutter_box_get_layout_manager")
+  (docstring
+  "Retrieves the clutter.LayoutManager instance used by box\n"
+  )
+  (return-type "ClutterLayoutManager*")
+)
+
+(define-method set_color
+  (of-object "ClutterBox")
+  (c-name "clutter_box_set_color")
+  (docstring
+  "Sets (or unsets) the background color for box\n"
+  )
+  (return-type "none")
+  (parameters
+    '("const-ClutterColor*" "color")
+  )
+)
+
+(define-method get_color
+  (of-object "ClutterBox")
+  (c-name "clutter_box_get_color")
+  (docstring
+  "Retrieves the background color of box If the clutter.Box:color-set\n"
+  "property is set to FALSE the returned clutter.Color is undefined\n"
+  )
+  (return-type "none")
+  (parameters
+    '("ClutterColor*" "color")
+  )
+)
+
+(define-method pack
+  (of-object "ClutterBox")
+  (c-name "clutter_box_pack")
+  (docstring
+  "Adds actor to box and sets layout properties at the same time, if the\n"
+  "clutter.LayoutManager used by box has them This function is a wrapper\n"
+  "around clutter.Container.add_actor() and\n"
+  "clutter_layout_manager_child_set() Language bindings should use the\n"
+  "vector-based clutter_box_addv() variant instead\n"
+  )
+  (return-type "none")
+  (parameters
+    '("ClutterActor*" "actor")
+    '("const-gchar*" "first_property")
+  )
+  (varargs #t)
+)
+
+(define-method packv
+  (of-object "ClutterBox")
+  (c-name "clutter_box_packv")
+  (docstring
+  "containing the property names to set values to set Vector-based\n"
+  "variant of clutter.Box.pack(), intended for language bindings to use\n"
+  )
+  (return-type "none")
+  (parameters
+    '("ClutterActor*" "actor")
+    '("guint" "n_properties")
+    '("const-gchar*-const[]" "properties")
+    '("const-GValue*" "values")
+  )
+)
+
+(define-method pack_after
+  (of-object "ClutterBox")
+  (c-name "clutter_box_pack_after")
+  (docstring
+  "Adds actor to box, placing it after sibling, and sets layout\n"
+  "properties at the same time, if the clutter.LayoutManager used by If\n"
+  "sibling is NULL then actor is placed at the end of the list of\n"
+  "children, to be allocated and painted after every other child This\n"
+  "function is a wrapper around clutter.Container.add_actor(),\n"
+  "clutter.Container.raise_child() and clutter_layout_manager_child_set()\n"
+  )
+  (return-type "none")
+  (parameters
+    '("ClutterActor*" "actor")
+    '("ClutterActor*" "sibling")
+    '("const-gchar*" "first_property")
+  )
+  (varargs #t)
+)
+
+(define-method pack_before
+  (of-object "ClutterBox")
+  (c-name "clutter_box_pack_before")
+  (docstring
+  "Adds actor to box, placing it before sibling, and sets layout\n"
+  "properties at the same time, if the clutter.LayoutManager used by If\n"
+  "sibling is NULL then actor is placed at the beginning of the list of\n"
+  "children, to be allocated and painted below every other child This\n"
+  "function is a wrapper around clutter.Container.add_actor(),\n"
+  "clutter.Container.lower_child() and clutter_layout_manager_child_set()\n"
+  )
+  (return-type "none")
+  (parameters
+    '("ClutterActor*" "actor")
+    '("ClutterActor*" "sibling")
+    '("const-gchar*" "first_property")
+  )
+  (varargs #t)
+)
+
+(define-method pack_at
+  (of-object "ClutterBox")
+  (c-name "clutter_box_pack_at")
+  (docstring
+  "Adds actor to box, placing it at position, and sets layout properties\n"
+  "at the same time, if the clutter.LayoutManager used by If position is\n"
+  "a negative number, or is larger than the number of children of box,\n"
+  "the new child is added at the end of the list of children\n"
+  )
+  (return-type "none")
+  (parameters
+    '("ClutterActor*" "actor")
+    '("gint" "position")
+    '("const-gchar*" "first_property")
+  )
+  (varargs #t)
+)
+
+

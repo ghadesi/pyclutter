@@ -45,6 +45,7 @@ CLUTTER_OVERRIDES = 			\
 	clutter-alpha.override		\
 	clutter-animation.override	\
 	clutter-behaviour.override	\
+	clutter-box.override 		\
 	clutter-boxed.override 		\
 	clutter-cairotexture.override 	\
 	clutter-color.override		\
