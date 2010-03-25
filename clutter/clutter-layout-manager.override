@@ -638,4 +638,53 @@ _wrap_clutter_flow_layout_get_row_height (PyGObject *self)
                                       &min_height, &max_height);
   return Py_BuildValue ("(dd)", min_height, max_height);
 }
+%%
+override clutter_box_layout_get_alignment kwargs
+static PyObject *
+_wrap_clutter_box_layout_get_alignment (PyGObject *self,
+                                        PyObject  *args,
+                                        PyObject  *kwargs)
+{
+  static char *kwlist[] = { "actor", NULL };
+  PyGObject *py_actor;
+  ClutterBoxAlignment x_align, y_align;
+
+  if (!PyArg_ParseTupleAndKeywords (args, kwargs,
+                                    "O!:clutter.BoxLayout.get_alignment",
+                                    kwlist,
+                                    &PyClutterActor_Type, &py_actor))
+    return NULL;
+
+  clutter_box_layout_get_alignment (CLUTTER_BOX_LAYOUT (self->obj),
+                                    CLUTTER_ACTOR (py_actor->obj),
+                                    &x_align, &y_align);
+
+  return Py_BuildValue ("(NN)",
+                        pyg_enum_from_gtype (CLUTTER_TYPE_BOX_ALIGNMENT,
+                                             x_align),
+                        pyg_enum_from_gtype (CLUTTER_TYPE_BOX_ALIGNMENT,
+                                             y_align));
+}
+%%
+override clutter_box_layout_get_fill kwargs
+static PyObject *
+_wrap_clutter_box_layout_get_fill (PyGObject *self,
+                                   PyObject  *args,
+                                   PyObject  *kwargs)
+{
+  static char *kwlist[] = { "actor", NULL };
+  PyGObject *py_actor;
+  gboolean x_fill, y_fill;
+
+  if (!PyArg_ParseTupleAndKeywords (args, kwargs,
+                                    "O!:clutter.BoxLayout.get_fill",
+                                    kwlist,
+                                    &PyClutterActor_Type, &py_actor))
+    return NULL;
+
+  clutter_box_layout_get_fill (CLUTTER_BOX_LAYOUT (self->obj),
+                               CLUTTER_ACTOR (py_actor->obj),
+                               &x_fill, &y_fill);
+  return Py_BuildValue ("(ii)", x_fill, y_fill);
+}
 

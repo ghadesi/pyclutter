@@ -376,6 +376,13 @@
   (gtype-id "CLUTTER_TYPE_FLOW_LAYOUT")
 )
 
+(define-object BoxLayout
+  (in-module "Clutter")
+  (parent "ClutterLayoutManager")
+  (c-name "ClutterBoxLayout")
+  (gtype-id "CLUTTER_TYPE_BOX_LAYOUT")
+)
+
 ;; Enumerations and flags ...
 
 (define-flags EventFlags
@@ -764,5 +771,16 @@
   (values
     '("horizontal" "CLUTTER_FLOW_HORIZONTAL")
     '("vertical" "CLUTTER_FLOW_VERTICAL")
+  )
+)
+
+(define-enum BoxAlignment
+  (in-module "Clutter")
+  (c-name "ClutterBoxAlignment")
+  (gtype-id "CLUTTER_TYPE_BOX_ALIGNMENT")
+  (values
+    '("start" "CLUTTER_BOX_ALIGNMENT_START")
+    '("end" "CLUTTER_BOX_ALIGNMENT_END")
+    '("center" "CLUTTER_BOX_ALIGNMENT_CENTER")
   )
 )

@@ -10197,3 +10197,263 @@
 )
 
 
+;; From clutter-box-layout.h
+
+(define-function box_layout_get_type
+  (c-name "clutter_box_layout_get_type")
+  (return-type "GType")
+)
+
+(define-function box_layout_new
+  (c-name "clutter_box_layout_new")
+  (is-constructor-of "ClutterBoxLayout")
+  (return-type "ClutterLayoutManager*")
+)
+
+(define-method set_spacing
+  (of-object "ClutterBoxLayout")
+  (c-name "clutter_box_layout_set_spacing")
+  (docstring
+  "Sets the spacing between children of layout\n"
+  )
+  (return-type "none")
+  (parameters
+    '("guint" "spacing")
+  )
+)
+
+(define-method get_spacing
+  (of-object "ClutterBoxLayout")
+  (c-name "clutter_box_layout_get_spacing")
+  (docstring
+  "Retrieves the spacing set using clutter.Box.layout_set_spacing()\n"
+  )
+  (return-type "guint")
+)
+
+(define-method set_vertical
+  (of-object "ClutterBoxLayout")
+  (c-name "clutter_box_layout_set_vertical")
+  (docstring
+  "Sets whether layout should arrange its children vertically alongside\n"
+  "the Y axis, instead of horizontally alongside the X axis\n"
+  )
+  (return-type "none")
+  (parameters
+    '("gboolean" "vertical")
+  )
+)
+
+(define-method get_vertical
+  (of-object "ClutterBoxLayout")
+  (c-name "clutter_box_layout_get_vertical")
+  (docstring
+  "Retrieves the orientation of the layout as set using the\n"
+  "clutter.Box.layout_set_vertical() function vertically, and FALSE\n"
+  "otherwise\n"
+  )
+  (return-type "gboolean")
+)
+
+(define-method set_pack_start
+  (of-object "ClutterBoxLayout")
+  (c-name "clutter_box_layout_set_pack_start")
+  (docstring
+  "beginning of the layout Sets whether children of layout should be\n"
+  "layed out by appending them or by prepending them\n"
+  )
+  (return-type "none")
+  (parameters
+    '("gboolean" "pack_start")
+  )
+)
+
+(define-method get_pack_start
+  (of-object "ClutterBoxLayout")
+  (c-name "clutter_box_layout_get_pack_start")
+  (docstring
+  "Retrieves the value set using clutter.Box.layout_set_pack_start() at\n"
+  "the beginning of the layout, and FALSE otherwise\n"
+  )
+  (return-type "gboolean")
+)
+
+(define-method pack
+  (of-object "ClutterBoxLayout")
+  (c-name "clutter_box_layout_pack")
+  (docstring
+  "Packs actor inside the clutter.Container associated to layout and sets\n"
+  "the layout properties\n"
+  )
+  (return-type "none")
+  (parameters
+    '("ClutterActor*" "actor")
+    '("gboolean" "expand")
+    '("gboolean" "x_fill")
+    '("gboolean" "y_fill")
+    '("ClutterBoxAlignment" "x_align")
+    '("ClutterBoxAlignment" "y_align")
+  )
+)
+
+(define-method set_alignment
+  (of-object "ClutterBoxLayout")
+  (c-name "clutter_box_layout_set_alignment")
+  (docstring
+  "Sets the horizontal and vertical alignment policies for actor inside\n"
+  "layout\n"
+  )
+  (return-type "none")
+  (parameters
+    '("ClutterActor*" "actor")
+    '("ClutterBoxAlignment" "x_align")
+    '("ClutterBoxAlignment" "y_align")
+  )
+)
+
+(define-method get_alignment
+  (of-object "ClutterBoxLayout")
+  (c-name "clutter_box_layout_get_alignment")
+  (docstring
+  "Retrieves the horizontal and vertical alignment policies for actor as\n"
+  "set using clutter.Box.layout_pack() or\n"
+  "clutter.Box.layout_set_alignment()\n"
+  )
+  (return-type "none")
+  (parameters
+    '("ClutterActor*" "actor")
+    '("ClutterBoxAlignment*" "x_align")
+    '("ClutterBoxAlignment*" "y_align")
+  )
+)
+
+(define-method set_fill
+  (of-object "ClutterBoxLayout")
+  (c-name "clutter_box_layout_set_fill")
+  (docstring
+  "Sets the horizontal and vertical fill policies for actor inside layout\n"
+  )
+  (return-type "none")
+  (parameters
+    '("ClutterActor*" "actor")
+    '("gboolean" "x_fill")
+    '("gboolean" "y_fill")
+  )
+)
+
+(define-method get_fill
+  (of-object "ClutterBoxLayout")
+  (c-name "clutter_box_layout_get_fill")
+  (docstring
+  "Retrieves the horizontal and vertical fill policies for actor as set\n"
+  "using clutter.Box.layout_pack() or clutter.Box.layout_set_fill()\n"
+  )
+  (return-type "none")
+  (parameters
+    '("ClutterActor*" "actor")
+    '("gboolean*" "x_fill")
+    '("gboolean*" "y_fill")
+  )
+)
+
+(define-method set_expand
+  (of-object "ClutterBoxLayout")
+  (c-name "clutter_box_layout_set_expand")
+  (docstring
+  "Sets whether actor should expand inside layout\n"
+  )
+  (return-type "none")
+  (parameters
+    '("ClutterActor*" "actor")
+    '("gboolean" "expand")
+  )
+)
+
+(define-method get_expand
+  (of-object "ClutterBoxLayout")
+  (c-name "clutter_box_layout_get_expand")
+  (docstring
+  "Retrieves whether actor should expand inside layout\n"
+  )
+  (return-type "gboolean")
+  (parameters
+    '("ClutterActor*" "actor")
+  )
+)
+
+(define-method set_use_animations
+  (of-object "ClutterBoxLayout")
+  (c-name "clutter_box_layout_set_use_animations")
+  (docstring
+  "Sets whether layout should animate changes in the layout properties\n"
+  "The duration of the animations is controlled by\n"
+  "clutter.Box.layout_set_easing_duration(); the easing mode to be used\n"
+  "by the animations is controlled by\n"
+  "clutter.Box.layout_set_easing_mode()\n"
+  )
+  (return-type "none")
+  (parameters
+    '("gboolean" "animate")
+  )
+)
+
+(define-method get_use_animations
+  (of-object "ClutterBoxLayout")
+  (c-name "clutter_box_layout_get_use_animations")
+  (docstring
+  "Retrieves whether layout should animate changes in the layout\n"
+  "properties Since clutter.Box.layout_set_use_animations()\n"
+  )
+  (return-type "gboolean")
+)
+
+(define-method set_easing_mode
+  (of-object "ClutterBoxLayout")
+  (c-name "clutter_box_layout_set_easing_mode")
+  (docstring
+  "from clutter.Alpha.register_func() Sets the easing mode to be used by\n"
+  "layout when animating changes in layout properties Use\n"
+  "clutter_box_layout_set_use_animations() to enable and disable the\n"
+  "animations\n"
+  )
+  (return-type "none")
+  (parameters
+    '("gulong" "mode")
+  )
+)
+
+(define-method get_easing_mode
+  (of-object "ClutterBoxLayout")
+  (c-name "clutter_box_layout_get_easing_mode")
+  (docstring
+  "Retrieves the easing mode set using\n"
+  "clutter.Box.layout_set_easing_mode()\n"
+  )
+  (return-type "gulong")
+)
+
+(define-method set_easing_duration
+  (of-object "ClutterBoxLayout")
+  (c-name "clutter_box_layout_set_easing_duration")
+  (docstring
+  "Sets the duration of the animations used by layout when animating\n"
+  "changes in the layout properties Use\n"
+  "clutter.Box.layout_set_use_animations() to enable and disable the\n"
+  "animations\n"
+  )
+  (return-type "none")
+  (parameters
+    '("guint" "msecs")
+  )
+)
+
+(define-method get_easing_duration
+  (of-object "ClutterBoxLayout")
+  (c-name "clutter_box_layout_get_easing_duration")
+  (docstring
+  "Retrieves the duration set using\n"
+  "clutter.Box.layout_set_easing_duration()\n"
+  )
+  (return-type "guint")
+)
+
