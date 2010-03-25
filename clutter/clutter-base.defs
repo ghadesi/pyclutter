@@ -6273,6 +6273,63 @@
   (return-type "gboolean")
 )
 
+(define-method set_use_alpha
+  (of-object "ClutterStage")
+  (c-name "clutter_stage_set_use_alpha")
+  (docstring
+  "alpha channel of the stage color Sets whether the stage should honour\n"
+  "the clutter.Actor:opacity and the alpha channel of the\n"
+  "clutter.Stage:color\n"
+  )
+  (return-type "none")
+  (parameters
+    '("gboolean" "use_alpha")
+  )
+)
+
+(define-method get_use_alpha
+  (of-object "ClutterStage")
+  (c-name "clutter_stage_get_use_alpha")
+  (docstring
+  "Retrieves the value set using clutter.Stage.set_use_alpha() alpha\n"
+  "channel of the stage color\n"
+  )
+  (return-type "gboolean")
+)
+
+(define-method set_minimum_size
+  (of-object "ClutterStage")
+  (c-name "clutter_stage_set_minimum_size")
+  (docstring
+  "Sets the minimum size for a stage window, if the default backend uses\n"
+  "clutter.Stage inside a window This is a convenience function, and it\n"
+  "is equivalent to setting the clutter.Actor:min-width and clutter.Actor\n"
+  ":min-height on stage If the current size of stage is smaller than the\n"
+  "minimum size, the This function has no effect if stage is fullscreen\n"
+  )
+  (return-type "none")
+  (parameters
+    '("guint" "width")
+    '("guint" "height")
+  )
+)
+
+(define-method get_minimum_size
+  (of-object "ClutterStage")
+  (c-name "clutter_stage_get_minimum_size")
+  (docstring
+  "or NULL or NULL Retrieves the minimum size for a stage window as set\n"
+  "using clutter.Stage.set_minimum_size(). The returned size may not\n"
+  "correspond to the actual minimum size and it is specific to the\n"
+  "clutter.Stage implementation inside the clutter. backend\n"
+  )
+  (return-type "none")
+  (parameters
+    '("guint*" "width")
+    '("guint*" "height")
+  )
+)
+
 
 ;; From clutter-stage-manager.h
 

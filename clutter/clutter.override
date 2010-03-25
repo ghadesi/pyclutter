@@ -1136,3 +1136,14 @@ _wrap_clutter_units_tp_str (PyObject *self)
 
   return py_str;
 }
+%%
+override clutter_stage_get_minimum_size noargs
+static PyObject *
+_wrap_clutter_stage_get_minimum_size (PyGObject *self)
+{
+  guint width, height;
+
+  clutter_stage_get_minimum_size (CLUTTER_STAGE (self->obj), &width, &height);
+
+  return Py_BuildValue ("(ii)", width, height);
+}
