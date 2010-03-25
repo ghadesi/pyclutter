@@ -390,6 +390,13 @@
   (gtype-id "CLUTTER_TYPE_BOX")
 )
 
+(define-object Animator
+  (in-module "Clutter")
+  (parent "GObject")
+  (c-name "ClutterAnimator")
+  (gtype-id "CLUTTER_TYPE_ANIMATOR")
+)
+
 ;; Enumerations and flags ...
 
 (define-flags EventFlags
@@ -791,3 +798,14 @@
     '("center" "CLUTTER_BOX_ALIGNMENT_CENTER")
   )
 )
+
+(define-enum Interpolation
+  (in-module "Clutter")
+  (c-name "ClutterInterpolation")
+  (gtype-id "CLUTTER_TYPE_INTERPOLATION")
+  (values
+    '("linear" "CLUTTER_INTERPOLATION_LINEAR")
+    '("cubic" "CLUTTER_INTERPOLATION_CUBIC")
+  )
+)
+

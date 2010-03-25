@@ -10614,3 +10614,254 @@
 )
 
 
+;; From clutter-animator.h
+
+(define-function animator_get_type
+  (c-name "clutter_animator_get_type")
+  (return-type "GType")
+)
+
+(define-function animator_new
+  (c-name "clutter_animator_new")
+  (is-constructor-of "ClutterAnimator")
+  (return-type "ClutterAnimator*")
+)
+
+(define-method set_key
+  (of-object "ClutterAnimator")
+  (c-name "clutter_animator_set_key")
+  (docstring
+  "value applies Sets a single key in the clutter.Animator for the\n"
+  "property_name of\n"
+  )
+  (return-type "ClutterAnimator*")
+  (parameters
+    '("GObject*" "object")
+    '("const-gchar*" "property_name")
+    '("guint" "mode")
+    '("gdouble" "progress")
+    '("const-GValue*" "value")
+  )
+)
+
+(define-method set
+  (of-object "ClutterAnimator")
+  (c-name "clutter_animator_set")
+  (return-type "none")
+  (parameters
+    '("gpointer" "first_object")
+    '("const-gchar*" "first_property_name")
+    '("guint" "first_mode")
+    '("gdouble" "first_progress")
+  )
+  (varargs #t)
+)
+
+(define-method get_keys
+  (of-object "ClutterAnimator")
+  (c-name "clutter_animator_get_keys")
+  (docstring
+  "or NULL for all properties progresses Returns a list of pointers to\n"
+  "opaque structures with accessor functions that describe the keys added\n"
+  "to an animator. list of clutter.AnimatorKey<!-- -->s; the contents of\n"
+  "the list are owned by the clutter.Animator, but you should free the\n"
+  "returned list when done, using g_list_free()\n"
+  )
+  (return-type "GList*")
+  (parameters
+    '("GObject*" "object")
+    '("const-gchar*" "property_name")
+    '("gdouble" "progress")
+  )
+)
+
+(define-method remove_key
+  (of-object "ClutterAnimator")
+  (c-name "clutter_animator_remove_key")
+  (docstring
+  "or NULL for all for all Removes all keys matching the conditions\n"
+  "specificed in the arguments.\n"
+  )
+  (return-type "none")
+  (parameters
+    '("GObject*" "object")
+    '("const-gchar*" "property_name")
+    '("gdouble" "progress")
+  )
+)
+
+(define-method start
+  (of-object "ClutterAnimator")
+  (c-name "clutter_animator_start")
+  (docstring
+  "Start the clutter.Animator, this is a thin wrapper that rewinds and\n"
+  "starts the animators current timeline.\n"
+  )
+  (return-type "ClutterTimeline*")
+)
+
+(define-method compute_value
+  (of-object "ClutterAnimator")
+  (c-name "clutter_animator_compute_value")
+  (docstring
+  "Compute the value for a managed property at a given progress. If the\n"
+  "property is an ease-in property, the current value of the property on\n"
+  "the object will be used as the starting point for computation. an\n"
+  "error occurs or the progress is before any of the keys) FALSE is\n"
+  "returned and the GValue is left untouched\n"
+  )
+  (return-type "gboolean")
+  (parameters
+    '("GObject*" "object")
+    '("const-gchar*" "property_name")
+    '("gdouble" "progress")
+    '("GValue*" "value")
+  )
+)
+
+(define-method get_timeline
+  (of-object "ClutterAnimator")
+  (c-name "clutter_animator_get_timeline")
+  (docstring
+  "Get the timeline hooked up for driving the clutter.Animator\n"
+  )
+  (return-type "ClutterTimeline*")
+)
+
+(define-method set_timeline
+  (of-object "ClutterAnimator")
+  (c-name "clutter_animator_set_timeline")
+  (docstring
+  "Sets an external timeline that will be used for driving the animation\n"
+  )
+  (return-type "none")
+  (parameters
+    '("ClutterTimeline*" "timeline")
+  )
+)
+
+(define-method get_duration
+  (of-object "ClutterAnimator")
+  (c-name "clutter_animator_get_duration")
+  (docstring
+  "Retrieves the current duration of an animator\n"
+  )
+  (return-type "guint")
+)
+
+(define-method set_duration
+  (of-object "ClutterAnimator")
+  (c-name "clutter_animator_set_duration")
+  (docstring
+  "Runs the timeline of the clutter.Animator with a duration in msecs as\n"
+  "specified.\n"
+  )
+  (return-type "none")
+  (parameters
+    '("guint" "duration")
+  )
+)
+
+(define-method property_get_ease_in
+  (of-object "ClutterAnimator")
+  (c-name "clutter_animator_property_get_ease_in")
+  (docstring
+  "Checks if a property value is to be eased into the animation.\n"
+  )
+  (return-type "gboolean")
+  (parameters
+    '("GObject*" "object")
+    '("const-gchar*" "property_name")
+  )
+)
+
+(define-method property_set_ease_in
+  (of-object "ClutterAnimator")
+  (c-name "clutter_animator_property_set_ease_in")
+  (docstring
+  "Sets whether a property value is to be eased into the animation.\n"
+  )
+  (return-type "none")
+  (parameters
+    '("GObject*" "object")
+    '("const-gchar*" "property_name")
+    '("gboolean" "ease_in")
+  )
+)
+
+(define-method property_get_interpolation
+  (of-object "ClutterAnimator")
+  (c-name "clutter_animator_property_get_interpolation")
+  (docstring
+  "Get the interpolation used by animator for a property on a particular\n"
+  "object.\n"
+  )
+  (return-type "ClutterInterpolation")
+  (parameters
+    '("GObject*" "object")
+    '("const-gchar*" "property_name")
+  )
+)
+
+(define-method property_set_interpolation
+  (of-object "ClutterAnimator")
+  (c-name "clutter_animator_property_set_interpolation")
+  (docstring
+  "Set the interpolation method to use, CLUTTER_INTERPOLATION_LINEAR\n"
+  "causes the values to linearly change between the values, and\n"
+  "CLUTTER_INTERPOLATION_CUBIC causes the values to smoothly change\n"
+  "between the values.\n"
+  )
+  (return-type "none")
+  (parameters
+    '("GObject*" "object")
+    '("const-gchar*" "property_name")
+    '("ClutterInterpolation" "interpolation")
+  )
+)
+
+(define-function animator_key_get_type
+  (c-name "clutter_animator_key_get_type")
+  (return-type "GType")
+)
+
+(define-method get_object
+  (of-object "ClutterAnimatorKey")
+  (c-name "clutter_animator_key_get_object")
+  (return-type "GObject*")
+)
+
+(define-method get_property_name
+  (of-object "ClutterAnimatorKey")
+  (c-name "clutter_animator_key_get_property_name")
+  (return-type "const-gchar*")
+)
+
+(define-method get_property_type
+  (of-object "ClutterAnimatorKey")
+  (c-name "clutter_animator_key_get_property_type")
+  (return-type "GType")
+)
+
+(define-method get_mode
+  (of-object "ClutterAnimatorKey")
+  (c-name "clutter_animator_key_get_mode")
+  (return-type "gulong")
+)
+
+(define-method get_progress
+  (of-object "ClutterAnimatorKey")
+  (c-name "clutter_animator_key_get_progress")
+  (return-type "gdouble")
+)
+
+(define-method get_value
+  (of-object "ClutterAnimatorKey")
+  (c-name "clutter_animator_key_get_value")
+  (return-type "gboolean")
+  (parameters
+    '("GValue*" "value")
+  )
+)
+
+
