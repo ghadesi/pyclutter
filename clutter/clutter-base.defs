@@ -9635,3 +9635,327 @@
 )
 
 
+;; From clutter-layout-manager.h
+
+(define-function layout_manager_get_type
+  (c-name "clutter_layout_manager_get_type")
+  (return-type "GType")
+)
+
+(define-method get_preferred_width
+  (of-object "ClutterLayoutManager")
+  (c-name "clutter_layout_manager_get_preferred_width")
+  (docstring
+  "of the layout, or NULL of the layout, or NULL Computes the minimum and\n"
+  "natural widths of the container according to manager. See also\n"
+  "clutter.Actor.get_preferred_width()\n"
+  )
+  (return-type "none")
+  (parameters
+    '("ClutterContainer*" "container")
+    '("gfloat" "for_height")
+    '("gfloat*" "min_width_p")
+    '("gfloat*" "nat_width_p")
+  )
+)
+
+(define-virtual get_preferred_width
+  (of-object "ClutterLayoutManager")
+  (return-type "none")
+  (parameters
+    '("ClutterContainer*" "container")
+    '("gfloat" "for_height")
+    '("gfloat*" "min_width_p")
+    '("gfloat*" "nat_width_p")
+  )
+)
+
+(define-method get_preferred_height
+  (of-object "ClutterLayoutManager")
+  (c-name "clutter_layout_manager_get_preferred_height")
+  (docstring
+  "of the layout, or NULL of the layout, or NULL Computes the minimum and\n"
+  "natural heights of the container according to manager. See also\n"
+  "clutter.Actor.get_preferred_height()\n"
+  )
+  (return-type "none")
+  (parameters
+    '("ClutterContainer*" "container")
+    '("gfloat" "for_width")
+    '("gfloat*" "min_height_p")
+    '("gfloat*" "nat_height_p")
+  )
+)
+
+(define-virtual get_preferred_height
+  (of-object "ClutterLayoutManager")
+  (return-type "none")
+  (parameters
+    '("ClutterContainer*" "container")
+    '("gfloat" "for_width")
+    '("gfloat*" "min_height_p")
+    '("gfloat*" "nat_height_p")
+  )
+)
+
+(define-method allocate
+  (of-object "ClutterLayoutManager")
+  (c-name "clutter_layout_manager_allocate")
+  (docstring
+  "of container Allocates the children of container given an area See\n"
+  "also clutter.Actor.allocate()\n"
+  )
+  (return-type "none")
+  (parameters
+    '("ClutterContainer*" "container")
+    '("const-ClutterActorBox*" "allocation")
+    '("ClutterAllocationFlags" "flags")
+  )
+)
+
+(define-virtual allocate
+  (of-object "ClutterLayoutManager")
+  (return-type "none")
+  (parameters
+    '("ClutterContainer*" "container")
+    '("const-ClutterActorBox*" "allocation")
+    '("ClutterAllocationFlags" "flags")
+  )
+)
+
+(define-method set_container
+  (of-object "ClutterLayoutManager")
+  (c-name "clutter_layout_manager_set_container")
+  (docstring
+  "If the clutter.LayoutManager sub-class allows it, allow adding a weak\n"
+  "reference of the container using manager from within the layout\n"
+  "manager The layout manager should not increase the reference count of\n"
+  "the container\n"
+  )
+  (return-type "none")
+  (parameters
+    '("ClutterContainer*" "container")
+  )
+)
+
+(define-virtual set_container
+  (of-object "ClutterLayoutManager")
+  (return-type "none")
+  (parameters
+    '("ClutterContainer*" "container")
+  )
+)
+
+(define-method layout_changed
+  (of-object "ClutterLayoutManager")
+  (c-name "clutter_layout_manager_layout_changed")
+  (docstring
+  "Emits the clutter.LayoutManager::layout-changed signal on manager This\n"
+  "function should only be called by implementations of the\n"
+  "clutter.LayoutManager class\n"
+  )
+  (return-type "none")
+)
+
+(define-method find_child_property
+  (of-object "ClutterLayoutManager")
+  (c-name "clutter_layout_manager_find_child_property")
+  (docstring
+  "Retrieves the GParamSpec for the layout property name inside the\n"
+  "clutter.LayoutMeta sub-class used by manager or NULL if no property\n"
+  "with that name exists. The returned GParamSpec is owned by the layout\n"
+  "manager and should not be modified or freed\n"
+  )
+  (return-type "GParamSpec*")
+  (parameters
+    '("const-gchar*" "name")
+  )
+)
+
+(define-method list_child_properties
+  (of-object "ClutterLayoutManager")
+  (c-name "clutter_layout_manager_list_child_properties")
+  (docstring
+  "GParamSpec<!-- -->s Retrieves all the GParamSpec<!-- -->s for the\n"
+  "layout properties stored inside the clutter.LayoutMeta sub-class used\n"
+  "by manager array of GParamSpec<!-- -->s. Use g_free() to free the\n"
+  "resources allocated for the array\n"
+  )
+  (return-type "GParamSpec**")
+  (parameters
+    '("guint*" "n_pspecs")
+  )
+)
+
+(define-method get_child_meta
+  (of-object "ClutterLayoutManager")
+  (c-name "clutter_layout_manager_get_child_meta")
+  (docstring
+  "Retrieves the clutter.LayoutMeta that the layout manager associated to\n"
+  "the actor child of container, eventually by creating one if the\n"
+  "clutter.LayoutManager supports layout properties does not have layout\n"
+  "properties\n"
+  )
+  (return-type "ClutterLayoutMeta*")
+  (parameters
+    '("ClutterContainer*" "container")
+    '("ClutterActor*" "actor")
+  )
+)
+
+(define-method child_set
+  (of-object "ClutterLayoutManager")
+  (c-name "clutter_layout_manager_child_set")
+  (docstring
+  "Sets a list of properties and their values on the clutter.LayoutMeta\n"
+  "associated by manager to a child of container Languages bindings\n"
+  "should use clutter.Layout.manager_child_set_property() instead\n"
+  )
+  (return-type "none")
+  (parameters
+    '("ClutterContainer*" "container")
+    '("ClutterActor*" "actor")
+    '("const-gchar*" "first_property")
+  )
+  (varargs #t)
+)
+
+(define-method child_get
+  (of-object "ClutterLayoutManager")
+  (c-name "clutter_layout_manager_child_get")
+  (docstring
+  "Retrieves the values for a list of properties out of the\n"
+  "clutter.LayoutMeta created by manager and attached to the child of a\n"
+  "container\n"
+  )
+  (return-type "none")
+  (parameters
+    '("ClutterContainer*" "container")
+    '("ClutterActor*" "actor")
+    '("const-gchar*" "first_property")
+  )
+  (varargs #t)
+)
+
+(define-method child_set_property
+  (of-object "ClutterLayoutManager")
+  (c-name "clutter_layout_manager_child_set_property")
+  (docstring
+  "Sets a property on the clutter.LayoutMeta created by manager and\n"
+  "attached to a child of container\n"
+  )
+  (return-type "none")
+  (parameters
+    '("ClutterContainer*" "container")
+    '("ClutterActor*" "actor")
+    '("const-gchar*" "property_name")
+    '("const-GValue*" "value")
+  )
+)
+
+(define-method child_get_property
+  (of-object "ClutterLayoutManager")
+  (c-name "clutter_layout_manager_child_get_property")
+  (docstring
+  "Gets a property on the clutter.LayoutMeta created by manager and\n"
+  "attached to a child of container The GValue must already be\n"
+  "initialized to the type of the property and has to be unset with\n"
+  "g_value_unset() after extracting the real value out of it\n"
+  )
+  (return-type "none")
+  (parameters
+    '("ClutterContainer*" "container")
+    '("ClutterActor*" "actor")
+    '("const-gchar*" "property_name")
+    '("GValue*" "value")
+  )
+)
+
+(define-method begin_animation
+  (of-object "ClutterLayoutManager")
+  (c-name "clutter_layout_manager_begin_animation")
+  (docstring
+  "Begins an animation of duration milliseconds, using the provided\n"
+  "easing mode The easing mode can be specified either as a\n"
+  "clutter.AnimationMode or as a logical id returned by\n"
+  "clutter.Alpha.register_func() The result of this function depends on\n"
+  "the manager implementation layout manager; the returned instance is\n"
+  "owned by the layout manager and should not be unreferenced\n"
+  )
+  (return-type "ClutterAlpha*")
+  (parameters
+    '("guint" "duration")
+    '("gulong" "mode")
+  )
+)
+
+(define-virtual begin_animation
+  (of-object "ClutterLayoutManager")
+  (return-type "ClutterAlpha*")
+  (parameters
+    '("guint" "duration")
+    '("gulong" "mode")
+  )
+)
+
+(define-method end_animation
+  (of-object "ClutterLayoutManager")
+  (c-name "clutter_layout_manager_end_animation")
+  (docstring
+  "Ends an animation started by clutter.Layout.manager_begin_animation()\n"
+  "The result of this call depends on the manager implementation\n"
+  )
+  (return-type "none")
+)
+
+(define-virtual end_animation
+  (of-object "ClutterLayoutManager")
+  (return-type "none")
+)
+
+(define-method get_animation_progress
+  (of-object "ClutterLayoutManager")
+  (c-name "clutter_layout_manager_get_animation_progress")
+  (docstring
+  "Retrieves the progress of the animation, if one has been started by\n"
+  "clutter.Layout.manager_begin_animation() The returned value has the\n"
+  "same semantics of the clutter.Alpha:alpha value\n"
+  )
+  (return-type "gdouble")
+)
+
+(define-virtual get_animation_progress
+  (of-object "ClutterLayoutManager")
+  (return-type "gdouble")
+)
+
+(define-virtual get_child_meta_type
+  (of-object "ClutterLayoutManager")
+  (return-type "GType")
+)
+
+(define-virtual create_child_meta
+  (of-object "ClutterLayoutManager")
+  (return-type "ClutterLayoutMeta*")
+  (parameters
+    '("ClutterContainer*" "container")
+    '("ClutterActor*" "actor")
+  )
+)
+
+;; From clutter-layout-meta.h
+
+(define-function layout_meta_get_type
+  (c-name "clutter_layout_meta_get_type")
+  (return-type "GType")
+)
+
+(define-method get_manager
+  (of-object "ClutterLayoutMeta")
+  (c-name "clutter_layout_meta_get_manager")
+  (docstring
+  "Retrieves the actor wrapped by data\n"
+  )
+  (return-type "ClutterLayoutManager*")
+)
+

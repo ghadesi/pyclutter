@@ -51,6 +51,7 @@ CLUTTER_OVERRIDES = 			\
 	clutter-container.override	\
 	clutter-event.override		\
 	clutter-interval.override 	\
+	clutter-layout-manager.override \
 	clutter-model.override		\
 	clutter-path.override		\
 	clutter-script.override     	\

@@ -1,0 +1,590 @@
+%%
+ignore
+ clutter_layout_manager_find_child_property
+%%
+override clutter_layout_manager_get_preferred_width kwargs
+static PyObject *
+_wrap_clutter_layout_manager_get_preferred_width (PyGObject *self,
+                                                  PyObject  *args,
+                                                  PyObject  *kwargs)
+{
+  static char *kwlist[] = { "container", "for_height", NULL };
+  ClutterLayoutManager *manager;
+  ClutterContainer *container;
+  gfloat for_height, min_width, nat_width;
+
+  if (!PyArg_ParseTupleAndKeywords (args, kwargs,
+                                    "O!d:LayoutManager.get_preferred_width",
+                                    kwlist,
+                                    &PyClutterContainer_Type, &container,
+                                    &for_height))
+    return NULL;
+
+  manager = CLUTTER_LAYOUT_MANAGER (self->obj);
+  min_width = nat_width = 0;
+
+  clutter_layout_manager_get_preferred_width (manager, container, for_height,
+                                              &min_width, &nat_width);
+
+  return Py_BuildValue ("(dd)", min_width, nat_width);
+}
+%%
+override ClutterLayoutManager__proxy_do_get_preferred_width
+static void
+_wrap_ClutterLayoutManager__proxy_do_get_preferred_width (ClutterLayoutManager *manager,
+                                                          ClutterContainer     *container,
+                                                          gfloat                for_height,
+                                                          gfloat               *min_width_p,
+                                                          gfloat               *nat_width_p)
+{
+  PyGILState_STATE state;
+  PyObject *py_self, *py_container, *py_height, *py_args, *py_method, *py_ret;
+  gfloat min_width, nat_width;
+
+  state = pyg_gil_state_ensure ();
+
+  py_self = pygobject_new (G_OBJECT (manager));
+  if (!py_self)
+    {
+      if (PyErr_Occurred ())
+        PyErr_Print ();
+
+      pyg_gil_state_release (state);
+      return;
+    }
+
+  py_height = PyFloat_FromDouble (for_height);
+
+  py_container = pygobject_new (G_OBJECT (container));
+  if (!py_container)
+    {
+      if (PyErr_Occurred ())
+        PyErr_Print ();
+
+      pyg_gil_state_release (state);
+      return;
+    }
+
+  py_args = PyTuple_New (2);
+  PyTuple_SET_ITEM (py_args, 0, py_height);
+  PyTuple_SET_ITEM (py_args, 1, py_container);
+
+  py_method = PyObject_GetAttrString (py_self, "do_get_preferred_width");
+  if (!py_method)
+    {
+      if (PyErr_Occurred ())
+        PyErr_Print ();
+
+      Py_DECREF (py_args);
+      Py_DECREF (py_container);
+      Py_DECREF (py_self);
+
+      pyg_gil_state_release (state);
+      return;
+    }
+
+  py_ret = PyObject_CallObject (py_method, py_args);
+  if (!py_ret)
+    {
+      PyErr_Print ();
+
+      Py_XDECREF (py_ret);
+      Py_DECREF (py_method);
+      Py_DECREF (py_args);
+      Py_DECREF (py_container);
+      Py_DECREF (py_self);
+
+      pyg_gil_state_release (state);
+      return;
+    }
+
+  if (!PyArg_ParseTuple (py_ret, "dd", &min_width, &nat_width))
+    {
+      PyErr_Print ();
+
+      if (min_width_p)
+        *min_width_p = 0;
+
+      if (nat_width_p)
+        *nat_width_p = 0;
+    }
+  else
+    {
+      if (min_width_p)
+        *min_width_p = min_width;
+
+      if (nat_width_p)
+        *nat_width_p = nat_width;
+    }
+
+  Py_DECREF (py_ret);
+  Py_DECREF (py_method);
+  Py_DECREF (py_args);
+  Py_DECREF (py_container);
+  Py_DECREF (py_self);
+
+  pyg_gil_state_release (state);
+}
+%%
+override ClutterLayoutManager__do_get_preferred_width kwargs
+static PyObject *
+_wrap_ClutterLayoutManager__do_get_preferred_width (PyObject *cls,
+                                                    PyObject *args,
+                                                    PyObject *kwargs)
+{
+  static char *kwlist[] = { "self", "container", "for_height", NULL };
+  PyGObject *self, *py_container;
+  float for_height, min_width, nat_width;
+  ClutterLayoutManagerClass *klass;
+
+  if (!PyArg_ParseTupleAndKeywords (args, kwargs,
+                                    "O!O!d:LayoutManager.do_get_preferred_width",
+                                    kwlist,
+                                    &PyClutterLayoutManager_Type, &self,
+                                    &PyClutterContainer_Type, &py_container,
+                                    &for_height))
+    return NULL;
+
+  klass = g_type_class_ref (pyg_type_from_object (cls));
+  if (klass->get_preferred_width)
+    klass->get_preferred_width (CLUTTER_LAYOUT_MANAGER (self->obj),
+                                CLUTTER_CONTAINER (py_container->obj),
+                                for_height, &min_width, &nat_width);
+  else
+    {
+      PyErr_SetString (PyExc_NotImplementedError,
+                       "virtual method LayoutManager.get_preferred_width "
+                       "not implemented");
+      g_type_class_unref (klass);
+      return NULL;
+    }
+
+  g_type_class_unref (klass);
+
+  return Py_BuildValue ("(dd)", min_width, nat_width);
+}
+%%
+override clutter_layout_manager_get_preferred_height kwargs
+static PyObject *
+_wrap_clutter_layout_manager_get_preferred_height (PyGObject *self,
+                                                   PyObject  *args,
+                                                   PyObject  *kwargs)
+{
+  static char *kwlist[] = { "container", "for_width", NULL };
+  ClutterLayoutManager *manager;
+  ClutterContainer *container;
+  gfloat for_width, min_height, nat_height;
+
+  if (!PyArg_ParseTupleAndKeywords (args, kwargs,
+                                    "O!d:LayoutManager.get_preferred_height",
+                                    kwlist,
+                                    &PyClutterContainer_Type, &container,
+                                    &for_width))
+    return NULL;
+
+  manager = CLUTTER_LAYOUT_MANAGER (self->obj);
+  min_height = nat_height = 0;
+
+  clutter_layout_manager_get_preferred_height (manager, container, for_width,
+                                              &min_height, &nat_height);
+
+  return Py_BuildValue ("(dd)", min_height, nat_height);
+}
+%%
+override ClutterLayoutManager__proxy_do_get_preferred_height
+static void
+_wrap_ClutterLayoutManager__proxy_do_get_preferred_height (ClutterLayoutManager *manager,
+                                                           ClutterContainer     *container,
+                                                           gfloat                for_width,
+                                                           gfloat               *min_height_p,
+                                                           gfloat               *nat_height_p)
+{
+  PyGILState_STATE state;
+  PyObject *py_self, *py_container, *py_width, *py_args, *py_method, *py_ret;
+  gfloat min_height, nat_height;
+
+  state = pyg_gil_state_ensure ();
+
+  py_self = pygobject_new (G_OBJECT (manager));
+  if (!py_self)
+    {
+      if (PyErr_Occurred ())
+        PyErr_Print ();
+
+      pyg_gil_state_release (state);
+      return;
+    }
+
+  py_width = PyFloat_FromDouble (for_width);
+
+  py_container = pygobject_new (G_OBJECT (container));
+  if (!py_container)
+    {
+      if (PyErr_Occurred ())
+        PyErr_Print ();
+
+      pyg_gil_state_release (state);
+      return;
+    }
+
+  py_args = PyTuple_New (2);
+  PyTuple_SET_ITEM (py_args, 0, py_width);
+  PyTuple_SET_ITEM (py_args, 1, py_container);
+
+  py_method = PyObject_GetAttrString (py_self, "do_get_preferred_height");
+  if (!py_method)
+    {
+      if (PyErr_Occurred ())
+        PyErr_Print ();
+
+      Py_DECREF (py_args);
+      Py_DECREF (py_container);
+      Py_DECREF (py_self);
+
+      pyg_gil_state_release (state);
+      return;
+    }
+
+  py_ret = PyObject_CallObject (py_method, py_args);
+  if (!py_ret)
+    {
+      PyErr_Print ();
+
+      Py_XDECREF (py_ret);
+      Py_DECREF (py_method);
+      Py_DECREF (py_args);
+      Py_DECREF (py_container);
+      Py_DECREF (py_self);
+
+      pyg_gil_state_release (state);
+      return;
+    }
+
+  if (!PyArg_ParseTuple (py_ret, "dd", &min_height, &nat_height))
+    {
+      PyErr_Print ();
+
+      if (min_height_p)
+        *min_height_p = 0;
+
+      if (nat_height_p)
+        *nat_height_p = 0;
+    }
+  else
+    {
+      if (min_height_p)
+        *min_height_p = min_height;
+
+      if (nat_height_p)
+        *nat_height_p = nat_height;
+    }
+
+  Py_DECREF (py_ret);
+  Py_DECREF (py_method);
+  Py_DECREF (py_args);
+  Py_DECREF (py_container);
+  Py_DECREF (py_self);
+
+  pyg_gil_state_release (state);
+}
+%%
+override ClutterLayoutManager__do_get_preferred_height kwargs
+static PyObject *
+_wrap_ClutterLayoutManager__do_get_preferred_height (PyObject *cls,
+                                                    PyObject *args,
+                                                    PyObject *kwargs)
+{
+  static char *kwlist[] = { "self", "container", "for_width", NULL };
+  PyGObject *self, *py_container;
+  float for_width, min_height, nat_height;
+  ClutterLayoutManagerClass *klass;
+
+  if (!PyArg_ParseTupleAndKeywords (args, kwargs,
+                                    "O!O!d:LayoutManager.do_get_preferred_height",
+                                    kwlist,
+                                    &PyClutterLayoutManager_Type, &self,
+                                    &PyClutterContainer_Type, &py_container,
+                                    &for_width))
+    return NULL;
+
+  klass = g_type_class_ref (pyg_type_from_object (cls));
+  if (klass->get_preferred_height)
+    klass->get_preferred_height (CLUTTER_LAYOUT_MANAGER (self->obj),
+                                 CLUTTER_CONTAINER (py_container->obj),
+                                 for_width, &min_height, &nat_height);
+  else
+    {
+      PyErr_SetString (PyExc_NotImplementedError,
+                       "virtual method LayoutManager.get_preferred_height "
+                       "not implemented");
+      g_type_class_unref (klass);
+      return NULL;
+    }
+
+  g_type_class_unref (klass);
+
+  return Py_BuildValue ("(dd)", min_height, nat_height);
+}
+%%
+override clutter_layout_manager_child_set_property kwargs
+static PyObject *
+_wrap_clutter_layout_manager_child_set_property (PyGObject *self,
+                                                 PyObject  *args,
+                                                 PyObject  *kwargs)
+{
+  static char *kwlist[] = { "container", "actor", "name", "value", NULL };
+  PyGObject *py_container, *py_child;
+  gchar *name;
+  PyObject *py_value;
+  GParamSpec *pspec;
+  GValue value = { 0, };
+
+  if (!PyArg_ParseTupleAndKeywords (args, kwargs,
+                                    "O!O!sO:clutter.LayoutManager."
+                                    "child_set_property", kwlist,
+                                    &PyClutterContainer_Type, &py_container,
+                                    &PyClutterActor_Type, &py_child,
+                                    &name, &py_value))
+    return NULL;
+
+  pspec = clutter_layout_manager_find_child_property
+    (CLUTTER_LAYOUT_MANAGER (self->obj), name);
+
+  if (!pspec)
+    {
+      PyErr_Format (PyExc_TypeError,
+                    "LayoutMeta does not have property '%s'", name);
+      g_free (name);
+      return NULL;
+    }
+
+  g_value_init (&value, G_PARAM_SPEC_VALUE_TYPE (pspec));
+  if (pyg_value_from_pyobject (&value, py_value))
+    {
+      PyErr_Format (PyExc_TypeError,
+                    "Wrong value type for property %s (required %s)",
+                    name, g_type_name (G_PARAM_SPEC_VALUE_TYPE (pspec)));
+
+      g_value_unset (&value);
+
+      return NULL;
+    }
+
+  clutter_layout_manager_child_set_property (CLUTTER_LAYOUT_MANAGER (self->obj),
+                                             CLUTTER_CONTAINER (py_container->obj),
+                                             CLUTTER_ACTOR (py_child->obj),
+                                             name, &value);
+  g_value_unset (&value);
+
+  Py_INCREF (Py_None);
+  return Py_None;
+}
+%%
+override clutter_layout_manager_child_set
+static PyObject *
+_wrap_clutter_layout_manager_child_set (PyGObject *self,
+                                        PyObject  *args)
+{
+  ClutterLayoutManager *manager = CLUTTER_LAYOUT_MANAGER (self->obj);
+  PyGObject *py_container, *py_child;
+  gint len, i;
+
+  if ((len = PyTuple_Size (args)) < 4)
+    {
+      PyErr_SetString (PyExc_TypeError,
+                       "LayoutManager.child_set requires at least four "
+                       "arguments");
+      return NULL;
+    }
+
+  py_container = (PyGObject *)PyTuple_GetItem (args, 0);
+  if (!pygobject_check (py_container, &PyClutterContainer_Type))
+    {
+      PyErr_SetString (PyExc_TypeError,
+                       "first argument must be a clutter.Container");
+      return NULL;
+    }
+
+  py_child = (PyGObject *)PyTuple_GetItem (args, 1);
+  if (!pygobject_check (py_child, &PyClutterActor_Type))
+    {
+      PyErr_SetString (PyExc_TypeError,
+                       "second argument must be a clutter.Actor");
+      return NULL;
+    }
+
+  if ((len - 2) % 2)
+    {
+      PyErr_SetString (PyExc_TypeError,
+                       "argument list must be property-value pairs");
+      return NULL;
+    }
+
+  for (i = 2; i < len; i += 2)
+    {
+      PyObject *py_property = PyTuple_GetItem (args, i);
+      PyObject *py_value = PyTuple_GetItem (args, i + 1);
+      gchar *name;
+      GParamSpec *pspec;
+      GValue value = { 0, };
+
+      if (!PyString_Check (py_property))
+        {
+          PyErr_SetString (PyExc_TypeError,
+                           "Expected string argument for property");
+          return NULL;
+        }
+
+      name = PyString_AsString (py_property);
+      pspec = clutter_layout_manager_find_child_property (manager, name);
+
+      if (!pspec)
+        {
+          PyErr_Format (PyExc_TypeError,
+                        "LayoutMeta does not have property '%s'", name);
+          g_free (name);
+          return NULL;
+        }
+
+      g_value_init (&value, G_PARAM_SPEC_VALUE_TYPE (pspec));
+      if (pyg_value_from_pyobject (&value, py_value))
+        {
+          PyErr_Format (PyExc_TypeError,
+                        "Wrong value type for property %s (required %s)",
+                        name, g_type_name (G_PARAM_SPEC_VALUE_TYPE (pspec)));
+
+          g_value_unset (&value);
+
+          return NULL;
+        }
+
+      clutter_layout_manager_child_set_property (manager,
+                                                 CLUTTER_CONTAINER (py_container->obj),
+                                                 CLUTTER_ACTOR (py_child->obj),
+                                                 name, &value);
+      g_value_unset (&value);
+    }
+
+  Py_INCREF (Py_None);
+  return Py_None;
+}
+%%
+override clutter_layout_manager_child_get_property kwargs
+static PyObject *
+_wrap_clutter_layout_manager_child_get_property (PyGObject *self,
+                                                 PyObject  *args,
+                                                 PyObject  *kwargs)
+{
+  static char *kwlist[] = { "container", "actor", "name", NULL };
+  PyGObject *py_container, *py_child;
+  gchar *name;
+  PyObject *py_ret;
+  GParamSpec *pspec;
+  GValue value = { 0, };
+
+  if (!PyArg_ParseTupleAndKeywords (args, kwargs,
+                                    "O!O!s:clutter.LayoutManager."
+                                    "child_get_property", kwlist,
+                                    &PyClutterContainer_Type, &py_container,
+                                    &PyClutterActor_Type, &py_child,
+                                    &name))
+    return NULL;
+
+  pspec = clutter_layout_manager_find_child_property
+    (CLUTTER_LAYOUT_MANAGER (self->obj), name);
+
+  if (!pspec)
+    {
+      PyErr_Format (PyExc_TypeError,
+                    "LayoutMeta does not have property '%s'", name);
+      g_free (name);
+      return NULL;
+    }
+
+  g_value_init (&value, G_PARAM_SPEC_VALUE_TYPE (pspec));
+
+  clutter_layout_manager_child_get_property (CLUTTER_LAYOUT_MANAGER (self->obj),
+                                             CLUTTER_CONTAINER (py_container->obj),
+                                             CLUTTER_ACTOR (py_child->obj),
+                                             name, &value);
+  py_ret = pyg_value_as_pyobject (&value, TRUE);
+
+  g_value_unset (&value);
+
+  return py_ret;
+}
+%%
+override clutter_layout_manager_child_get
+static PyObject *
+_wrap_clutter_layout_manager_child_get (PyGObject *self,
+                                        PyObject  *args)
+{
+  ClutterLayoutManager *manager = CLUTTER_LAYOUT_MANAGER (self->obj);
+  PyGObject *py_container, *py_child;
+  gint len, i;
+  PyObject *py_ret;
+
+  if ((len = PyTuple_Size (args)) < 3)
+    {
+      PyErr_SetString (PyExc_TypeError,
+                       "LayoutManager.child_get requires at least three "
+                       "arguments");
+      return NULL;
+    }
+
+  py_container = (PyGObject *)PyTuple_GetItem (args, 0);
+  if (!pygobject_check (py_container, &PyClutterContainer_Type))
+    {
+      PyErr_SetString (PyExc_TypeError,
+                       "first argument must be a clutter.Container");
+      return NULL;
+    }
+
+  py_child = (PyGObject *)PyTuple_GetItem (args, 1);
+  if (!pygobject_check (py_child, &PyClutterActor_Type))
+    {
+      PyErr_SetString (PyExc_TypeError,
+                       "second argument must be a clutter.Actor");
+      return NULL;
+    }
+
+  py_ret = PyTuple_New (len - 2);
+
+  for (i = 2; i < len; i ++)
+    {
+      PyObject *py_property = PyTuple_GetItem (args, i);
+      gchar *name;
+      GParamSpec *pspec;
+      GValue value = { 0, };
+
+      if (!PyString_Check (py_property))
+        {
+          PyErr_SetString (PyExc_TypeError,
+                           "Expected string argument for property");
+          return NULL;
+        }
+
+      name = PyString_AsString (py_property);
+      pspec = clutter_layout_manager_find_child_property (manager, name);
+
+      if (!pspec)
+        {
+          PyErr_Format (PyExc_TypeError,
+                        "LayoutMeta does not have property '%s'", name);
+          g_free (name);
+          return NULL;
+        }
+
+      g_value_init (&value, G_PARAM_SPEC_VALUE_TYPE (pspec));
+      clutter_layout_manager_child_get_property (manager,
+                                                 CLUTTER_CONTAINER (py_container->obj),
+                                                 CLUTTER_ACTOR (py_child->obj),
+                                                 name, &value);
+
+      PyTuple_SetItem (py_ret, i - 2, pyg_value_as_pyobject (&value, TRUE));
+
+      g_value_unset (&value);
+    }
+
+  return py_ret;
+}

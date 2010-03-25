@@ -341,6 +341,20 @@
   (gtype-id "CLUTTER_TYPE_DEVICE_MANAGER")
 )
 
+(define-object LayoutManager
+  (in-module "Clutter")
+  (parent "GObject")
+  (c-name "ClutterLayoutManager")
+  (gtype-id "CLUTTER_TYPE_LAYOUT_MANAGER")
+)
+
+(define-object LayoutMeta
+  (in-module "Clutter")
+  (parent "ClutterChildMeta")
+  (c-name "ClutterLayoutMeta")
+  (gtype-id "CLUTTER_TYPE_LAYOUT_META")
+)
+
 ;; Enumerations and flags ...
 
 (define-flags EventFlags
