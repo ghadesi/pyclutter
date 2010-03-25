@@ -1581,6 +1581,28 @@
   )
 )
 
+(define-method set_request_mode
+  (of-object "ClutterActor")
+  (c-name "clutter_actor_set_request_mode")
+  (docstring
+  "Sets the geometry request mode of self. The mode determines the order\n"
+  "for invoking clutter.Actor.get_preferred_width() and\n"
+  "clutter.Actor.get_preferred_height()\n"
+  )
+  (return-type "none")
+  (parameters
+    '("ClutterRequestMode" "mode")
+  )
+)
+
+(define-method get_request_mode
+  (of-object "ClutterActor")
+  (c-name "clutter_actor_get_request_mode")
+  (docstring
+  "Retrieves the geometry request mode of self\n"
+  )
+  (return-type "ClutterRequestMode")
+)
 
 ;; From clutter-alpha.h
 
