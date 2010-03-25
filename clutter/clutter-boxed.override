@@ -525,6 +525,32 @@ _wrap_clutter_actor_box__get_y2 (PyGBoxed *self, void *closure)
 	return PyFloat_FromDouble (y2);
 }
 %%
+override clutter_actor_box_interpolate kwargs
+static PyObject *
+_wrap_clutter_actor_box_interpolate (PyGBoxed *self,
+                                     PyObject *args,
+                                     PyObject *kwargs)
+{
+  static char *kwlist[] = { "final", "progress", NULL };
+  PyObject *py_final;
+  gdouble progress;
+  ClutterActorBox final = { 0, };
+  ClutterActorBox result = { 0, };
+
+  if (!PyArg_ParseTupleAndKeywords (args, kwargs,
+                                    "Od:clutter.ActorBox.interpolate",
+                                    kwlist, &py_final, &progress))
+    return NULL;
+
+  if (!pyclutter_actor_box_from_pyobject (py_final, &final))
+    return NULL;
+
+  clutter_actor_box_interpolate (pyg_boxed_get (self, ClutterActorBox),
+                                 &final, progress, &result);
+
+  return Py_BuildValue ("(ffff)", result.x1, result.y1, result.x2, result.y2);
+}
+%%
 override clutter_knot_new kwargs
 static int
 _wrap_clutter_knot_new (PyGBoxed *self, PyObject *args, PyObject *kwargs)

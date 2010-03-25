@@ -7251,6 +7251,23 @@
   )
 )
 
+(define-method interpolate
+  (of-object "ClutterActorBox")
+  (c-name "clutter_actor_box_interpolate")
+  (return-type "none")
+  (parameters
+    '("const-ClutterActorBox*" "final")
+    '("gdouble" "progress")
+    '("ClutterActorBox*" "result")
+  )
+)
+
+(define-method clamp_to_pixel
+  (of-object "ClutterActorBox")
+  (c-name "clutter_actor_box_clamp_to_pixel")
+  (return-type "none")
+)
+
 
 ;; From clutter-path.h
 
