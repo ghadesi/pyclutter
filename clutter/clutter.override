@@ -127,6 +127,11 @@ ignore
   clutter_frame_source_add
   clutter_frame_source_add_full
   clutter_util_next_p2
+  clutter_device_manager_get_default
+  clutter_device_manager_list_devices
+  clutter_device_manager_peek_devices
+  clutter_device_manager_get_device
+  clutter_device_manager_get_core_device
 %%
 ignore-glob
   *_quark

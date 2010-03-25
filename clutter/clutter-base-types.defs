@@ -327,6 +327,13 @@
   (gtype-id "CLUTTER_TYPE_BINDING_POOL")
 )
 
+(define-object DeviceManager
+  (in-module "Clutter")
+  (parent "GObject")
+  (c-name "ClutterDeviceManager")
+  (gtype-id "CLUTTER_TYPE_DEVICE_MANAGER")
+)
+
 ;; Enumerations and flags ...
 
 (define-flags EventFlags

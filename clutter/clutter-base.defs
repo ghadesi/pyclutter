@@ -9564,4 +9564,67 @@
   )
 )
 
+;; From clutter-device-manager.h
+
+(define-function device_manager_get_type
+  (c-name "clutter_device_manager_get_type")
+  (return-type "GType")
+)
+
+(define-function device_manager_get_default
+  (c-name "clutter_device_manager_get_default")
+  (return-type "ClutterDeviceManager*")
+)
+
+(define-method list_devices
+  (of-object "ClutterDeviceManager")
+  (c-name "clutter_device_manager_list_devices")
+  (docstring
+  "Lists all currently registered input devices a newly allocated list of\n"
+  "clutter.InputDevice objects. Use g_slist_free() to deallocate it when\n"
+  "done\n"
+  )
+  (return-type "GSList*")
+)
+
+(define-method peek_devices
+  (of-object "ClutterDeviceManager")
+  (c-name "clutter_device_manager_peek_devices")
+  (docstring
+  "Lists all currently registered input devices a pointer to the internal\n"
+  "list of clutter.InputDevice objects. The returned list is owned by the\n"
+  "clutter.DeviceManager and should never be modified or freed\n"
+  )
+  (return-type "const-GSList*")
+)
+
+(define-method get_device
+  (of-object "ClutterDeviceManager")
+  (c-name "clutter_device_manager_get_device")
+  (docstring
+  "Retrieves the clutter.InputDevice with the given device_id returned\n"
+  "device is owned by the clutter.DeviceManager and should never be\n"
+  "modified or freed\n"
+  )
+  (return-type "ClutterInputDevice*")
+  (parameters
+    '("gint" "device_id")
+  )
+)
+
+(define-method get_core_device
+  (of-object "ClutterDeviceManager")
+  (c-name "clutter_device_manager_get_core_device")
+  (docstring
+  "Retrieves the core clutter.InputDevice of type device_type Core\n"
+  "devices are devices created automatically by the default clutter.\n"
+  "backend returned device is owned by the clutter.DeviceManager and\n"
+  "should not be modified or freed\n"
+  )
+  (return-type "ClutterInputDevice*")
+  (parameters
+    '("ClutterInputDeviceType" "device_type")
+  )
+)
+
 
