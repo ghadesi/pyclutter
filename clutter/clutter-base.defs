@@ -8768,6 +8768,18 @@
   (return-type "ClutterAnimation*")
 )
 
+(define-method update
+  (of-object "ClutterAnimation")
+  (c-name "clutter_animation_update")
+  (docstring
+  "Updates the final value of the interval for property_name\n"
+  )
+  (return-type "ClutterAnimation*")
+  (parameters
+    '("const-gchar*" "property_name")
+    '("const-GValue*" "final")
+  )
+)
 
 ;; From clutter-interval.h
 
