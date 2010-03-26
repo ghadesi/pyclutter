@@ -630,4 +630,25 @@ _wrap_cogl_set_draw_buffer (PyObject *self, PyObject *args)
   Py_INCREF (Py_None);
   return Py_None;
 }
+%%
+override cogl_set_framebuffer onearg
+static PyObject *
+_wrap_cogl_set_framebuffer (PyGObject    *self,
+                            PyCoglHandle *py_handle)
+{
+  cogl_set_framebuffer (py_handle->handle);
 
+  Py_INCREF (Py_None);
+  return Py_None;
+}
+%%
+override cogl_push_framebuffer onearg
+static PyObject *
+_wrap_cogl_push_framebuffer (PyGObject    *self,
+                            PyCoglHandle *py_handle)
+{
+  cogl_push_framebuffer (py_handle->handle);
+
+  Py_INCREF (Py_None);
+  return Py_None;
+}
