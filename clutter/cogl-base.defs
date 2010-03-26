@@ -32,6 +32,16 @@
   )
 )
 
+(define-function is_bitmap
+  (c-name "cogl_is_bitmap")
+  (docstring
+  "Checks whether handle is a CoglHandle for a bitmap and FALSE otherwise\n"
+  )
+  (return-type "gboolean")
+  (parameters
+    '("CoglHandle" "handle")
+  )
+)
 
 
 ;; From cogl-color.h
