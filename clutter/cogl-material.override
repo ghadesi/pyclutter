@@ -11,14 +11,22 @@ body
 static PyObject *
 pycogl_material_new (PyTypeObject *type, PyObject *args, PyObject *kwargs)
 {
-  static char *kwlist [] = { NULL };
+  static char *kwlist [] = { "source", NULL };
+  PyCoglMaterial *py_source;
+  CoglHandle handle;
 
   if (!PyArg_ParseTupleAndKeywords (args, kwargs,
-                                    ":cogl.Material.__init__",
-                                    kwlist))
+                                    "|O!:cogl.Material.__init__",
+                                    kwlist,
+                                    &PyCoglMaterial_Type, &py_source))
     return NULL;
 
-  return pycogl_handle_from_handle_without_ref (cogl_material_new ());
+  if (py_source->handle != COGL_INVALID_HANDLE)
+    handle = cogl_material_copy (py_source->handle);
+  else
+    handle = cogl_material_new ();
+
+  return pycogl_handle_from_handle_without_ref (handle);
 }
 
 static PyObject *

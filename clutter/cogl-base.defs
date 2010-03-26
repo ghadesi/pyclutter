@@ -1601,6 +1601,22 @@
   )
 )
 
+(define-function material_copy
+  (c-name "cogl_material_copy")
+  (docstring
+  "Creates a new material handle with the configuration copied from the\n"
+  "source material. We would strongly advise developers to always aim to\n"
+  "use cogl_material_copy() instead of cogl_material_new() whenever there\n"
+  "will be any similarity between two materials. Copying a material helps\n"
+  "Cogl keep track of a materials ancestry which we may use to help\n"
+  "minimize GPU state changes.\n"
+  )
+  (return-type "CoglHandle")
+  (parameters
+    '("CoglHandle" "source")
+  )
+)
+
 
 
 ;; From cogl-matrix.h
