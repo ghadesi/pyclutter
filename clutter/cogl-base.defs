@@ -1092,6 +1092,101 @@
 ;;  )
 ;;)
 
+(define-function set_viewport
+  (c-name "cogl_set_viewport")
+  (docstring
+  "Replaces the current viewport with the given values.\n"
+  )
+  (return-type "none")
+  (parameters
+    '("int" "x")
+    '("int" "y")
+    '("int" "width")
+    '("int" "height")
+  )
+)
+
+(define-function clip_push_window_rectangle
+  (c-name "cogl_clip_push_window_rectangle")
+  (docstring
+  "Specifies a rectangular clipping area for all subsequent drawing\n"
+  "operations. Any drawing commands that extend outside the rectangle\n"
+  "will be clipped so that only the portion inside the rectangle will be\n"
+  "displayed. The rectangle dimensions are transformed by the current\n"
+  "model-view matrix. The rectangle is intersected with the current clip\n"
+  "region. To undo the effect of this function, call cogl_clip_pop().\n"
+  "with other API that specify rectangles in model space, and when used\n"
+  "with a coordinate space that puts the origin at the center and y+\n"
+  "extending up, it's awkward to use. Please use\n"
+  "cogl_clip_push_rectangle() instead\n"
+  )
+  (return-type "none")
+  (parameters
+    '("int" "x_offset")
+    '("int" "y_offset")
+    '("int" "width")
+    '("int" "height")
+  )
+)
+
+(define-function clip_push_rectangle
+  (c-name "cogl_clip_push_rectangle")
+  (docstring
+  "Specifies a rectangular clipping area for all subsequent drawing\n"
+  "operations. Any drawing commands that extend outside the rectangle\n"
+  "will be clipped so that only the portion inside the rectangle will be\n"
+  "displayed. The rectangle dimensions are transformed by the current\n"
+  "model-view matrix. The rectangle is intersected with the current clip\n"
+  "region. To undo the effect of this function, call cogl_clip_pop().\n"
+  )
+  (return-type "none")
+  (parameters
+    '("float" "x0")
+    '("float" "y0")
+    '("float" "x1")
+    '("float" "y1")
+  )
+)
+
+(define-function set_framebuffer
+  (c-name "cogl_set_framebuffer")
+  (docstring
+  "offscreen. This redirects all subsequent drawing to the specified\n"
+  "framebuffer. This can either be an offscreen buffer created with\n"
+  "cogl_offscreen_new_to_texture () or you can revert to your original\n"
+  "onscreen window buffer.\n"
+  )
+  (return-type "none")
+  (parameters
+    '("CoglHandle" "buffer")
+  )
+)
+
+(define-function push_framebuffer
+  (c-name "cogl_push_framebuffer")
+  (docstring
+  "offscreen. Redirects all subsequent drawing to the specified\n"
+  "framebuffer. This can either be an offscreen buffer created with\n"
+  "cogl_offscreen_new_to_texture () or you can revert to your original\n"
+  "onscreen window buffer. The previous framebuffer can be restored by\n"
+  "calling cogl_pop_framebuffer()\n"
+  )
+  (return-type "none")
+  (parameters
+    '("CoglHandle" "buffer")
+  )
+)
+
+(define-function pop_framebuffer
+  (c-name "cogl_pop_framebuffer")
+  (docstring
+  "Restores the framebuffer that was previously at the top of the stack.\n"
+  "All subsequent drawing will be redirected to this framebuffer.\n"
+  )
+  (return-type "none")
+)
+
+
 
 
 ;; From cogl-material.h
