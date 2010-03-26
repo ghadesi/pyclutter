@@ -44,6 +44,7 @@ CLUTTER_OVERRIDES = 			\
 	clutter-actor.override 		\
 	clutter-alpha.override		\
 	clutter-animation.override	\
+	clutter-animator.override 	\
 	clutter-behaviour.override	\
 	clutter-box.override 		\
 	clutter-boxed.override 		\

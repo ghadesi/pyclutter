@@ -1,0 +1,221 @@
+%%
+override clutter_animator_set_key kwargs
+static PyObject *
+_wrap_clutter_animator_set_key (PyGObject *self,
+                                PyObject  *args,
+                                PyObject  *kwargs)
+{
+  static char *kwlist[] = { "object", "name", "mode", "progress", "value",
+                            NULL };
+  PyGObject *py_object;
+  gchar *name;
+  guint mode;
+  gdouble progress;
+  PyObject *py_value;
+  GParamSpec *pspec;
+  GValue value = { 0, };
+  GObjectClass *klass;
+
+  if (!PyArg_ParseTupleAndKeywords (args, kwargs,
+                                    "O!sIdO:clutter.Animator.set_key",
+                                    kwlist,
+                                    &PyGObject_Type, &py_object,
+                                    &name, &mode, &progress, &py_value))
+    return NULL;
+
+  klass = G_OBJECT_GET_CLASS (py_object->obj);
+  pspec = g_object_class_find_property (klass, name);
+
+  if (!pspec)
+    {
+      PyErr_Format (PyExc_TypeError,
+                    "Class '%s' has prop property named '%s'",
+                    G_OBJECT_CLASS_NAME (klass), name);
+      return NULL;
+    }
+
+  g_value_init (&value, G_PARAM_SPEC_VALUE_TYPE (pspec));
+  if (pyg_value_from_pyobject (&value, py_value))
+    {
+      PyErr_Format (PyExc_TypeError,
+                    "Wrong value type for property %s (required %s)",
+                    name, g_type_name (G_PARAM_SPEC_VALUE_TYPE (pspec)));
+      g_value_unset (&value);
+
+      return NULL;
+    }
+
+  clutter_animator_set_key (CLUTTER_ANIMATOR (self->obj),
+                            G_OBJECT (py_object->obj),
+                            name, mode, progress, &value);
+
+
+  Py_INCREF (Py_None);
+  return Py_None;
+}
+%%
+override clutter_animator_set
+static PyObject *
+_wrap_clutter_animator_set (PyGObject *self,
+                            PyObject  *args)
+{
+  gint i;
+
+  for (i = 0; i < PyTuple_Size (args); i++)
+    {
+      PyObject *key = PyTuple_GetItem (args, i);
+      PyGObject *py_object;
+      gchar *name;
+      guint mode;
+      gdouble progress;
+      PyObject *py_value;
+      GParamSpec *pspec;
+      GValue value = { 0, };
+
+
+      if (!PyTuple_Check (key) || PyTuple_Size (key) != 5)
+        {
+          PyErr_SetString (PyExc_TypeError, "A key must be a tuple of "
+                           "(object, property_name, mode, progress, value)");
+          return NULL;
+        }
+
+      if (!PyArg_ParseTuple (key, "O!sIdO", &PyGObject_Type, &py_object,
+                             &name, &mode, &progress, &py_value))
+        return NULL;
+
+      pspec = g_object_class_find_property (G_OBJECT_GET_CLASS (py_object->obj),
+                                            name);
+
+      if (!pspec)
+        {
+          PyErr_Format (PyExc_TypeError,
+                        "Class '%s' has prop property named '%s'",
+                        G_OBJECT_TYPE_NAME (py_object->obj), name);
+          return NULL;
+        }
+
+      g_value_init (&value, G_PARAM_SPEC_VALUE_TYPE (pspec));
+      if (pyg_value_from_pyobject (&value, py_value))
+        {
+          PyErr_Format (PyExc_TypeError,
+                        "Wrong value type for property '%s' (required '%s')",
+                        name, g_type_name (G_PARAM_SPEC_VALUE_TYPE (pspec)));
+          g_value_unset (&value);
+
+          return NULL;
+        }
+
+      clutter_animator_set_key (CLUTTER_ANIMATOR (self->obj),
+                                G_OBJECT (py_object->obj),
+                                name, mode, progress, &value);
+      g_value_unset (&value);
+    }
+
+  Py_INCREF (Py_None);
+  return Py_None;
+}
+%%
+override clutter_animator_get_keys kwargs
+static PyObject *
+_wrap_clutter_animator_get_keys (PyGObject *self,
+                                 PyObject  *args,
+                                 PyObject  *kwargs)
+{
+  static char *kwlist[] = { "object", "name", "progress", NULL };
+  PyGObject *py_object;
+  gchar *name;
+  gdouble progress;
+  GList *keys, *l;
+  PyObject *py_list;
+
+  if (!PyArg_ParseTupleAndKeywords (args, kwargs,
+                                    "O!sd:clutter.Animator.get_keys", kwlist,
+                                    &PyGObject_Type, &py_object,
+                                    &name, &progress))
+    return NULL;
+
+  keys = clutter_animator_get_keys (CLUTTER_ANIMATOR (self->obj),
+                                    G_OBJECT (py_object->obj), name, progress);
+
+  if ((py_list = PyList_New (0)) == NULL)
+    {
+      g_list_free (keys);
+      return NULL;
+    }
+
+  for (l = keys; l; l = l->next)
+    {
+      ClutterAnimatorKey *key = l->data;
+      PyObject *py_key;
+
+      py_key = pyg_boxed_new (CLUTTER_TYPE_ANIMATOR_KEY, key, TRUE, TRUE);
+      PyList_Append (py_list, py_key);
+      Py_DECREF (py_key);
+    }
+
+  g_list_free (keys);
+
+  return py_list;
+}
+%%
+override clutter_animator_compute_value kwargs
+static PyObject *
+_wrap_clutter_animator_compute_value (PyGObject *self,
+                                      PyObject  *args,
+                                      PyObject  *kwargs)
+{
+  static char *kwlist[] = { "object", "name", "progress", NULL };
+  PyGObject *py_object;
+  gchar *name;
+  gdouble progress;
+  GParamSpec *pspec;
+  GValue value = { 0, };
+  PyObject *py_value;
+
+  if (!PyArg_ParseTupleAndKeywords (args, kwargs,
+                                    "O!sd:clutter.Animator.compute_value",
+                                    kwlist,
+                                    &PyGObject_Type, &py_object, &name,
+                                    &progress))
+    return NULL;
+
+  pspec = g_object_class_find_property (G_OBJECT_GET_CLASS (py_object->obj),
+                                        name);
+
+  if (!pspec)
+    {
+      PyErr_Format (PyExc_TypeError,
+                    "Class '%s' has prop property named '%s'",
+                    G_OBJECT_TYPE_NAME (py_object->obj), name);
+      return NULL;
+    }
+
+  g_value_init (&value, G_PARAM_SPEC_VALUE_TYPE (pspec));
+  py_value = pyg_value_as_pyobject (&value, TRUE);
+  g_value_unset (&value);
+
+  return py_value;
+}
+%%
+override clutter_animator_key_get_value noargs
+static PyObject *
+_wrap_clutter_animator_key_get_value (PyGBoxed *self)
+{
+  ClutterAnimatorKey *key = pyg_boxed_get (self, ClutterAnimatorKey);
+  PyObject *py_value;
+  GValue value = { 0, };
+
+  g_value_init (&value, clutter_animator_key_get_property_type (key));
+  if (!clutter_animator_key_get_value (key, &value))
+    {
+      g_value_unset (&value);
+      return NULL;
+    }
+
+  py_value = pyg_value_as_pyobject (&value, TRUE);
+
+  g_value_unset (&value);
+
+  return py_value;
+}

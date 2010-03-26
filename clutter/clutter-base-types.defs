@@ -129,6 +129,12 @@
   )
 )
 
+(define-boxed AnimatorKey
+  (in-module "Clutter")
+  (c-name "ClutterAnimatorKey")
+  (gtype-id "CLUTTER_TYPE_ANIMATOR_KEY")
+)
+
 ; object definitions ...
 
 (define-object Actor
