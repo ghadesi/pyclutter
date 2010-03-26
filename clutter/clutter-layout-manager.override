@@ -687,4 +687,31 @@ _wrap_clutter_box_layout_get_fill (PyGObject *self,
                                &x_fill, &y_fill);
   return Py_BuildValue ("(ii)", x_fill, y_fill);
 }
+%%
+override clutter_layout_manager_list_child_properties noargs
+static PyObject *
+_wrap_clutter_layout_manager_list_child_properties (PyGObject *self)
+{
+  ClutterLayoutManager *manager;
+  GParamSpec **properties;
+  guint n_pspecs, i;
+  PyObject *py_ret;
 
+  manager = CLUTTER_LAYOUT_MANAGER (self->obj);
+  properties = clutter_layout_manager_list_child_properties (manager,
+                                                             &n_pspecs);
+
+  py_ret = PyTuple_New (n_pspecs);
+  if (!py_ret)
+    {
+      g_free (properties);
+      return NULL;
+    }
+
+  for (i = 0; i < n_pspecs; i++)
+    PyTuple_SetItem (py_ret, i, pyg_param_spec_new (properties[i]));
+
+  g_free (properties);
+
+  return py_ret;
+}
