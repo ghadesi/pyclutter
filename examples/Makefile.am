@@ -5,6 +5,7 @@ EXTRA_DIST = \
 	clock.py \
 	custom-actor.py \
 	custom-container.py \
+	custom-layout-manager.py \
 	entry.py \
 	flowers.py \
 	hello.py \
@@ -17,6 +18,9 @@ EXTRA_DIST = \
 	super-oh.py \
 	test-animation.py \
 	test-binding-pool.py \
+	test-bin-layout.py \
+	test-box-layout.py \
+	test-flow-layout.py \
 	test-easing.py \
 	test-multitexture.py \
 	test-scale.py \
