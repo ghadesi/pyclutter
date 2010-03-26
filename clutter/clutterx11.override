@@ -28,6 +28,7 @@ ignore
   clutter_x11_has_xinput
   clutter_x11_trap_x_errors
   clutter_x11_untrap_x_errors
+  clutter_x11_get_visual_info
 %%
 import clutter.Texture as PyClutterTexture_Type
 import clutter.Stage as PyClutterStage_Type

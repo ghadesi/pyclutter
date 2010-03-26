@@ -143,6 +143,24 @@
   (return-type "Time")
 )
 
+(define-function get_visual_info
+  (c-name "clutter_x11_get_visual_info")
+  (return-type "XVisualInfo*")
+)
+
+(define-function set_use_argb_visual
+  (c-name "clutter_x11_set_use_argb_visual")
+  (return-type "none")
+  (parameters
+    '("gboolean" "use_argb")
+  )
+)
+
+(define-function get_use_argb_visual
+  (c-name "clutter_x11_get_use_argb_visual")
+  (return-type "gboolean")
+)
+
 
 
 ;; From clutter-x11-texture-pixmap.h
