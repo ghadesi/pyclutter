@@ -66,8 +66,8 @@ _wrap_ClutterLayoutManager__proxy_do_get_preferred_width (ClutterLayoutManager *
     }
 
   py_args = PyTuple_New (2);
-  PyTuple_SET_ITEM (py_args, 0, py_height);
-  PyTuple_SET_ITEM (py_args, 1, py_container);
+  PyTuple_SET_ITEM (py_args, 0, py_container);
+  PyTuple_SET_ITEM (py_args, 1, py_height);
 
   py_method = PyObject_GetAttrString (py_self, "do_get_preferred_width");
   if (!py_method)
@@ -98,7 +98,7 @@ _wrap_ClutterLayoutManager__proxy_do_get_preferred_width (ClutterLayoutManager *
       return;
     }
 
-  if (!PyArg_ParseTuple (py_ret, "dd", &min_width, &nat_width))
+  if (!PyArg_ParseTuple (py_ret, "ff", &min_width, &nat_width))
     {
       PyErr_Print ();
 
@@ -228,8 +228,8 @@ _wrap_ClutterLayoutManager__proxy_do_get_preferred_height (ClutterLayoutManager 
     }
 
   py_args = PyTuple_New (2);
-  PyTuple_SET_ITEM (py_args, 0, py_width);
-  PyTuple_SET_ITEM (py_args, 1, py_container);
+  PyTuple_SET_ITEM (py_args, 0, py_container);
+  PyTuple_SET_ITEM (py_args, 1, py_width);
 
   py_method = PyObject_GetAttrString (py_self, "do_get_preferred_height");
   if (!py_method)
@@ -260,7 +260,7 @@ _wrap_ClutterLayoutManager__proxy_do_get_preferred_height (ClutterLayoutManager 
       return;
     }
 
-  if (!PyArg_ParseTuple (py_ret, "dd", &min_height, &nat_height))
+  if (!PyArg_ParseTuple (py_ret, "ff", &min_height, &nat_height))
     {
       PyErr_Print ();
 
