@@ -470,20 +470,6 @@
   )
 )
 
-(define-function check_extension
-  (c-name "cogl_check_extension")
-  (docstring
-  "Check whether name occurs in list of extensions in ext. not\n"
-  "appropriate to expose OpenGL extensions through the Cogl API. This\n"
-  "function can be replaced by the following equivalent code: |[ ]|\n"
-  )
-  (return-type "gboolean")
-  (parameters
-    '("const-gchar*" "name")
-    '("const-gchar*" "ext")
-  )
-)
-
 (define-function get_bitmasks
   (c-name "cogl_get_bitmasks")
   (docstring
@@ -547,18 +533,6 @@
     '("float" "top")
     '("float" "near")
     '("float" "far")
-  )
-)
-
-(define-function viewport
-  (c-name "cogl_viewport")
-  (docstring
-  "Replace the current viewport with the given values.\n"
-  )
-  (return-type "none")
-  (parameters
-    '("guint" "width")
-    '("guint" "height")
   )
 )
 
@@ -866,40 +840,6 @@
   )
 )
 
-(define-function clip_push_window_rect
-  (c-name "cogl_clip_push_window_rect")
-  (docstring
-  "Specifies a rectangular clipping area for all subsequent drawing\n"
-  "operations. Any drawing commands that extend outside the rectangle\n"
-  "will be clipped so that only the portion inside the rectangle will be\n"
-  "displayed. The rectangle dimensions are transformed by the current\n"
-  "model-view matrix. The rectangle is intersected with the current clip\n"
-  "region. To undo the effect of this function, call cogl_clip_pop().\n"
-  "with other API that specify rectangles in model space, and when used\n"
-  "with a coordinate space that puts the origin at the center and y+\n"
-  "extending up, it's awkward to use. Please use\n"
-  "cogl_clip_push_rectangle() instead\n"
-  )
-  (return-type "none")
-  (parameters
-    '("float" "x_offset")
-    '("float" "y_offset")
-    '("float" "width")
-    '("float" "height")
-  )
-)
-
-(define-function clip_push
-  (c-name "cogl_clip_push")
-  (return-type "none")
-  (parameters
-    '("float" "x_offset")
-    '("float" "y_offset")
-    '("float" "width")
-    '("float" "height")
-  )
-)
-
 (define-function clip_push_from_path
   (c-name "cogl_clip_push_from_path")
   (docstring
@@ -927,76 +867,6 @@
   (docstring
   "Reverts the clipping region to the state before the last call to\n"
   "cogl_clip_push().\n"
-  )
-  (return-type "none")
-)
-
-(define-function clip_ensure
-  (c-name "cogl_clip_ensure")
-  (docstring
-  "Ensures that the current clipping region has been set in GL. This will\n"
-  "automatically be called before any Cogl primitives but it maybe be\n"
-  "neccessary to call if you are using raw GL calls with clipping.\n"
-  )
-  (return-type "none")
-)
-
-(define-function clip_stack_save
-  (c-name "cogl_clip_stack_save")
-  (docstring
-  "Save the entire state of the clipping stack and then clear all\n"
-  "clipping. The previous state can be returned to with\n"
-  "cogl_clip_stack_restore(). Each call to cogl_clip_push() after this\n"
-  "must be matched by a call to cogl_clip_pop() before calling\n"
-  "cogl_clip_stack_restore(). clip stack when switching to an offscreen\n"
-  "framebuffer, but it's not necessary anymore given that framebuffers\n"
-  "now own separate clip stacks which will be automatically switched\n"
-  "between when a new buffer is set. Calling this function has no effect\n"
-  )
-  (return-type "none")
-)
-
-(define-function clip_stack_restore
-  (c-name "cogl_clip_stack_restore")
-  (docstring
-  "Restore the state of the clipping stack that was previously saved by\n"
-  "cogl_clip_stack_save(). the clip stack when switching back from an\n"
-  "offscreen framebuffer, but it's not necessary anymore given that\n"
-  "framebuffers now own separate clip stacks which will be automatically\n"
-  "switched between when a new buffer is set. Calling this function has\n"
-  "no effect\n"
-  )
-  (return-type "none")
-)
-
-(define-function set_draw_buffer
-  (c-name "cogl_set_draw_buffer")
-  (docstring
-  "are setting as the render target. then this is a CoglHandle for the\n"
-  "offscreen buffer. Redirects all subsequent drawing to the specified\n"
-  "framebuffer. This can either be an offscreen buffer created with\n"
-  "cogl_offscreen_new_to_texture () or you can revert to your original on\n"
-  "screen window buffer. the type of CoglHandle given instead.\n"
-  )
-  (return-type "none")
-  (parameters
-    '("CoglBufferTarget" "target")
-    '("CoglHandle" "offscreen")
-  )
-)
-
-(define-function push_draw_buffer
-  (c-name "cogl_push_draw_buffer")
-  (docstring
-  "Save cogl_set_draw_buffer() state.\n"
-  )
-  (return-type "none")
-)
-
-(define-function pop_draw_buffer
-  (c-name "cogl_pop_draw_buffer")
-  (docstring
-  "Restore cogl_set_draw_buffer() state.\n"
   )
   (return-type "none")
 )
