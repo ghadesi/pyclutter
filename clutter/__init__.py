@@ -95,4 +95,12 @@ effect_rotate = _DeprecatedMethod(_clutter, 'Actor.animate', 'effect_rotate')
 stage_get_default = _DeprecatedMethod(_clutter, 'Stage', 'stage_get_default')
 color_parse = _DeprecatedMethod(_clutter, 'color_from_string', 'color_parse')
 
+cogl.viewport = _DeprecatedMethod(cogl, 'set_viewport', 'viewport', 'cogl')
+cogl.clip_push = _DeprecatedMethod(cogl, 'clip_push_rectangle', 'clip_push', 'cogl')
+cogl.clip_push_window_rect = _DeprecatedMethod(cogl, 'clip_push_window_rectangle', 'clip_push_window_rect', 'cogl')
+cogl.clip_stack_save = _DeprecatedMethod(cogl, 'clip_stack_save', 'clip_stack_save', 'cogl')
+cogl.clip_stack_restore = _DeprecatedMethod(cogl, 'clip_stack_restore', 'clip_stack_restore', 'cogl')
+cogl.push_draw_buffer = _DeprecatedMethod(cogl, 'push_framebuffer', 'push_draw_buffer', 'cogl')
+cogl.pop_draw_buffer = _DeprecatedMethod(cogl, 'pop_framebuffer', 'pop_draw_buffer', 'cogl')
+
 del _DeprecatedClass, _DeprecatedMethod, _DeprecatedConstant
