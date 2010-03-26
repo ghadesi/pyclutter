@@ -2829,6 +2829,26 @@
   )
 )
 
+(define-function texture_new_from_sub_texture
+  (c-name "cogl_texture_new_from_sub_texture")
+  (docstring
+  "Creates a new texture which represents a subregion of another texture.\n"
+  "The GL resources will be shared so that no new texture data is\n"
+  "actually allocated. Sub textures have undefined behaviour texture\n"
+  "coordinates outside of the range [0,1] are used. They also do not work\n"
+  "with CoglVertexBuffers. The sub texture will keep a reference to the\n"
+  "full texture so you do not need to keep one separately if you only\n"
+  "want to use the sub texture.\n"
+  )
+  (return-type "CoglHandle")
+  (parameters
+    '("CoglHandle" "full_texture")
+    '("int" "sub_x")
+    '("int" "sub_y")
+    '("int" "sub_width")
+    '("int" "sub_height")
+  )
+)
 
 
 ;; From cogl-types.h

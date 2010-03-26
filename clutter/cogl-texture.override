@@ -567,4 +567,29 @@ _wrap_cogl_polygon (PyObject *self, PyObject *args, PyObject *kwargs)
   Py_INCREF (Py_None);
   return Py_None;
 }
+%%
+override cogl_texture_new_from_sub_texture kwargs
+static PyObject *
+_wrap_cogl_texture_new_from_sub_texture (PyObject *self,
+                                         PyObject *args,
+                                         PyObject *kwargs)
+{
+  static char *kwlist[] = { "full_texture", "sub_x", "sub_y", "sub_width",
+                            "sub_height", NULL };
+  PyCoglTexture *py_full_texture;
+  gint sub_x, sub_y, sub_width, sub_height;
+  CoglHandle handle;
 
+  if (!PyArg_ParseTupleAndKeywords (args, kwargs,
+                                    "O!iiii:cogl.texture_new_from_sub_texture",
+                                    kwlist,
+                                    &PyCoglTexture_Type, &py_full_texture,
+                                    &sub_x, &sub_y, &sub_width, &sub_height))
+    return NULL;
+
+  handle = cogl_texture_new_from_sub_texture (py_full_texture->handle,
+                                              sub_x, sub_y,
+                                              sub_width, sub_height);
+
+  return pycogl_handle_from_handle_without_ref (handle);
+}
