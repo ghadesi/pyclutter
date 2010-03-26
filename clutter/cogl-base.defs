@@ -1744,6 +1744,15 @@
   )
 )
 
+(define-method get_inverse
+  (of-object "CoglMatrix")
+  (c-name "cogl_matrix_get_inverse")
+  (return-type "gboolean")
+  (parameters
+    '("CoglMatrix*" "inverse")
+  )
+)
+
 
 
 ;; From cogl-offscreen.h

@@ -228,6 +228,19 @@ pycogl_matrix_get_array (PyCoglMatrix *self)
   return py_array;
 }
 
+static PyObject *
+pycogl_matrix_get_inverse (PyCoglMatrix *self)
+{
+  CoglMatrix inverse;
+
+  if (!cogl_matrix_get_inverse (&self->matrix, &inverse))
+    {
+      PyErr_SetString (PyExc_ValueError, "Can't get inverse matrix");
+      return NULL;
+    }
+
+  return pycogl_matrix_from_matrix (&inverse);
+}
 
 static PyMethodDef pycogl_matrix_methods[] = {
     { "init_identity", (PyCFunction)pycogl_matrix_init_identity, METH_NOARGS },
@@ -240,6 +253,7 @@ static PyMethodDef pycogl_matrix_methods[] = {
     { "translate", (PyCFunction)pycogl_matrix_translate, METH_VARARGS },
     { "scale", (PyCFunction)pycogl_matrix_scale, METH_VARARGS },
     { "get_array", (PyCFunction)pycogl_matrix_get_array, METH_NOARGS },
+    { "get_inverse", (PyCFunction)pycogl_matrix_get_inverse, METH_NOARGS },
     { NULL, NULL, 0, NULL },
 };
 
