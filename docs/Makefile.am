@@ -85,7 +85,7 @@ install-data-local:
 	fi
 
 install-data-hook:
-	@$(PYGOBJECT_FIXXREF) -i $(PYGOBJECT_PYGDOCS) $(DESTDIR)$(TARGET_DIR)
+	@$(PYTHON) $(PYGOBJECT_FIXXREF) -i $(PYGOBJECT_PYGDOCS) $(DESTDIR)$(TARGET_DIR)
 
 uninstall-local:
 	rm -rf $(DESTDIR)$(TARGET_DIR)/*
