@@ -1,14 +1,28 @@
 Overview of changes between 1.0.0 and 1.0.2
 ===========================================
 
-* Fix an import error of the PyCairo C API
-* Use the GClosure variants for the Alpha API
-* Update the SuperOh example code
+* Fix an import error of the PyCairo C API [Bastian]
+* Use the GClosure variants for the Alpha API [Emmanuele]
+* Update the examples [Bastian, Emmanuele]
 * Allow iterating over the actors references by clutter.Behaviour instances
-  using the Python iteration syntax
-* Override __str__ and __repr__ slots for clutter.Path
+  using the Python iteration syntax [Emmanuele]
+* Override __str__ and __repr__ slots for clutter.Path [Emmanuele]
 * Add back clutter.Actor.get_allocation_geometry() which was erroneously
-  removed from the bindings
+  removed from the bindings [Emmanuele]
+* Update the build so that PyClutter works with Clutter 1.2 [Bastian]
+* Add support for the X11 and GLX specific API, under the clutter.x11 and
+  clutter.glx sub-modules, respectively [Bastian]
+* Add more (optional) parameters to the clutter.Animation constructor [Bastian]
+* Add __str__ and __repr__ slots for many boxed types [Bastian]
+* Add richcompare slot for clutter.Color, clutter.Path and
+  clutter.ActorBox [Bastian]
+* Allow iterating over a clutter.Path [Bastian]
+* Allow implementing a clutter.ChildMeta in pure Python [Bastian]
+* Bind clutter.Units [Bastian]
+* Allow implementing clutter.Scriptable in pure Python [Bastian]
+* Use a custom codegen script to fix bug #1827 and allow overriding the
+  Python name of a C method [Bastian]
+* Add docstrings for all methods [Bastian]
 
 Overview of changes between 0.9.2 and 1.0.0
 ===========================================
