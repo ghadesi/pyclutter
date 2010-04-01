@@ -4,10 +4,10 @@ if ENABLE_DOCS
 SUBDIRS += docs
 endif
 
-pyclutter-$(PYCLUTTER_MAJOR_VERSION).$(PYCLUTTER_MINOR_VERSION).pc: pyclutter.pc
+pyclutter-1.0.pc: pyclutter.pc
 	@cp -f $< $(@F)
 
-pkgfiles = pyclutter-$(PYCLUTTER_MAJOR_VERSION).$(PYCLUTTER_MINOR_VERSION).pc
+pkgfiles = pyclutter-1.0.pc
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = $(pkgfiles)
 
