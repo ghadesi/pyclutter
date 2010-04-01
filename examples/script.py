@@ -71,7 +71,7 @@ BUFFER = '''
         "x" : 100,
         "y" : 100,
         "gravity" : "center",
-        "clip-path" : "M 0 0 L 200 100 L 0 200 C 0 200 100 100 0 0 z",
+        "clip-path" : "M 0 0 L 200 100 L 0 200 C 0 200 100 100 0 0 z"
       }
     ]
   }
@@ -81,6 +81,7 @@ BUFFER = '''
 
 class CustomScriptable(clutter.Texture, clutter.Scriptable):
     __gtype_name__ = 'CustomScriptable'
+
     def __init__(self):
         clutter.Texture.__init__(self)
         self._path = None
@@ -115,7 +116,7 @@ class CustomScriptable(clutter.Texture, clutter.Scriptable):
                 gravity = clutter.GRAVITY_NONE
             return gravity
 
-        elif name == 'clip_path':
+        elif name == 'clip-path':
             path = clutter.Path(description=node)
             return path
 
@@ -128,7 +129,7 @@ class CustomScriptable(clutter.Texture, clutter.Scriptable):
         if name == 'gravity':
             # Set our custom property 'gravity'.
             self.set_anchor_point_from_gravity(value)
-        elif name == 'clip_path':
+        elif name == 'clip-path':
             self._path = value
         else:
             # Chain up
