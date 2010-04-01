@@ -22,7 +22,7 @@ class TestFlowLayout(object):
         self.stage.connect('allocation-changed', self.on_stage_resize)
 
         self.layout = clutter.FlowLayout(clutter.FLOW_HORIZONTAL)
-        self.layout.set_homogeneous(True)
+        self.layout.set_homogeneous((homogeneous == True))
         self.layout.set_column_spacing(x_spacing)
         self.layout.set_row_spacing(y_spacing)
 
