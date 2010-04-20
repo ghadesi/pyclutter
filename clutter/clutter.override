@@ -751,10 +751,17 @@ _wrap_clutter_stage_read_pixels(PyGObject *self,
     ret = clutter_stage_read_pixels(CLUTTER_STAGE(self->obj), x, y, width, height);
 
     if (ret) {
-        PyObject *py_ret = Py_BuildValue("s", ret);
+        PyObject *py_ret;
+
+        /* by definition, the returned buffer is RGBA 8bit data with a
+         * rowstride of width * 4
+         */
+        py_ret = Py_BuildValue("s#", ret, height * width * 4);
         g_free(ret);
+
         return py_ret;
     }
+
     Py_INCREF(Py_None);
     return Py_None;
 }
