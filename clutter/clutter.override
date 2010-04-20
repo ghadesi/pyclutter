@@ -735,7 +735,7 @@ _wrap_clutter_texture_set_cogl_material (PyGObject *self,
   return Py_None;
 }
 %%
-override clutter_stage_read_pixels
+override clutter_stage_read_pixels kwargs
 static PyObject *
 _wrap_clutter_stage_read_pixels(PyGObject *self,
                                 PyObject  *args,
