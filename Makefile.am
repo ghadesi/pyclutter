@@ -1,3 +1,5 @@
+ACLOCAL_AMFLAGS = -I build/autotools
+
 SUBDIRS = build codegen clutter examples
 
 if ENABLE_DOCS
