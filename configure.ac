@@ -33,7 +33,7 @@ AC_CONFIG_SRCDIR([clutter/cluttermodule.c])
 AC_CONFIG_MACRO_DIR([build/autotools])
 AM_CONFIG_HEADER(config.h)
 
-AM_INIT_AUTOMAKE([1.11 -Wno-portability no-define dist-bzip2])
+AM_INIT_AUTOMAKE([1.11 foreign -Wno-portability no-define dist-bzip2])
 
 AM_SILENT_RULES([yes])
 
