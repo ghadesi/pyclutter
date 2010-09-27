@@ -4,7 +4,7 @@
 srcdir=`dirname $0`
 test -z "$srcdir" && srcdir=.
 
-REQUIRED_AUTOMAKE_VERSION=1.9
+REQUIRED_AUTOMAKE_VERSION=1.11
 
 PKG_NAME="PyClutter"
 
@@ -13,14 +13,14 @@ PKG_NAME=${PKG_NAME:-Package}
 srcdir=${srcdir:-.}
 
 # default version requirements ...
-REQUIRED_AUTOCONF_VERSION=${REQUIRED_AUTOCONF_VERSION:-2.53}
-REQUIRED_AUTOMAKE_VERSION=${REQUIRED_AUTOMAKE_VERSION:-1.9}
-REQUIRED_LIBTOOL_VERSION=${REQUIRED_LIBTOOL_VERSION:-1.4.3}
-REQUIRED_GETTEXT_VERSION=${REQUIRED_GETTEXT_VERSION:-0.10.40}
+REQUIRED_AUTOCONF_VERSION=${REQUIRED_AUTOCONF_VERSION:-2.63}
+REQUIRED_AUTOMAKE_VERSION=${REQUIRED_AUTOMAKE_VERSION:-1.11}
+REQUIRED_LIBTOOL_VERSION=${REQUIRED_LIBTOOL_VERSION:-2.2.6}
+REQUIRED_GETTEXT_VERSION=${REQUIRED_GETTEXT_VERSION:-0.17}
 REQUIRED_GLIB_GETTEXT_VERSION=${REQUIRED_GLIB_GETTEXT_VERSION:-2.2.0}
-REQUIRED_INTLTOOL_VERSION=${REQUIRED_INTLTOOL_VERSION:-0.25}
+REQUIRED_INTLTOOL_VERSION=${REQUIRED_INTLTOOL_VERSION:-0.40}
 REQUIRED_PKG_CONFIG_VERSION=${REQUIRED_PKG_CONFIG_VERSION:-0.14.0}
-REQUIRED_GTK_DOC_VERSION=${REQUIRED_GTK_DOC_VERSION:-1.0}
+REQUIRED_GTK_DOC_VERSION=${REQUIRED_GTK_DOC_VERSION:-1.11}
 REQUIRED_DOC_COMMON_VERSION=${REQUIRED_DOC_COMMON_VERSION:-2.3.0}
 REQUIRED_GNOME_DOC_UTILS_VERSION=${REQUIRED_GNOME_DOC_UTILS_VERSION:-0.3.2}
 
@@ -154,11 +154,11 @@ add_to_cm_macrodirs() {
 check_m4macros() {
     # construct list of macro directories
     cm_macrodirs=`$ACLOCAL --print-ac-dir`
-    # aclocal also searches a version specific dir, eg. /usr/share/aclocal-1.9
+    # aclocal also searches a version specific dir, eg. /usr/share/aclocal-1.11
     # but it contains only Automake's own macros, so we can ignore it.
 
-    # Read the dirlist file, supported by Automake >= 1.7.
-    if compare_versions 1.7 $AUTOMAKE_VERSION && [ -s $cm_macrodirs/dirlist ]; then
+    # Read the dirlist file, supported by Automake >= 1.11.
+    if compare_versions 1.11 $AUTOMAKE_VERSION && [ -s $cm_macrodirs/dirlist ]; then
 	cm_dirlist=`sed 's/[ 	]*#.*//;/^$/d' $cm_macrodirs/dirlist`
 	if [ -n "$cm_dirlist" ] ; then
 	    for cm_dir in $cm_dirlist; do
@@ -295,13 +295,6 @@ version_check autoconf AUTOCONF 'autoconf2.50 autoconf autoconf-2.53' $REQUIRED_
 AUTOHEADER=`echo $AUTOCONF | sed s/autoconf/autoheader/`
 
 case $REQUIRED_AUTOMAKE_VERSION in
-    1.4*) automake_progs="automake-1.4" ;;
-    1.5*) automake_progs="automake-1.5 automake-1.6 automake-1.7 automake-1.8 automake-1.9 automake-1.10 automake-1.11" ;;
-    1.6*) automake_progs="automake-1.6 automake-1.7 automake-1.8 automake-1.9 automake-1.10 automake-1.11" ;;
-    1.7*) automake_progs="automake-1.7 automake-1.8 automake-1.9 automake-1.10 automake-1.11" ;;
-    1.8*) automake_progs="automake-1.8 automake-1.9 automake-1.10 automake-1.11" ;;
-    1.9*) automake_progs="automake-1.9 automake-1.10 automake-1.11" ;;
-    1.10*) automake_progs="automake-1.10 automake-1.11" ;;
     1.11*) automake_progs="automake-1.11" ;;
 esac
 version_check automake AUTOMAKE "$automake_progs" $REQUIRED_AUTOMAKE_VERSION \

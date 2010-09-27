@@ -44,21 +44,31 @@ CLUTTER_OVERRIDES = 			\
 	clutter-actor.override 		\
 	clutter-alpha.override		\
 	clutter-animation.override	\
-	clutter-animator.override 	\
 	clutter-behaviour.override	\
-	clutter-box.override 		\
 	clutter-boxed.override 		\
 	clutter-cairotexture.override 	\
 	clutter-color.override		\
 	clutter-container.override	\
 	clutter-event.override		\
 	clutter-interval.override 	\
-	clutter-layout-manager.override \
 	clutter-model.override		\
 	clutter-path.override		\
 	clutter-script.override     	\
 	clutter-text.override 		\
+	clutter-animator.override	\
+	clutter-box.override 		\
+	clutter-layout-manager.override	\
 	$(NULL)
+
+if HAVE_CLUTTER_1_2
+CLUTTER_DEFS += clutter-1.2.defs
+CLUTTER_TYPES_DEFS += clutter-1.2-types.defs
+endif
+
+if HAVE_CLUTTER_1_4
+CLUTTER_DEFS += clutter-1.4.defs
+CLUTTER_TYPES_DEFS += clutter-1.4-types.defs
+endif
 
 CLUTTERX11_OVERRIDES = \
 	clutterx11.override
@@ -95,28 +105,28 @@ EXTRA_DIST += 			\
 	$(CLUTTERGLX_OVERRIDES)
 
 cogl.defs: $(COGL_DEFS) Makefile
-	$(QUIET_GEN)$(CREATEDEFS) $@ $(COGL_DEFS)
+	$(AM_V_GEN)$(CREATEDEFS) $@ $(COGL_DEFS)
 
 clutter.defs: $(CLUTTER_DEFS) Makefile
-	$(QUIET_GEN)$(CREATEDEFS) $@ $(CLUTTER_DEFS)
+	$(AM_V_GEN)$(CREATEDEFS) $@ $(CLUTTER_DEFS)
 
 cogl-types.defs: $(COGL_TYPES_DEFS) Makefile
-	$(QUIET_GEN)$(CREATEDEFS) $@ $(COGL_TYPES_DEFS)
+	$(AM_V_GEN)$(CREATEDEFS) $@ $(COGL_TYPES_DEFS)
 
 clutter-types.defs: $(CLUTTER_TYPES_DEFS) Makefile
-	$(QUIET_GEN)$(CREATEDEFS) $@ $(CLUTTER_TYPES_DEFS)
+	$(AM_V_GEN)$(CREATEDEFS) $@ $(CLUTTER_TYPES_DEFS)
 
 clutterx11.defs: $(CLUTTERX11_DEFS) Makefile
-	$(QUIET_GEN)$(CREATEDEFS) $@ $(CLUTTERX11_DEFS)
+	$(AM_V_GEN)$(CREATEDEFS) $@ $(CLUTTERX11_DEFS)
 
 clutterx11-types.defs: $(CLUTTERX11_TYPES_DEFS) Makefile
-	$(QUIET_GEN)$(CREATEDEFS) $@ $(CLUTTERX11_TYPES_DEFS)
+	$(AM_V_GEN)$(CREATEDEFS) $@ $(CLUTTERX11_TYPES_DEFS)
 
 clutterglx.defs: $(CLUTTERGLX_DEFS) Makefile
-	$(QUIET_GEN)$(CREATEDEFS) $@ $(CLUTTERGLX_DEFS)
+	$(AM_V_GEN)$(CREATEDEFS) $@ $(CLUTTERGLX_DEFS)
 
 clutterglx-types.defs: $(CLUTTERGLX_TYPES_DEFS) Makefile
-	$(QUIET_GEN)$(CREATEDEFS) $@ $(CLUTTERGLX_TYPES_DEFS)
+	$(AM_V_GEN)$(CREATEDEFS) $@ $(CLUTTERGLX_TYPES_DEFS)
 
 cogl.c: cogl-types.defs cogl.defs $(COGL_OVERRIDES)
 clutter.c: cogl-types.defs clutter-types.defs clutter.defs cogl.defs $(CLUTTER_OVERRIDES)
@@ -180,10 +190,11 @@ pyclutterexec_LTLIBRARIES += glx.la
 endif
 
 .defs.c:
-	$(QUIET_GEN)( $(PYGOBJECT_CODEGEN) \
+	$(AM_V_GEN)( $(PYGOBJECT_CODEGEN) \
 	   $(PYGOBJECT_CODEGEN_DEFINES) \
 	    -I $(srcdir) \
 	    --py_ssize_t-clean \
+	    --register $(PYGTK_DEFSDIR)/atk-types.defs \
 	    --register $(PYGTK_DEFSDIR)/pango-types.defs \
 	    --register cogl-types.defs \
 	    --register clutter-types.defs \

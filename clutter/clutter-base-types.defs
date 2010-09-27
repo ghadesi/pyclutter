@@ -129,12 +129,6 @@
   )
 )
 
-(define-boxed AnimatorKey
-  (in-module "Clutter")
-  (c-name "ClutterAnimatorKey")
-  (gtype-id "CLUTTER_TYPE_ANIMATOR_KEY")
-)
-
 ; object definitions ...
 
 (define-object Actor
@@ -338,69 +332,6 @@
   (parent "GObject")
   (c-name "ClutterBindingPool")
   (gtype-id "CLUTTER_TYPE_BINDING_POOL")
-)
-
-(define-object DeviceManager
-  (in-module "Clutter")
-  (parent "GObject")
-  (c-name "ClutterDeviceManager")
-  (gtype-id "CLUTTER_TYPE_DEVICE_MANAGER")
-)
-
-(define-object LayoutManager
-  (in-module "Clutter")
-  (parent "GObject")
-  (c-name "ClutterLayoutManager")
-  (gtype-id "CLUTTER_TYPE_LAYOUT_MANAGER")
-)
-
-(define-object LayoutMeta
-  (in-module "Clutter")
-  (parent "ClutterChildMeta")
-  (c-name "ClutterLayoutMeta")
-  (gtype-id "CLUTTER_TYPE_LAYOUT_META")
-)
-
-(define-object FixedLayout
-  (in-module "Clutter")
-  (parent "ClutterLayoutManager")
-  (c-name "ClutterFixedLayout")
-  (gtype-id "CLUTTER_TYPE_FIXED_LAYOUT")
-)
-
-(define-object BinLayout
-  (in-module "Clutter")
-  (parent "ClutterLayoutManager")
-  (c-name "ClutterBinLayout")
-  (gtype-id "CLUTTER_TYPE_BIN_LAYOUT")
-)
-
-(define-object FlowLayout
-  (in-module "Clutter")
-  (parent "ClutterLayoutManager")
-  (c-name "ClutterFlowLayout")
-  (gtype-id "CLUTTER_TYPE_FLOW_LAYOUT")
-)
-
-(define-object BoxLayout
-  (in-module "Clutter")
-  (parent "ClutterLayoutManager")
-  (c-name "ClutterBoxLayout")
-  (gtype-id "CLUTTER_TYPE_BOX_LAYOUT")
-)
-
-(define-object Box
-  (in-module "Clutter")
-  (parent "ClutterActor")
-  (c-name "ClutterBox")
-  (gtype-id "CLUTTER_TYPE_BOX")
-)
-
-(define-object Animator
-  (in-module "Clutter")
-  (parent "GObject")
-  (c-name "ClutterAnimator")
-  (gtype-id "CLUTTER_TYPE_ANIMATOR")
 )
 
 ;; Enumerations and flags ...

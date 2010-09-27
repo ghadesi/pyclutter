@@ -1,19 +1,21 @@
-AC_PREREQ(2.53)
+AC_PREREQ([2.63])
 
 # clutter package version number, (as distinct from shared library version)
 # An odd micro number indicates in-progress development, (eg. from svn)
 # An even micro number indicates a released version.
 m4_define(pyclutter_version_major, 1)
-m4_define(pyclutter_version_minor, 1)
+m4_define(pyclutter_version_minor, 3)
 m4_define(pyclutter_version_micro, 1)
 m4_define(pyclutter_version, pyclutter_version_major.pyclutter_version_minor.pyclutter_version_micro)
 
-m4_define(clutter_required_version,      1.2.0)
+m4_define(clutter_required_version,      1.0.0)
 m4_define(pycairo_required_version,      1.0.2) dnl or 1.1.7
 m4_define(pygtk_required_version,        2.8.0)
 
 AC_INIT([pyclutter], [pyclutter_version],
-        [http://bugzilla.o-hand.com/enter_bug.cgi?product=Clutter])
+        [http://bugzilla.clutter-project.org/enter_bug.cgi?product=pyclutter],
+        [pyclutter],
+        [http://www.clutter-project.org])
 
 AC_DEFINE(PYCLUTTER_MAJOR_VERSION,
           [pyclutter_version_major], [pyclutter major version])
@@ -31,7 +33,9 @@ AC_CONFIG_SRCDIR([clutter/cluttermodule.c])
 AC_CONFIG_MACRO_DIR([build/autotools])
 AM_CONFIG_HEADER(config.h)
 
-AM_INIT_AUTOMAKE([1.9])
+AM_INIT_AUTOMAKE([1.11 -Wno-portability no-define dist-bzip2])
+
+AM_SILENT_RULES([yes])
 
 dnl put the ACLOCAL flags in the makefile
 ACLOCAL="$ACLOCAL $ACLOCAL_FLAGS"
@@ -39,9 +43,10 @@ ACLOCAL="$ACLOCAL $ACLOCAL_FLAGS"
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
 
-AC_DISABLE_STATIC
+LT_PREREQ([2.2.6])
+LT_INIT([disable-static])
+
 AC_LIBTOOL_WIN32_DLL
-AC_PROG_LIBTOOL
 
 # uncomment in 0.7
 AM_PATH_PYTHON(2.5.0,,[AC_MSG_ERROR([could not find Python 2.5.0])])
@@ -87,8 +92,51 @@ AC_SUBST(CLUTTER_LIBS)
 AS_IF([test -n "$export_dynamic"],
       [
         CLUTTER_LIBS=`echo $CLUTTER_LIBS | sed -e "s/$export_dynamic//"`
-      ]
-)
+      ])
+
+dnl check for clutter >= 1.4
+AC_MSG_CHECKING([for Clutter >= 1.4])
+PKG_CHECK_EXISTS([clutter-1.0 >= 1.4.0],
+                 [
+                   AC_MSG_RESULT([found])
+                   has_clutter_1_4=yes
+                 ],
+                 [
+                   AC_MSG_RESULT([not found])
+                   has_clutter_1_4=no
+                 ])
+
+AS_IF([test "x$has_clutter_1_4" = "xyes"],
+      [
+        AC_DEFINE([HAVE_CLUTTER_1_4],
+                  [1],
+                  [Define to 1 if Clutter >= 1.4])
+        PYGOBJECT_CODEGEN_DEFINES="$PYCLUTTER_CODEGEN_DEFINES -DHAVE_CLUTTER_1_4"
+      ])
+
+AM_CONDITIONAL([HAVE_CLUTTER_1_4], [test "x$has_clutter_1_4" = "xyes"])
+
+dnl check for clutter >= 1.2
+AC_MSG_CHECKING([for Clutter >= 1.2])
+PKG_CHECK_EXISTS([clutter-1.0 >= 1.2.0],
+                 [
+                   AC_MSG_RESULT([found])
+                   has_clutter_1_2=yes
+                 ],
+                 [
+                   AC_MSG_RESULT([not found])
+                   has_clutter_1_2=no
+                 ])
+
+AS_IF([test "x$has_clutter_1_2" = "xyes"],
+      [
+        AC_DEFINE([HAVE_CLUTTER_1_2],
+                  [1],
+                  [Define to 1 if Clutter >= 1.2])
+        PYGOBJECT_CODEGEN_DEFINES="$PYCLUTTER_CODEGEN_DEFINES -DHAVE_CLUTTER_1_2"
+      ])
+
+AM_CONDITIONAL([HAVE_CLUTTER_1_2], [test "x$has_clutter_1_2" = "xyes"])
 
 dnl Building X11 extension
 build_clutterx11=yes
@@ -116,7 +164,6 @@ AS_IF([test "x$build_clutterx11" = "xyes"],
 )
 
 AM_CONDITIONAL([BUILD_CLUTTERX11], [test "x$build_clutterx11" = "xyes"])
-
 
 dnl Building GLX extension
 build_clutterglx=yes
@@ -167,14 +214,12 @@ JH_ADD_CFLAG([-Wall])
 #JH_ADD_CFLAG([-std=c9x])
 JH_ADD_CFLAG([-fno-strict-aliasing])
 
-SHAVE_INIT([build/autotools], [enable])
+AC_SUBST([PYGOBJECT_CODEGEN_DEFINES])
 
 AC_CONFIG_FILES([
         Makefile
         build/Makefile
         build/autotools/Makefile
-        build/autotools/shave-libtool
-        build/autotools/shave
         codegen/Makefile
         pyclutter.pc
         docs/Makefile

@@ -1,0 +1,140 @@
+;; -*- scheme -*-
+;; boxed types ...
+
+(define-boxed AnimatorKey
+  (in-module "Clutter")
+  (c-name "ClutterAnimatorKey")
+  (gtype-id "CLUTTER_TYPE_ANIMATOR_KEY")
+)
+
+;; object definitions ...
+(define-object Animator
+  (in-module "Clutter")
+  (parent "GObject")
+  (c-name "ClutterAnimator")
+  (gtype-id "CLUTTER_TYPE_ANIMATOR")
+)
+
+(define-object Box
+  (in-module "Clutter")
+  (parent "ClutterActor")
+  (c-name "ClutterBox")
+  (gtype-id "CLUTTER_TYPE_BOX")
+)
+
+(define-object DeviceManager
+  (in-module "Clutter")
+  (parent "GObject")
+  (c-name "ClutterDeviceManager")
+  (gtype-id "CLUTTER_TYPE_DEVICE_MANAGER")
+)
+
+(define-object LayoutManager
+  (in-module "Clutter")
+  (parent "GObject")
+  (c-name "ClutterLayoutManager")
+  (gtype-id "CLUTTER_TYPE_LAYOUT_MANAGER")
+)
+
+(define-object FlowLayout
+  (in-module "Clutter")
+  (parent "ClutterLayoutManager")
+  (c-name "ClutterFlowLayout")
+  (gtype-id "CLUTTER_TYPE_FLOW_LAYOUT")
+)
+
+(define-object FixedLayout
+  (in-module "Clutter")
+  (parent "ClutterLayoutManager")
+  (c-name "ClutterFixedLayout")
+  (gtype-id "CLUTTER_TYPE_FIXED_LAYOUT")
+)
+
+(define-object BoxLayout
+  (in-module "Clutter")
+  (parent "ClutterLayoutManager")
+  (c-name "ClutterBoxLayout")
+  (gtype-id "CLUTTER_TYPE_BOX_LAYOUT")
+)
+
+(define-object BinLayout
+  (in-module "Clutter")
+  (parent "ClutterLayoutManager")
+  (c-name "ClutterBinLayout")
+  (gtype-id "CLUTTER_TYPE_BIN_LAYOUT")
+)
+
+(define-object LayoutMeta
+  (in-module "Clutter")
+  (parent "ClutterChildMeta")
+  (c-name "ClutterLayoutMeta")
+  (gtype-id "CLUTTER_TYPE_LAYOUT_META")
+)
+
+;; Enumerations and flags ...
+
+(define-flags RedrawFlags
+  (in-module "Clutter")
+  (c-name "ClutterRedrawFlags")
+  (gtype-id "CLUTTER_TYPE_REDRAW_FLAGS")
+  (values
+    '("box" "CLUTTER_REDRAW_CLIPPED_TO_BOX")
+    '("allocation" "CLUTTER_REDRAW_CLIPPED_TO_ALLOCATION")
+  )
+)
+
+(define-enum Interpolation
+  (in-module "Clutter")
+  (c-name "ClutterInterpolation")
+  (gtype-id "CLUTTER_TYPE_INTERPOLATION")
+  (values
+    '("linear" "CLUTTER_INTERPOLATION_LINEAR")
+    '("cubic" "CLUTTER_INTERPOLATION_CUBIC")
+  )
+)
+
+(define-enum BinAlignment
+  (in-module "Clutter")
+  (c-name "ClutterBinAlignment")
+  (gtype-id "CLUTTER_TYPE_BIN_ALIGNMENT")
+  (values
+    '("fixed" "CLUTTER_BIN_ALIGNMENT_FIXED")
+    '("fill" "CLUTTER_BIN_ALIGNMENT_FILL")
+    '("start" "CLUTTER_BIN_ALIGNMENT_START")
+    '("end" "CLUTTER_BIN_ALIGNMENT_END")
+    '("center" "CLUTTER_BIN_ALIGNMENT_CENTER")
+  )
+)
+
+(define-enum BoxAlignment
+  (in-module "Clutter")
+  (c-name "ClutterBoxAlignment")
+  (gtype-id "CLUTTER_TYPE_BOX_ALIGNMENT")
+  (values
+    '("start" "CLUTTER_BOX_ALIGNMENT_START")
+    '("end" "CLUTTER_BOX_ALIGNMENT_END")
+    '("center" "CLUTTER_BOX_ALIGNMENT_CENTER")
+  )
+)
+
+(define-enum FlowOrientation
+  (in-module "Clutter")
+  (c-name "ClutterFlowOrientation")
+  (gtype-id "CLUTTER_TYPE_FLOW_ORIENTATION")
+  (values
+    '("horizontal" "CLUTTER_FLOW_HORIZONTAL")
+    '("vertical" "CLUTTER_FLOW_VERTICAL")
+  )
+)
+
+(define-enum TextDirection
+  (in-module "Clutter")
+  (c-name "ClutterTextDirection")
+  (gtype-id "CLUTTER_TYPE_TEXT_DIRECTION")
+  (values
+    '("default" "CLUTTER_TEXT_DIRECTION_DEFAULT")
+    '("ltr" "CLUTTER_TEXT_DIRECTION_LTR")
+    '("rtl" "CLUTTER_TEXT_DIRECTION_RTL")
+  )
+)
+

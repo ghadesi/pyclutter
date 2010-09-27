@@ -199,11 +199,6 @@
 
 ;; From cogl-enum-types.h
 
-(define-function debug_flags_get_type
-  (c-name "cogl_debug_flags_get_type")
-  (return-type "GType")
-)
-
 (define-function material_filter_get_type
   (c-name "cogl_material_filter_get_type")
   (return-type "GType")
