@@ -98,6 +98,13 @@
   (gtype-id "CLUTTER_TYPE_PAGE_TURN_EFFECT")
 )
 
+(define-object Settings
+  (in-module "Clutter")
+  (parent "GObject")
+  (c-name "ClutterSettings")
+  (gtype-id "CLUTTER_TYPE_SETTINGS")
+)
+
 (define-object ShaderEffect
   (in-module "Clutter")
   (parent "ClutterOffscreenEffect")

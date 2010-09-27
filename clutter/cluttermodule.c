@@ -29,39 +29,7 @@ PyObject *PyClutterWarning;
 PyObject *PyClutterException;
 
 static void
-sink_clutteractor (GObject *object)
-{
-    if (g_object_is_floating (object)) {
-        g_object_ref_sink (object);
-    }
-}
-
-static void
-sink_clutteralpha (GObject *object)
-{
-    if (g_object_is_floating (object)) {
-        g_object_ref_sink (object);
-    }
-}
-
-static void
-sink_clutterpath (GObject *object)
-{
-    if (g_object_is_floating (object)) {
-        g_object_ref_sink (object);
-    }
-}
-
-static void
-sink_clutterinterval (GObject *object)
-{
-    if (g_object_is_floating (object)) {
-        g_object_ref_sink (object);
-    }
-}
-
-static void
-sink_clutterlayoutmanager (GObject *object)
+sink_initially_unowned (GObject *object)
 {
     if (g_object_is_floating (object)) {
         g_object_ref_sink (object);
@@ -186,12 +154,16 @@ init_clutter (void)
 
   clutter_base_init ();
 
-  pygobject_register_sinkfunc (CLUTTER_TYPE_ACTOR, sink_clutteractor);
-  pygobject_register_sinkfunc (CLUTTER_TYPE_ALPHA, sink_clutteralpha);
-  pygobject_register_sinkfunc (CLUTTER_TYPE_PATH, sink_clutterpath);
-  pygobject_register_sinkfunc (CLUTTER_TYPE_INTERVAL, sink_clutterinterval);
-  pygobject_register_sinkfunc (CLUTTER_TYPE_LAYOUT_MANAGER,
-                               sink_clutterlayoutmanager);
+  pygobject_register_sinkfunc (CLUTTER_TYPE_ACTOR,          sink_initially_unowned);
+  pygobject_register_sinkfunc (CLUTTER_TYPE_ALPHA,          sink_initially_unowned);
+  pygobject_register_sinkfunc (CLUTTER_TYPE_PATH,           sink_initially_unowned);
+  pygobject_register_sinkfunc (CLUTTER_TYPE_INTERVAL,       sink_initially_unowned);
+#if CLUTTER_CHECK_VERSION (1, 2, 0)
+  pygobject_register_sinkfunc (CLUTTER_TYPE_LAYOUT_MANAGER, sink_initially_unowned);
+#endif
+#if CLUTTER_CHECK_VERSION (1, 4, 0)
+  pygobject_register_sinkfunc (CLUTTER_TYPE_ACTOR_META,     sink_initially_unowned);
+#endif
 
   m = Py_InitModule ("_clutter", pyclutter_functions);
   d = PyModule_GetDict (m);

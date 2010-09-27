@@ -183,10 +183,10 @@
   (c-name "clutter_align_constraint_new")
   (is-constructor-of "ClutterAlignConstraint")
   (return-type "ClutterConstraint*")
-  (parameters
-    '("ClutterActor*" "source")
-    '("ClutterAlignAxis" "axis")
-    '("gfloat" "factor")
+  (properties
+    '("source")
+    '("axis")
+    '("factor")
   )
 )
 
@@ -331,10 +331,10 @@
   (c-name "clutter_bind_constraint_new")
   (is-constructor-of "ClutterBindConstraint")
   (return-type "ClutterConstraint*")
-  (parameters
-    '("ClutterActor*" "source")
-    '("ClutterBindCoordinate" "coordinate")
-    '("gfloat" "offset")
+  (properties
+    '("source")
+    '("coordinate")
+    '("offset")
   )
 )
 
@@ -481,10 +481,13 @@
   (return-type "GType")
 )
 
-(define-method ize_effect_new
-  (of-object "ClutterColor")
+(define-function colorize_effect_new
   (c-name "clutter_colorize_effect_new")
+  (is-constructor-of "ClutterColorizeEffect")
   (return-type "ClutterEffect*")
+  (properties
+    '("tint")
+  )
 )
 
 (define-method set_tint
@@ -643,8 +646,8 @@
   (c-name "clutter_desaturate_effect_new")
   (is-constructor-of "ClutterDesaturateEffect")
   (return-type "ClutterEffect*")
-  (parameters
-    '("gdouble" "factor")
+  (properties
+    '("factor")
   )
 )
 
@@ -986,10 +989,10 @@
   (c-name "clutter_page_turn_effect_new")
   (is-constructor-of "ClutterPageTurnEffect")
   (return-type "ClutterEffect*")
-  (parameters
-    '("gdouble" "period")
-    '("gdouble" "angle")
-    '("gfloat" "radius")
+  (properties
+    '("period")
+    '("angle")
+    '("radius")
   )
 )
 

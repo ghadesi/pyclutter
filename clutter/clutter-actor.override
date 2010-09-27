@@ -801,3 +801,105 @@ _wrap_ClutterActor__proxy_do_apply_transform (ClutterActor *self,
     Py_DECREF(py_self);
     pyg_gil_state_release(__py_state);
 }
+%%
+override clutter_actor_get_actions noargs
+static PyObject *
+_wrap_clutter_actor_get_actions (PyGObject *self)
+{
+        GList *actions, *l;
+        PyObject *py_actions;
+
+        actions = clutter_actor_get_actions (CLUTTER_ACTOR (self->obj));
+
+        if ((py_actions = PyList_New (0)) == NULL) {
+                g_list_free (actions);
+                return NULL;
+        }
+
+        for (l = actions; l != NULL; l = l->next) {
+                ClutterAction *action = l->data;
+                PyObject *py_action;
+
+                py_action = pygobject_new ((GObject *) action);
+                if (py_action == NULL) {
+                        g_list_free (actions);
+                        Py_DECREF (py_actions);
+                        return NULL;
+                }
+
+                PyList_Append (py_actions, py_action);
+                Py_DECREF (py_action);
+        }
+
+        g_list_free (actions);
+
+        return py_actions;
+}
+%%
+override clutter_actor_get_constraints noargs
+static PyObject *
+_wrap_clutter_actor_get_constraints (PyGObject *self)
+{
+        GList *constraints, *l;
+        PyObject *py_constraints;
+
+        constraints = clutter_actor_get_constraints (CLUTTER_ACTOR (self->obj));
+
+        if ((py_constraints = PyList_New (0)) == NULL) {
+                g_list_free (constraints);
+                return NULL;
+        }
+
+        for (l = constraints; l != NULL; l = l->next) {
+                ClutterConstraint *constraint = l->data;
+                PyObject *py_constraint;
+
+                py_constraint = pygobject_new ((GObject *) constraint);
+                if (py_constraint == NULL) {
+                        g_list_free (constraints);
+                        Py_DECREF (py_constraints);
+                        return NULL;
+                }
+
+                PyList_Append (py_constraints, py_constraint);
+                Py_DECREF (py_constraint);
+        }
+
+        g_list_free (constraints);
+
+        return py_constraints;
+}
+%%
+override clutter_actor_get_effects noargs
+static PyObject *
+_wrap_clutter_actor_get_effects (PyGObject *self)
+{
+        GList *effects, *l;
+        PyObject *py_effects;
+
+        effects = clutter_actor_get_effects (CLUTTER_ACTOR (self->obj));
+
+        if ((py_effects = PyList_New (0)) == NULL) {
+                g_list_free (effects);
+                return NULL;
+        }
+
+        for (l = effects; l != NULL; l = l->next) {
+                ClutterEffect *effect = l->data;
+                PyObject *py_effect;
+
+                py_effect = pygobject_new ((GObject *) effect);
+                if (py_effect == NULL) {
+                        g_list_free (effects);
+                        Py_DECREF (py_effects);
+                        return NULL;
+                }
+
+                PyList_Append (py_effects, py_effect);
+                Py_DECREF (py_effect);
+        }
+
+        g_list_free (effects);
+
+        return py_effects;
+}
