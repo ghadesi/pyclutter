@@ -67,6 +67,7 @@ _wrap_ClutterContainer__do_foreach_callback(ClutterActor *child,
 
 %%
 include
+  clutter-action.override
   clutter-actor.override
   clutter-alpha.override
   clutter-animation.override
@@ -77,6 +78,7 @@ include
   clutter-cairotexture.override
   clutter-color.override
   clutter-container.override
+  clutter-effect.override
   clutter-event.override
   clutter-interval.override
   clutter-layout-manager.override

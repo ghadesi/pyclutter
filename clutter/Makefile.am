@@ -41,23 +41,25 @@ COGL_OVERRIDES =		\
 
 CLUTTER_OVERRIDES = 			\
 	clutter.override		\
+	clutter-action.override		\
 	clutter-actor.override 		\
 	clutter-alpha.override		\
 	clutter-animation.override	\
+	clutter-animator.override	\
 	clutter-behaviour.override	\
 	clutter-boxed.override 		\
+	clutter-box.override 		\
 	clutter-cairotexture.override 	\
 	clutter-color.override		\
 	clutter-container.override	\
+	clutter-effect.override		\
 	clutter-event.override		\
 	clutter-interval.override 	\
+	clutter-layout-manager.override	\
 	clutter-model.override		\
 	clutter-path.override		\
 	clutter-script.override     	\
 	clutter-text.override 		\
-	clutter-animator.override	\
-	clutter-box.override 		\
-	clutter-layout-manager.override	\
 	$(NULL)
 
 if HAVE_CLUTTER_1_2

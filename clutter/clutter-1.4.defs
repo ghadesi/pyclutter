@@ -957,7 +957,7 @@
 (define-method get_target
   (of-object "ClutterOffscreenEffect")
   (c-name "clutter_offscreen_effect_get_target")
-  (return-type "CoglMaterial*")
+  (return-type "CoglHandle")
 )
 
 (define-method paint_target
