@@ -2,6 +2,11 @@
 
 ;; From clutter-actor.h
 
+(define-virtual queue_relayout
+  (of-object "ClutterActor")
+  (return-type "none")
+)
+
 (define-method set_request_mode
   (of-object "ClutterActor")
   (c-name "clutter_actor_set_request_mode")
