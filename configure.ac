@@ -8,9 +8,10 @@ m4_define(pyclutter_version_minor, 3)
 m4_define(pyclutter_version_micro, 1)
 m4_define(pyclutter_version, pyclutter_version_major.pyclutter_version_minor.pyclutter_version_micro)
 
-m4_define(clutter_required_version,      1.0.0)
-m4_define(pycairo_required_version,      1.0.2) dnl or 1.1.7
-m4_define(pygtk_required_version,        2.8.0)
+m4_define(clutter_required_version,     1.0.0)
+m4_define(pycairo_required_version,     1.0.2) dnl or 1.1.7
+m4_define(pygobject_required_version,   2.21.3)
+m4_define(pygtk_required_version,       2.8.0)
 
 AC_INIT([pyclutter], [pyclutter_version],
         [http://bugzilla.clutter-project.org/enter_bug.cgi?product=pyclutter],
@@ -69,21 +70,35 @@ AC_CHECK_HEADERS([fcntl.h stdlib.h string.h unistd.h])
 # Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
 
-dnl check for pygtk
-PKG_CHECK_MODULES(PYGTK, [pygtk-2.0 >= pygtk_required_version])
-AC_SUBST(PYGTK_CFLAGS)
+dnl check for pygobject
+PKG_CHECK_MODULES(PYGOBJECT, [pygobject-2.0 >= pygobject_required_version])
+AC_SUBST(PYGOBJECT_CFLAGS)
+AC_SUBST(PYGOBJECT_LIBS)
 
-PYGOBJECT_CODEGEN_DEFINES=
+PYGOBJECT_INCLUDEDIR=`$PKG_CONFIG --variable=pygtkincludedir pygobject-2.0`
+PYGOBJECT_DATADIR=`$PKG_CONFIG --variable=datadir pygobject-2.0`
+PYGOBJECT_DEFSDIR=`$PKG_CONFIG --variable defsdir pygobject-2.0`
+AC_SUBST(PYGOBJECT_INCLUDEDIR)
+AC_SUBST(PYGOBJECT_DATADIR)
+AC_SUBST(PYGOBJECT_DEFSDIR)
+AC_SUBST(PYGOBJECT_CFLAGS)
 
 dnl check for pycairo
 PKG_CHECK_MODULES(PYCAIRO, [pycairo >= pycairo_required_version])
 AC_SUBST(PYCAIRO_CFLAGS)
 AC_SUBST(PYCAIRO_LIBS)
 
+dnl check for pygtk
+PKG_CHECK_MODULES(PYGTK, [pygtk-2.0 >= pygtk_required_version])
+AC_SUBST(PYGTK_CFLAGS)
+AC_SUBST(PYGTK_LIBS)
+
 AC_MSG_CHECKING([for pygtk defs])
 PYGTK_DEFSDIR=`$PKG_CONFIG --variable=defsdir pygtk-2.0`
 AC_SUBST(PYGTK_DEFSDIR)
 AC_MSG_RESULT($PYGTK_DEFSDIR)
+
+PYGOBJECT_CODEGEN_DEFINES=
 
 dnl check for clutter
 PKG_CHECK_MODULES(CLUTTER, clutter-1.0 >= clutter_required_version)
@@ -197,11 +212,8 @@ AS_IF([test "x$enable_docs" = "xyes"],
         dnl Check for xsltproc
         AC_PATH_PROG([XSLTPROC], [xsltproc], [], [enable_docs=no])
 
-        PYGOBJECT_DATADIR=`$PKG_CONFIG --variable=datadir pygobject-2.0`
         PYGOBJECT_PYGDOCS=`$PKG_CONFIG --variable=pygdocs pygobject-2.0`
-        PYGOBJECT_FIXXREF=`$PKG_CONFIG --variable=fixxref pygobject-2.0`
-
-        AC_SUBST(PYGOBJECT_DATADIR)
+        PYGOBJECT_FIXXREF="$PYTHON `$PKG_CONFIG --variable=fixxref pygobject-2.0`"
         AC_SUBST(PYGOBJECT_PYGDOCS)
         AC_SUBST(PYGOBJECT_FIXXREF)
       ]
@@ -211,7 +223,6 @@ AM_CONDITIONAL(ENABLE_DOCS, [test "x$enable_docs" = "xyes"])
 
 dnl add required cflags ...
 JH_ADD_CFLAG([-Wall])
-#JH_ADD_CFLAG([-std=c9x])
 JH_ADD_CFLAG([-fno-strict-aliasing])
 
 AC_SUBST([PYGOBJECT_CODEGEN_DEFINES])

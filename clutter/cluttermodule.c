@@ -154,17 +154,6 @@ init_clutter (void)
 
   clutter_base_init ();
 
-  pygobject_register_sinkfunc (CLUTTER_TYPE_ACTOR,          sink_initially_unowned);
-  pygobject_register_sinkfunc (CLUTTER_TYPE_ALPHA,          sink_initially_unowned);
-  pygobject_register_sinkfunc (CLUTTER_TYPE_PATH,           sink_initially_unowned);
-  pygobject_register_sinkfunc (CLUTTER_TYPE_INTERVAL,       sink_initially_unowned);
-#if CLUTTER_CHECK_VERSION (1, 2, 0)
-  pygobject_register_sinkfunc (CLUTTER_TYPE_LAYOUT_MANAGER, sink_initially_unowned);
-#endif
-#if CLUTTER_CHECK_VERSION (1, 4, 0)
-  pygobject_register_sinkfunc (CLUTTER_TYPE_ACTOR_META,     sink_initially_unowned);
-#endif
-
   m = Py_InitModule ("_clutter", pyclutter_functions);
   d = PyModule_GetDict (m);
 

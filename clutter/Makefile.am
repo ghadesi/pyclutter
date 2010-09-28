@@ -4,7 +4,7 @@ NULL =
 
 CLEANFILES =
 EXTRA_DIST = 
-INCLUDES = $(pyclutter_common_includes)
+INCLUDES = $(pyclutter_common_includes) $(PYGOBJECT_CFLAGS) $(PYGTK_CFLAGS)
 
 CREATEDEFS = $(PYTHON) $(top_srcdir)/codegen/createdefs.py
 PYGOBJECT_CODEGEN = $(PYTHON) $(top_srcdir)/codegen/codegen.py
@@ -135,7 +135,7 @@ clutter.c: cogl-types.defs clutter-types.defs clutter.defs cogl.defs $(CLUTTER_O
 clutterx11.c: clutterx11-types.defs clutterx11.defs $(CLUTTERX11_OVERRIDES)
 clutterglx.c: clutterglx-types.defs clutterglx.defs $(CLUTTERGLX_OVERRIDES)
 
-_clutter_la_CFLAGS  = $(PYCAIRO_CFLAGS) $(CLUTTER_CFLAGS)
+_clutter_la_CFLAGS  = $(PYCAIRO_CFLAGS) $(PYGOBJECT_CFLAGS) $(CLUTTER_CFLAGS)
 _clutter_la_LDFLAGS = $(pyclutter_common_ldflags) -export-symbols-regex init_clutter
 _clutter_la_LIBADD  = $(PYCAIRO_LIBS) $(PYGOBJECT_LIBS) $(CLUTTER_LIBS)
 _clutter_la_SOURCES = 		\
