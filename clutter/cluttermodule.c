@@ -29,14 +29,6 @@ PyObject *PyClutterWarning;
 PyObject *PyClutterException;
 
 static void
-sink_initially_unowned (GObject *object)
-{
-    if (g_object_is_floating (object)) {
-        g_object_ref_sink (object);
-    }
-}
-
-static void
 pyclutter_register_exceptions (PyObject *dict)
 {
   PyClutterDeprecationWarning =
