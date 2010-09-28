@@ -715,3 +715,97 @@ _wrap_clutter_layout_manager_list_child_properties (PyGObject *self)
 
   return py_ret;
 }
+%%
+override clutter_table_layout_get_span kwargs
+static PyObject *
+_wrap_clutter_table_layout_get_span (PyGObject *self,
+                                     PyObject  *args,
+                                     PyObject  *kwargs)
+{
+  static char *kwlist[] = { "actor", NULL };
+  PyGObject *py_actor;
+  gint column_span, row_span;
+
+  if (!PyArg_ParseTupleAndKeywords (args, kwargs,
+                                    "O!:clutter.TableLayout.get_span",
+                                    kwlist,
+                                    &PyClutterActor_Type, &py_actor))
+    return NULL;
+
+  clutter_table_layout_get_span (CLUTTER_TABLE_LAYOUT (self->obj),
+                                 CLUTTER_ACTOR (py_actor->obj),
+                                 &column_span, &row_span);
+  return Py_BuildValue ("(ii)", column_span, row_span);
+}
+%%
+override clutter_table_layout_get_fill kwargs
+static PyObject *
+_wrap_clutter_table_layout_get_fill (PyGObject *self,
+                                     PyObject  *args,
+                                     PyObject  *kwargs)
+{
+  static char *kwlist[] = { "actor", NULL };
+  PyGObject *py_actor;
+  gboolean x_fill, y_fill;
+
+  if (!PyArg_ParseTupleAndKeywords (args, kwargs,
+                                    "O!:clutter.TableLayout.get_fill",
+                                    kwlist,
+                                    &PyClutterActor_Type, &py_actor))
+    return NULL;
+
+  clutter_table_layout_get_fill (CLUTTER_TABLE_LAYOUT (self->obj),
+                                 CLUTTER_ACTOR (py_actor->obj),
+                                 &x_fill, &y_fill);
+  return Py_BuildValue ("(ii)", x_fill, y_fill);
+}
+%%
+override clutter_table_layout_get_expand kwargs
+static PyObject *
+_wrap_clutter_table_layout_get_expand (PyGObject *self,
+                                       PyObject  *args,
+                                       PyObject  *kwargs)
+{
+  static char *kwlist[] = { "actor", NULL };
+  PyGObject *py_actor;
+  gboolean x_expand, y_expand;
+
+  if (!PyArg_ParseTupleAndKeywords (args, kwargs,
+                                    "O!:clutter.TableLayout.get_expand",
+                                    kwlist,
+                                    &PyClutterActor_Type, &py_actor))
+    return NULL;
+
+  clutter_table_layout_get_expand (CLUTTER_TABLE_LAYOUT (self->obj),
+                                   CLUTTER_ACTOR (py_actor->obj),
+                                   &x_expand, &y_expand);
+  return Py_BuildValue ("(ii)", x_expand, y_expand);
+}
+%%
+override clutter_table_layout_get_alignment kwargs
+static PyObject *
+_wrap_clutter_table_layout_get_alignment (PyGObject *self,
+                                          PyObject  *args,
+                                          PyObject  *kwargs)
+{
+  static char *kwlist[] = { "actor", NULL };
+  PyGObject *py_actor;
+  ClutterTableAlignment x_align, y_align;
+
+  if (!PyArg_ParseTupleAndKeywords (args, kwargs,
+                                    "O!:clutter.TableLayout.get_alignment",
+                                    kwlist,
+                                    &PyClutterActor_Type, &py_actor))
+    return NULL;
+
+  clutter_table_layout_get_alignment (CLUTTER_TABLE_LAYOUT (self->obj),
+                                      CLUTTER_ACTOR (py_actor->obj),
+                                      &x_align, &y_align);
+
+  return Py_BuildValue ("(NN)",
+                        pyg_enum_from_gtype (CLUTTER_TYPE_TABLE_ALIGNMENT,
+                                             x_align),
+                        pyg_enum_from_gtype (CLUTTER_TYPE_TABLE_ALIGNMENT,
+                                             y_align));
+}
+%%
