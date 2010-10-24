@@ -18,14 +18,11 @@ AC_INIT([pyclutter], [pyclutter_version],
         [pyclutter],
         [http://www.clutter-project.org])
 
-AC_DEFINE(PYCLUTTER_MAJOR_VERSION,
-          [pyclutter_version_major], [pyclutter major version])
+AC_DEFINE(PYCLUTTER_MAJOR_VERSION, [pyclutter_version_major], [pyclutter major version])
 AC_SUBST(PYCLUTTER_MAJOR_VERSION, [pyclutter_version_major])
-AC_DEFINE(PYCLUTTER_MINOR_VERSION,
-          [pyclutter_version_minor], [pyclutter minor version])
+AC_DEFINE(PYCLUTTER_MINOR_VERSION, [pyclutter_version_minor], [pyclutter minor version])
 AC_SUBST(PYCLUTTER_MINOR_VERSION, [pyclutter_version_minor])
-AC_DEFINE(PYCLUTTER_MICRO_VERSION, [pyclutter_version_micro],
-          [pyclutter micro version])
+AC_DEFINE(PYCLUTTER_MICRO_VERSION, [pyclutter_version_micro], [pyclutter micro version])
 AC_SUBST(PYCLUTTER_MICRO_VERSION, [pyclutter_version_micro])
 AC_DEFINE(PYCLUTTER_VERSION, [pyclutter_version], [pyclutter version])
 AC_SUBST(PYCLUTTER_VERSION, [pyclutter_version])
@@ -34,7 +31,7 @@ AC_CONFIG_SRCDIR([clutter/cluttermodule.c])
 AC_CONFIG_MACRO_DIR([build/autotools])
 AM_CONFIG_HEADER(config.h)
 
-AM_INIT_AUTOMAKE([1.11 foreign -Wno-portability no-define dist-bzip2])
+AM_INIT_AUTOMAKE([1.11 foreign -Wno-portability no-define no-dist-gzip dist-bzip2])
 
 AM_SILENT_RULES([yes])
 
@@ -50,8 +47,7 @@ LT_INIT([disable-static])
 AC_LIBTOOL_WIN32_DLL
 
 # uncomment in 0.7
-AM_PATH_PYTHON(2.5.0,,[AC_MSG_ERROR([could not find Python 2.5.0])])
-#AM_PATH_PYTHON(2.4.0,,[AC_MSG_ERROR([could not find Python 2.4.0])])
+AM_PATH_PYTHON(2.6.0,,[AC_MSG_ERROR([could not find Python 2.6.0])])
 AM_CHECK_PYTHON_HEADERS(,[AC_MSG_ERROR([could not find Python headers])])
 
 PLATFORM=`$PYTHON -c "from distutils import util; print util.get_platform()"`
