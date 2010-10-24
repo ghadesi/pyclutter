@@ -5,7 +5,7 @@ AC_PREREQ([2.63])
 # An even micro number indicates a released version.
 m4_define(pyclutter_version_major, 1)
 m4_define(pyclutter_version_minor, 3)
-m4_define(pyclutter_version_micro, 1)
+m4_define(pyclutter_version_micro, 2)
 m4_define(pyclutter_version, pyclutter_version_major.pyclutter_version_minor.pyclutter_version_micro)
 
 m4_define(clutter_required_version,     1.0.0)
