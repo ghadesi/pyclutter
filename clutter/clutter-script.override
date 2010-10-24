@@ -1,6 +1,11 @@
 %%
 headers
+
+#if CLUTTER_CHECK_VERSION (1, 5, 2)
+#include <json-glib/json-glib.h>
+#else
 #include <clutter/clutter-json.h>
+#endif
 
 typedef struct {
     PyObject    *obj;
@@ -9,6 +14,7 @@ typedef struct {
 
 %%
 ignore clutter_script_connect_signals_full
+
 %%
 body
 

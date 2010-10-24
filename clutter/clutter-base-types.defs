@@ -681,16 +681,6 @@
   )
 )
 
-(define-flags RedrawFlags
-  (in-module "Clutter")
-  (c-name "ClutterRedrawFlags")
-  (gtype-id "CLUTTER_TYPE_REDRAW_FLAGS")
-  (values
-    '("box" "CLUTTER_REDRAW_CLIPPED_TO_BOX")
-    '("allocation" "CLUTTER_REDRAW_CLIPPED_TO_ALLOCATION")
-  )
-)
-
 (define-enum TextDirection
   (in-module "Clutter")
   (c-name "ClutterTextDirection")
