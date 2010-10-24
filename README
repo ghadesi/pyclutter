@@ -15,8 +15,8 @@ Requirements
   * GTK+ 2.10.0 or higher
   * Clutter 1.0.0 or higher
   * PyCairo 1.0.2 or higher
-  * PyGObject 2.12.1 or higher
-  * Python 2.5.0 or higher
+  * PyGObject 2.21.3 or higher
+  * Python 2.6.0 or higher
 
 Installation
 ------------
