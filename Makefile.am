@@ -6,6 +6,10 @@ if ENABLE_DOCS
 SUBDIRS += docs
 endif
 
+if ENABLE_INTROSPECTION
+SUBDIRS += introspection
+endif
+
 pyclutter-1.0.pc: pyclutter.pc
 	@cp -f $< $(@F)
 

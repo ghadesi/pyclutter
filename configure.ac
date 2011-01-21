@@ -74,6 +74,7 @@ AC_SUBST(PYGOBJECT_LIBS)
 PYGOBJECT_INCLUDEDIR=`$PKG_CONFIG --variable=pygtkincludedir pygobject-2.0`
 PYGOBJECT_DATADIR=`$PKG_CONFIG --variable=datadir pygobject-2.0`
 PYGOBJECT_DEFSDIR=`$PKG_CONFIG --variable defsdir pygobject-2.0`
+PYGOBJECT_VERSION=`$PKG_CONFIG --variable defsdir pygobject-2.0`
 AC_SUBST(PYGOBJECT_INCLUDEDIR)
 AC_SUBST(PYGOBJECT_DATADIR)
 AC_SUBST(PYGOBJECT_DEFSDIR)
@@ -223,6 +224,27 @@ JH_ADD_CFLAG([-fno-strict-aliasing])
 
 AC_SUBST([PYGOBJECT_CODEGEN_DEFINES])
 
+dnl Introspection support
+AC_ARG_ENABLE([introspection],
+              [AC_HELP_STRING([--enable-introspection], [Enable introspection overrides])],
+              [],
+              [enable_introspection=yes])
+AS_IF([test "x$enable_introspection" = "xyes"],
+      [
+        AC_MSG_CHECKING([for pygobject overrides dir])
+        overrides_dir=`$PYTHON build/get_overrides_dir.py`
+        PYGOBJECT_OVERRIDESDIR=$overrides_dir
+        AC_SUBST(PYGOBJECT_OVERRIDESDIR)
+        AC_MSG_RESULT($PYGOBJECT_OVERRIDESDIR)
+        AS_IF([test "x$PYGOBJECT_OVERRIDESDIR" = "x"],
+              [
+               enable_introspection=no
+              ])
+      ]
+)
+AM_CONDITIONAL(ENABLE_INTROSPECTION, [test "x$enable_introspection" = "xyes"])
+
+
 AC_CONFIG_FILES([
         Makefile
         build/Makefile
@@ -233,12 +255,14 @@ AC_CONFIG_FILES([
         docs/reference/entities.docbook
         examples/Makefile
         clutter/Makefile
+        introspection/Makefile
 ])
 
 AC_OUTPUT
 
 echo "* PyClutter:
     enable documentation: $enable_docs
+    enable introspection: $enable_introspection
     build x11 submodule:  $build_clutterx11
     build glx submodule:  $build_clutterglx
 "
