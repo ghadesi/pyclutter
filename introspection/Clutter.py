@@ -433,107 +433,6 @@ Box = override(Box)
 __all__.append('Box')
 
 
-class BinLayout(Clutter.BinLayout):
-    def __init__(self,
-                 x_align=Clutter.BinAlignment.CENTER,
-                 y_align=Clutter.BinAlignment.CENTER):
-        Clutter.BinLayout.__init__(self)
-        self.props.x_align = x_align
-        self.props.y_align = y_align
-
-BinLayout = override(BinLayout)
-__all__.append('BinLayout')
-
-
-
-class FlowLayout(Clutter.FlowLayout):
-    def __init__(self, orientation=Clutter.FlowOrientation.HORIZONTAL,
-                 **kwargs):
-        Clutter.FlowLayout.__init__(self, **kwargs)
-        self.props.orientation = orientation
-
-FlowLayout = override(FlowLayout)
-__all__.append('FlowLayout')
-
-
-class BindConstraint(Clutter.BindConstraint):
-    def __init__(self, source, coordinate, offset):
-        Clutter.BindConstraint.__init__(self)
-        self.props.source = source
-        self.props.coordinate = coordinate
-        self.props.offset = offset
-
-BindConstraint = override(BindConstraint)
-__all__.append('BindConstraint')
-
-
-class AlignConstraint(Clutter.AlignConstraint):
-    def __init__(self, source, axis, factor):
-        Clutter.AlignConstraint.__init__(self)
-        self.props.source = source
-        self.props.align_axis = axis
-        self.props.factor = factor
-
-AlignConstraint = override(AlignConstraint)
-__all__.append('AlignConstraint')
-
-
-# provide backwards compatibility to clutter 1.4
-if hasattr(Clutter, 'SnapConstraint'):
-    class SnapConstraint(Clutter.SnapConstraint):
-        def __init__(self, source):
-            Clutter.SnapConstraint.__init__(self)
-            self.props.source = source
-
-    SnapConstraint = override(SnapConstraint)
-    __all__.append('SnapConstraint')
-
-if hasattr(Clutter, 'PathConstraint'):
-    class PathConstraint(Clutter.PathConstraint):
-        def __init__(self, path, offset):
-            Clutter.PathConstraint.__init__(self)
-            self.props.path = path
-            self.props.offset = offset
-
-    PathConstraint = override(PathConstraint)
-    __all__.append('PathConstraint')
-
-
-
-class PageTurnEffect(Clutter.PageTurnEffect):
-    def __init__(self, period, angle, radius):
-        Clutter.PageTurnEffect.__init__(self)
-        self.props.period = period
-        self.props.angle = angle
-        self.props.radius = radius
-
-PageTurnEffect = override(PageTurnEffect)
-__all__.append('PageTurnEffect')
-
-
-class ColorizeEffect(Clutter.ColorizeEffect):
-    def __init__(self, color):
-        Clutter.ColorizeEffect.__init__(self)
-        self.set_tint(color)
-
-    def set_tint(self, color):
-        Clutter.ColorizeEffect.set_tint(self, _to_color(color))
-
-ColorizeEffect = override(ColorizeEffect)
-__all__.append('ColorizeEffect')
-
-
-class DesaturateEffect(Clutter.DesaturateEffect):
-    def __init__(self, factor):
-        Clutter.DesaturateEffect.__init__(self)
-        self.props.factor = factor
-
-DesaturateEffect = override(DesaturateEffect)
-__all__.append('DesaturateEffect')
-
-
-
-
 class Model(Clutter.Model):
     def insert(self, row, *args):
         if len(args) < 2 or len(args) % 2:
@@ -595,46 +494,6 @@ Alpha = override(Alpha)
 __all__.append('Alpha')
 
 
-class BehaviourDepth(Clutter.BehaviourDepth):
-    def __init__(self, alpha=None, depth_start=0, depth_end=0):
-        Clutter.BehaviourDepth.__init__(self)
-        self.props.alpha = alpha
-        self.props.depth_start = depth_start
-        self.props.depth_end = depth_end
-
-BehaviourDepth = override(BehaviourDepth)
-__all__.append('BehaviourDepth')
-
-
-class BehaviourEllipse(Clutter.BehaviourEllipse):
-    def __init__(self, alpha=None, x=0, y=0, width=0, height=0,
-                 direction=Clutter.RotateDirection.CW,
-                 start=0.0, end=0.0):
-        Clutter.BehaviourEllipse.__init__(self)
-        self.props.alpha = alpha
-        self.props.x = x
-        self.props.y = y
-        self.props.width = width
-        self.props.height = height
-        self.props.direction = direction
-        self.props.start = start
-        self.props.end = end
-
-BehaviourEllipse = override(BehaviourEllipse)
-__all__.append('BehaviourEllipse')
-
-
-class BehaviourOpacity(Clutter.BehaviourOpacity):
-    def __init__(self, opacity_start=0, opacity_end=0, alpha=None):
-        Clutter.BehaviourOpacity.__init__(self)
-        self.props.opacity_start = opacity_start
-        self.props.opacity_end = opacity_end
-        self.props.alpha = alpha
-
-BehaviourOpacity = override(BehaviourOpacity)
-__all__.append('BehaviourOpacity')
-
-
 class Path(Clutter.Path):
     def __init__(self, description=None):
         Clutter.Path.__init__(self)
@@ -657,37 +516,6 @@ class BehaviourPath(Clutter.BehaviourPath):
 
 BehaviourPath = override(BehaviourPath)
 __all__.append('BehaviourPath')
-
-
-class BehaviourRotate(Clutter.BehaviourRotate):
-    def __init__(self, alpha=None, axis=Clutter.RotateAxis.X_AXIS,
-                 direction=Clutter.RotateDirection.CW,
-                 angle_start=0.0, angle_end=0.0):
-        Clutter.BehaviourRotate.__init__(self)
-        self.props.alpha = alpha
-        self.props.axis = axis
-        self.props.direction = direction
-        self.props.angle_start = angle_start
-        self.props.angle_end = angle_end
-
-BehaviourRotate = override(BehaviourRotate)
-__all__.append('BehaviourRotate')
-
-
-class BehaviourScale(Clutter.BehaviourScale):
-    def __init__(self, alpha=None,
-                 x_scale_start=1.0, x_scale_end=1.0,
-                 y_scale_start=1.0, y_scale_end=1.0):
-        Clutter.BehaviourScale.__init__(self)
-        self.props.alpha = alpha
-        self.props.x_scale_start = x_scale_start
-        self.props.y_scale_start = y_scale_start
-        self.props.x_scale_end = x_scale_end
-        self.props.y_scale_end = y_scale_end
-
-BehaviourScale = override(BehaviourScale)
-__all__.append('BehaviourScale')
-
 
 
 class Script(Clutter.Script):
