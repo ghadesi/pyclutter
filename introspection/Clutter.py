@@ -41,9 +41,6 @@ class Color(Clutter.Color):
         self.blue = blue
         self.alpha = alpha
 
-    def __new__(cls, *args, **kwargs):
-        return Clutter.Color.__new__(cls)
-
     def __repr__(self):
         return '<Clutter.Color(red=%d, green=%d, blue=%d, alpha=%s)>' % (
             self.red, self.green, self.blue, self.alpha)
@@ -91,9 +88,6 @@ class ActorBox(Clutter.ActorBox):
         self.y1 = y1
         self.x2 = x2
         self.y2 = y2
-
-    def __new__(cls, *args, **kwargs):
-        return Clutter.ActorBox.__new__(cls)
 
     def __repr__(self):
         return '<Clutter.ActorBox(x1=%f, y1=%f, x2=%f y2=%f)>' % (
@@ -250,8 +244,6 @@ Event = override(Event)
 __all__.append('Event')
 
 
-
-
 class Actor(Clutter.Actor):
     def _update_animation(self, *args, **kwargs):
         def _detach_animation(animation):
@@ -349,6 +341,15 @@ class Actor(Clutter.Actor):
             return
         parent.lower_child(self, above)
 
+    def transform_stage_point(self, x, y):
+        success, x_out, y_out = super(Actor, self).transform_stage_point(x, y)
+        if success:
+            return (x_out, y_out)
+
+    def get_paint_box(self):
+        success, box = super(Actor, self).get_paint_box()
+        if success:
+            return box
 
 Actor = override(Actor)
 __all__.append('Actor')
@@ -364,6 +365,9 @@ class Container(Clutter.Container):
     def __iter__(self):
         return iter(self.get_children())
 
+    def __getitem__(self, index):
+        return self.get_children()[index]
+
     def add(self, *actors):
         for actor in actors:
             Clutter.Container.add_actor(self, actor)
@@ -372,15 +376,23 @@ class Container(Clutter.Container):
         for actor in actors:
             Clutter.Container.remove_actor(self, actor)
 
+    def child_get_property(self, child, property_name):
+        meta = self.get_child_meta(child)
+        return meta.get_property(property_name)
+
+    def child_set_property(self, child, property_name, value):
+        meta = self.get_child_meta(child)
+        meta.set_property(property_name, value)
+
 Container = override(Container)
 __all__.append('Container')
 
 
 class Texture(Clutter.Texture, Actor):
     def __init__(self, filename=None, **kwargs):
+        if filename is not None:
+            kwargs['filename'] = filename
         Clutter.Texture.__init__(self, **kwargs)
-        if filename:
-            self.set_from_file(filename)
 
 Texture = override(Texture)
 __all__.append('Texture')
@@ -405,12 +417,6 @@ class Text(Clutter.Text, Actor):
         if color is not None:
             kwargs['color'] = color
         Clutter.Text.__init__(self, **kwargs)
-        if font_name:
-            self.props.font_name = font_name
-        if text:
-            self.props.text = text
-        if color:
-            self.props.color = color
 
     def position_to_coords(self, position):
         success, x, y, lh = Clutter.Text.position_to_coords(self, position)
@@ -422,9 +428,9 @@ __all__.append('Text')
 
 
 class CairoTexture(Clutter.CairoTexture):
-    def __init__(self, width, height, **kwargs):
-        Clutter.CairoTexture.__init__(self, **kwargs)
-        self.set_surface_size(width, height)
+    def __init__(self, surface_width, surface_height, **kwargs):
+        Clutter.CairoTexture.__init__(self, surface_width=surface_width,
+                                      surface_height=surface_height, **kwargs)
 
 CairoTexture = override(CairoTexture)
 __all__.append('CairoTexture')
@@ -432,12 +438,23 @@ __all__.append('CairoTexture')
 
 class Clone(Clutter.Clone):
     def __init__(self, source=None, **kwargs):
-        Clutter.Clone.__init__(self, **kwargs)
-        if source:
-            self.set_source(source)
+        Clutter.Clone.__init__(self, source=source, **kwargs)
 
 Clone = override(Clone)
 __all__.append('Clone')
+
+
+class LayoutManager(Clutter.LayoutManager):
+    def child_set_property(self, container, child, property_name, value):
+        meta = self.get_child_meta(container, child)
+        meta.set_property(property_name, value)
+
+    def child_get_property(self, container, child, property_name):
+        meta = self.get_child_meta(container, child)
+        return meta.get_property(property_name)
+
+LayoutManager = override(LayoutManager)
+__all__.append('LayoutManager')
 
 
 class Box(Clutter.Box, Actor):
@@ -475,21 +492,21 @@ class Model(Clutter.Model):
     def insert(self, row, *args):
         if len(args) < 2 or len(args) % 2:
             raise ValueError("Clutter.Model.insert needs at least one " +
-                             "column / value pair")
-        for column, value in zip(args[::2], args[1::2]):
-            self.insert_value(row, column, value)
+                    "column / value pair")
+            for column, value in zip(args[::2], args[1::2]):
+                self.insert_value(row, column, value)
 
     def append(self, *args):
         if len(args) < 2 or len(args) % 2:
             raise ValueError("Clutter.Model.append needs at least one " +
-                             "column / value pair")
-        row = self.get_n_rows()
+                    "column / value pair")
+            row = self.get_n_rows()
         self.insert(row, *args)
 
     def prepend(self, *args):
         if len(args) < 2 or len(args) % 2:
             raise ValueError("Clutter.Model.prepend needs at least one " +
-                             "column / value pair")
+                    "column / value pair")
         # FIXME: This won't work
         self.insert(-1, *args)
 
@@ -510,30 +527,29 @@ ListModel = override(ListModel)
 __all__.append('ListModel')
 
 
-
 class Timeline(Clutter.Timeline):
     def __init__(self, duration=1000, **kwargs):
-        Clutter.Timeline.__init__(self, **kwargs)
-        self.set_duration(duration)
+        Clutter.Timeline.__init__(self, duration=duration, **kwargs)
+
+    def list_markers(self, position=-1):
+        markers, n_markers = Clutter.Timeline.list_markers(self, position)
+        return markers
 
 Timeline = override(Timeline)
 __all__.append('Timeline')
 
 
 class Alpha(Clutter.Alpha):
-    def __init__(self, timeline=None, mode=0):
-        Clutter.Alpha.__init__(self)
-        if timeline:
-            self.set_timeline(timeline)
-        if mode:
-            self.set_mode(mode)
+    def __init__(self, timeline=None, mode=Clutter.AnimationMode.LINEAR,
+            **kwargs):
+        Clutter.Alpha.__init__(self, timeline=timeline, mode=mode, **kwargs)
 
 Alpha = override(Alpha)
 __all__.append('Alpha')
 
 
 class Path(Clutter.Path):
-    def __init__(self, description=None):
+    def __init__(self, description=None, **kwargs):
         Clutter.Path.__init__(self)
         if description:
             self.set_description(description)
@@ -569,20 +585,19 @@ __all__.append('Script')
 
 
 class BindingPool(Clutter.BindingPool):
-    def __init__(self, name):
-        Clutter.BindingPool.__init__(self)
-        self.props.name = name
+    def __init__(self, name, **kwargs):
+        Clutter.BindingPool.__init__(self, name=name, **kwargs)
 
 BindingPool = override(BindingPool)
 __all__.append('BindingPool')
 
 
 class Shader(Clutter.Shader):
-    def set_vertex_source(self, data):
-        Clutter.Shader.set_vertex_source(self, data, -1)
+    def set_vertex_source(self, data, length=-1):
+        Clutter.Shader.set_vertex_source(self, data, length)
 
-    def set_fragment_source(self, data):
-        Clutter.Shader.set_fragment_source(self, data, -1)
+    def set_fragment_source(self, data, length=-1):
+        Clutter.Shader.set_fragment_source(self, data, length)
 
 Shader = override(Shader)
 __all__.append('Shader')
