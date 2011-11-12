@@ -27,45 +27,7 @@ import keysyms
 
 Clutter = modules['Clutter']._introspection_module
 
-__all__ = ['keysyms']
-
-
-
-def _to_color(anything):
-    if isinstance(anything, Color):
-        return anything
-    elif isinstance(anything, (tuple, list)):
-        return Color(*anything)
-    elif isinstance(anything, str):
-        return Color.from_string(anything)
-    else:
-        return None
-
-def _to_actor_box(anything):
-    if isinstance(anything, ActorBox):
-        return anything
-    elif isinstance(anything, (tuple, list)):
-        return ActorBox(*anything)
-    else:
-        return None
-
-def _to_geometry(anything):
-    if isinstance(anything, Geometry):
-        return anything
-    elif isinstance(anything, (tuple, list)):
-        return Geometry(*anything)
-    else:
-        return None
-
-def _to_vertex(anything):
-    if isinstance(anything, Vertex):
-        return anything
-    elif isinstance(anything, (tuple, list)):
-        return Vertex(*anything)
-    else:
-        return None
-
-
+__all__ = []
 
 
 class Color(Clutter.Color):
@@ -376,14 +338,6 @@ Container = override(Container)
 __all__.append('Container')
 
 
-class Stage(Clutter.Stage, Actor):
-    def set_color(self, color):
-        Clutter.Stage.set_color(self, _to_color(color))
-
-Stage = override(Stage)
-__all__.append('Stage')
-
-
 class Texture(Clutter.Texture, Actor):
     def __init__(self, filename=None, **kwargs):
         Clutter.Texture.__init__(self, **kwargs)
@@ -396,15 +350,9 @@ __all__.append('Texture')
 
 class Rectangle(Clutter.Rectangle, Actor):
     def __init__(self, color=None, **kwargs):
+        if color is not None:
+            kwargs['color'] = color
         Clutter.Rectangle.__init__(self, **kwargs)
-        if color:
-            self.set_color(color)
-
-    def set_color(self, color):
-        Clutter.Rectangle.set_color(self, _to_color(color))
-
-    def set_border_color(self, color):
-        Clutter.Rectangle.set_border_color(self, _to_color(color))
 
 Rectangle = override(Rectangle)
 __all__.append('Rectangle')
@@ -412,6 +360,12 @@ __all__.append('Rectangle')
 
 class Text(Clutter.Text, Actor):
     def __init__(self, font_name=None, text=None, color=None, **kwargs):
+        if font_name is not None:
+            kwargs['font_name'] = font_name
+        if text is not None:
+            kwargs['text'] = text
+        if color is not None:
+            kwargs['color'] = color
         Clutter.Text.__init__(self, **kwargs)
         if font_name:
             self.props.font_name = font_name
@@ -420,8 +374,10 @@ class Text(Clutter.Text, Actor):
         if color:
             self.props.color = color
 
-    def set_color(self, color):
-        Clutter.Text.set_color(self, _to_color(color))
+    def position_to_coords(self, position):
+        success, x, y, lh = Clutter.Text.position_to_coords(self, position)
+        if success:
+            return (x, y, lh)
 
 Text = override(Text)
 __all__.append('Text')
@@ -448,12 +404,7 @@ __all__.append('Clone')
 
 class Box(Clutter.Box, Actor):
     def __init__(self, layout_manager=None, **kwargs):
-        Clutter.Box.__init__(self, **kwargs)
-        if layout_manager:
-            self.set_layout_manager(layout_manager)
-
-    def set_color(self, color):
-        Clutter.Box.set_color(self, _to_color(color))
+        Clutter.Box.__init__(self, layout_manager=layout_manager, **kwargs)
 
     def pack(self, actor, **kwargs):
         self.add_actor(actor)
