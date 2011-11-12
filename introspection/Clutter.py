@@ -1,9 +1,9 @@
 # -*- Mode: Python; py-indent-offset: 4 -*-
 # vim: tabstop=4 shiftwidth=4 expandtab
 #
-# Copyright (C) 2011 Bastian Winkler <buz@netbuz.org>
-#
-# Clutter.py: Clutter overrides for introspection based bindings
+# Copyright (C) 2009 Johan Dahlin <johan@gnome.org>
+#               2010 Simon van der Linden <svdlinden@src.gnome.org>
+#               2011 Bastian Winkler <buz@netbuz.org>
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
