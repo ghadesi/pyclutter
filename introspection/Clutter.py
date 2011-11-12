@@ -69,6 +69,9 @@ def _to_vertex(anything):
 
 
 class Color(Clutter.Color):
+    def __new__(cls, *args, **kwargs):
+        return Clutter.Color.__new__(cls)
+
     def __init__(self, red=0, green=0, blue=0, alpha=0):
         Clutter.Color.__init__(self)
         self.red = red
@@ -83,17 +86,43 @@ class Color(Clutter.Color):
         return '<Clutter.Color(red=%d, green=%d, blue=%d, alpha=%s)>' % (
             self.red, self.green, self.blue, self.alpha)
 
-    @classmethod
-    def from_string(cls, color_string):
-        color = Color()
-        Clutter.Color.from_string(color, color_string)
-        return color
+    def __len__(self):
+        return 4
+
+    def __getitem__(self, index):
+        if index == 0:
+            return self.red
+        elif index == 1:
+            return self.green
+        elif index == 2:
+            return self.blue
+        elif index == 3:
+            return self.alpha
+        elif isinstance(index, slice):
+            raise TypeError("sequence index must be integer, not 'slice'")
+        else:
+            raise IndexError("index out of range")
+
+    def __setitem__(self, index, value):
+        if index == 0:
+            self.red = value
+        elif index == 1:
+            self.green = value
+        elif index == 2:
+            self.blue = value
+        elif index == 3:
+            self.alpha = value
+        else:
+            raise IndexError("index out of range")
 
 Color = override(Color)
 __all__.append('Color')
 
 
 class ActorBox(Clutter.ActorBox):
+    def __new__(cls, *args, **kwargs):
+        return Clutter.ActorBox.__new__(cls)
+
     def __init__(self, x1=0.0, y1=0.0, x2=0.0, y2=0.0):
         Clutter.ActorBox.__init__(self)
         self.x1 = x1
@@ -107,6 +136,35 @@ class ActorBox(Clutter.ActorBox):
     def __repr__(self):
         return '<Clutter.ActorBox(x1=%f, y1=%f, x2=%f y2=%f)>' % (
             self.x1, self.y1, self.x2, self.y2)
+
+    def __len__(self):
+        return 4
+
+    def __getitem__(self, index):
+        if index == 0:
+            return self.x1
+        elif index == 1:
+            return self.y1
+        elif index == 2:
+            return self.x2
+        elif index == 3:
+            return self.y2
+        elif isinstance(index, slice):
+            raise TypeError("sequence index must be integer, not 'slice'")
+        else:
+            raise IndexError("index out of range")
+
+    def __setitem__(self, index, value):
+        if index == 0:
+            self.x1 = value
+        elif index == 1:
+            self.y1 = value
+        elif index == 2:
+            self.x2 = value
+        elif index == 3:
+            self.y2 = value
+        else:
+            raise IndexError("index out of range")
 
 ActorBox = override(ActorBox)
 __all__.append('ActorBox')
@@ -124,6 +182,31 @@ class Vertex(Clutter.Vertex):
 
     def __repr__(self):
         return '<Clutter.Vertex(x=%f, y=%f, z=%f)>' % (self.x, self.y, self.z)
+
+    def __len__(self):
+        return 3
+
+    def __getitem__(self, index):
+        if index == 0:
+            return self.x
+        elif index == 1:
+            return self.y
+        elif index == 2:
+            return self.z
+        elif isinstance(index, slice):
+            raise TypeError("sequence index must be integer, not 'slice'")
+        else:
+            raise IndexError("index out of range")
+
+    def __setitem__(self, index, value):
+        if index == 0:
+            self.x = value
+        elif index == 1:
+            self.y = value
+        elif index == 2:
+            self.y = value
+        else:
+            raise IndexError("index out of range")
 
 Vertex = override(Vertex)
 __all__.append('Vertex')
@@ -144,6 +227,35 @@ class Geometry(Clutter.Geometry):
         return '<Clutter.Geometry(x=%d, y=%d, width=%d, height=%d)>' % (
             self.x, self.y, self.width, self.height)
 
+    def __len__(self):
+        return 4
+
+    def __getitem__(self, index):
+        if index == 0:
+            return self.x
+        elif index == 1:
+            return self.y
+        elif index == 2:
+            return self.width
+        elif index == 3:
+            return self.height
+        elif isinstance(index, slice):
+            raise TypeError("sequence index must be integer, not 'slice'")
+        else:
+            raise IndexError("index out of range")
+
+    def __setitem__(self, index, value):
+        if index == 0:
+            self.x = value
+        elif index == 1:
+            self.y = value
+        elif index == 2:
+            self.width = value
+        elif index == 3:
+            self.height = value
+        else:
+            raise IndexError("index out of range")
+
 Geometry = override(Geometry)
 __all__.append('Geometry')
 
@@ -160,6 +272,7 @@ class Event(Clutter.Event):
         Clutter.EventType.SCROLL: 'scroll',
         Clutter.EventType.STAGE_STATE: 'stage_state'
     }
+
     def __new__(cls, *args, **kwargs):
         return Clutter.Event.__new__(cls)
 
@@ -168,7 +281,8 @@ class Event(Clutter.Event):
         if real_event:
             return getattr(getattr(self, real_event), name)
         else:
-            return getattr(self, name)
+            raise AttributeError("'%s' object has no attribute '%s'" %
+                                 (self.__class__.__name__, name))
 
 Event = override(Event)
 __all__.append('Event')
