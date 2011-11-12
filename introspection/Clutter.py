@@ -253,10 +253,12 @@ __all__.append('Event')
 
 
 class Actor(Clutter.Actor):
-    def _update_animation(self, *args):
+    def _update_animation(self, *args, **kwargs):
         def _detach_animation(animation):
             delattr(self, '_animation')
             del animation
+
+        # check if we already have a running animation
         if hasattr(self, '_animation'):
             animation = getattr(self, '_animation')
         else:
@@ -265,12 +267,27 @@ class Actor(Clutter.Actor):
             animation.connect('completed', _detach_animation)
             setattr(self, '_animation', animation)
 
-        if len(args) < 2 or len(args) % 2:
-            raise ValueError("Clutter.Actor.animate requires at least one " +
-                             "property/value pair")
+        # check arguments
+        if len(args) == 1 and isinstance(args[0], dict):
+            properties = args[0].items()
+        elif len(args) == 2 and isinstance(args[0], (tuple, list)) and \
+                isinstance(args[1], (tuple, list)):
+            properties = zip(args[0], args[1])
+        elif len(args) >= 2 and not 2 % 2:
+            properties = zip(args[::2], args[1::2])
+        elif kwargs:
+            properties = kwargs.items()
+        else:
+            raise TypeError('The arguments must be: ' +
+                    '"property", value, "property", value, ... or ' +
+                    '("property", "property", ...), (value, value, ...) ' +
+                    'or {"property": value, "property", value}')
 
-        for prop, value in zip(args[::2], args[1::2]):
-            if prop.startswith("fixed::"):
+        for prop, value in properties:
+            if not isinstance(prop, str):
+                raise TypeError('A property must be a string, got %s' %
+                        type(prop))
+            elif prop.startswith("fixed::"):
                 prop = prop[7:]
                 self.set_property(prop, value)
             elif animation.has_property(prop):
@@ -279,22 +296,43 @@ class Actor(Clutter.Actor):
                 animation.bind(prop, value)
         return animation
 
-    def animate(self, mode, duration, *args):
-        animation = self._update_animation(*args)
+    def animate(self, mode, duration, *args, **kwargs):
+        """
+        The animate() method is a convenience method to create or update a
+        Clutter.Animation. The animation properties can be specified in
+        multiple ways:
+
+        Property/value pairs
+        >>> actor.animate(Clutter.AnimationMode.LINEAR, 1000,
+        ...     "x", 200.0, "y", 200.0)
+
+        A keyword list
+        >>> actor.animate(Clutter.AnimationMode.LINEAR, 1000,
+        ...     x=200.0, y=200.0)
+
+        A tuple with properties and a tuple with values
+        >>> actor.animate(Clutter.AnimationMode.LINEAR, 1000,
+        ...     ("x", "y"), (200.0, 200.0))
+
+        A single dictionary
+        >>> actor.animate(Clutter.ANimationMode.LINEAR, 1000,
+        ...     {"x": 200.0, "y", 200.0})
+        """
+        animation = self._update_animation(*args, **kwargs)
         animation.set_mode(mode)
         animation.set_duration(duration)
         animation.get_timeline().start()
         return animation
 
-    def animate_with_timeline(self, mode, timeline, *args):
-        animation = self._update_animation(*args)
+    def animate_with_timeline(self, mode, timeline, *args, **kwargs):
+        animation = self._update_animation(*args, **kwargs)
         animation.set_mode(mode)
         animation.set_timeline(timeline)
         animation.get_timeline().start()
         return animation
 
-    def animate_with_alpha(self, alpha, *args):
-        animation = self._update_animation(*args)
+    def animate_with_alpha(self, alpha, *args, **kwargs):
+        animation = self._update_animation(*args, **kwargs)
         animation.set_alpha(alpha)
         animation.get_timeline().start()
         return animation
