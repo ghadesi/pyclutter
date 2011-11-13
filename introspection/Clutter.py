@@ -152,6 +152,18 @@ class ActorBox(Clutter.ActorBox):
     def __ne__(self, other):
         return not self.equal(other)
 
+    @property
+    def size(self):
+        return (self.x2 - self.x1, self.y2 - self.y1)
+
+    @property
+    def width(self):
+        return self.x2 - self.x1
+
+    @property
+    def height(self):
+        return self.y2 - self.y1
+
 ActorBox = override(ActorBox)
 __all__.append('ActorBox')
 
