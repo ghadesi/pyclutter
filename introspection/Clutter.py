@@ -74,6 +74,24 @@ class Color(Clutter.Color):
         else:
             raise IndexError("index out of range")
 
+    @classmethod
+    def from_string(cls, string):
+        self = cls()
+        Clutter.Color.from_string(self, string)
+        return self
+
+    @classmethod
+    def from_hls(cls, hue, luminance, saturation):
+        self = cls()
+        Clutter.Color.from_hls(self, hue, luminance, saturation)
+        return self
+
+    @classmethod
+    def from_pixel(cls, pixel):
+        self = cls()
+        Clutter.Color.from_pixel(self, pixel)
+        return self
+
 Color = override(Color)
 __all__.append('Color')
 
