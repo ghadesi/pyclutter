@@ -74,6 +74,12 @@ class Color(Clutter.Color):
         else:
             raise IndexError("index out of range")
 
+    def __eq__(self, other):
+        return self.equal(other)
+
+    def __ne__(self, other):
+        return not self.equal(other)
+
     @classmethod
     def from_string(cls, string):
         self = cls()
@@ -140,6 +146,12 @@ class ActorBox(Clutter.ActorBox):
         else:
             raise IndexError("index out of range")
 
+    def __eq__(self, other):
+        return self.equal(other)
+
+    def __ne__(self, other):
+        return not self.equal(other)
+
 ActorBox = override(ActorBox)
 __all__.append('ActorBox')
 
@@ -181,6 +193,12 @@ class Vertex(Clutter.Vertex):
             self.y = value
         else:
             raise IndexError("index out of range")
+
+    def __eq__(self, other):
+        return self.equal(other)
+
+    def __ne__(self, other):
+        return not self.equal(other)
 
 Vertex = override(Vertex)
 __all__.append('Vertex')
@@ -229,6 +247,14 @@ class Geometry(Clutter.Geometry):
             self.height = value
         else:
             raise IndexError("index out of range")
+
+    def __eq__(self, other):
+        return self.x == other.x and self.y == other.y and \
+                self.width == other.width and self.height == other.height
+
+    def __ne__(self, other):
+        return self.x != other.x or self.y != other.y or \
+                self.width != other.width or self.height != other.height
 
 Geometry = override(Geometry)
 __all__.append('Geometry')
