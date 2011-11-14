@@ -296,6 +296,75 @@ class Event(Clutter.Event):
             raise AttributeError("'%s' object has no attribute '%s'" %
                                  (self.__class__.__name__, name))
 
+    def __str__(self):
+        def get_key():
+            from gi.overrides import keysyms
+            for name in dir(keysyms):
+                if self.keyval == getattr(keysyms, name):
+                    return name
+            if sys.version_info < (3, 0):
+                return unichr(self.get_key_unicode()).encode('UTF-8')
+            else:
+                return chr(self.get_key_unicode())
+
+        def actor_name(actor):
+            if not actor:
+                return 'None'
+            if actor.get_name():
+                return actor.get_name()
+            return actor.__class__.__name__
+
+        def get_state():
+            if self.get_state():
+                return 'modifier: %s; ' % str(self.get_state())
+            return ''
+
+        if self.type() == Clutter.EventType.BUTTON_PRESS:
+            return ('<Button Press at (%d,%d); button: %d; count: %d; %s' +
+                    'time: %d; source: %s>') % (self.button.x, self.button.y,
+                            self.button.button, self.button.click_count,
+                            get_state(), self.get_time(),
+                            actor_name(self.get_source()))
+        elif self.type() == Clutter.EventType.BUTTON_RELEASE:
+            return ('<Button Release at (%d,%d); button: %d; count: %d; %s' +
+                    'time: i%d; source: %s>') % (self.button.x, self.button.y,
+                            self.button.button, self.button.click_count,
+                            get_state(), self.get_time(),
+                            actor_name(self.get_source()))
+        elif self.type() == Clutter.EventType.KEY_PRESS:
+            return "<Key Press '%s'; %stime: %d; source %s>" % (
+                    get_key(), get_state(), self.get_time(),
+                    actor_name(self.get_source()))
+        elif self.type() == Clutter.EventType.KEY_RELEASE:
+            return "<Key Release '%s'; %stime: %d; source %s>" % (
+                    get_key(), get_state(), self.get_time(),
+                    actor_name(self.get_source()))
+        elif self.type() == Clutter.EventType.MOTION:
+            return "<Motion at (%d,%d); time: %d; source %s>" % (
+                    self.motion.x, self.motion.y, self.get_time(),
+                    actor_name(self.get_source()))
+        elif self.type() == Clutter.EventType.ENTER:
+            return "<Entering actor %s related to actor %s; time %d>" % (
+                    actor_name(self.get_source()),
+                    actor_name(self.get_related()), self.get_time())
+        elif self.type() == Clutter.EventType.LEAVE:
+            return "<Leaving actor %s related to actor %s; time %d>" % (
+                    actor_name(self.get_source()),
+                    actor_name(self.get_related()), self.get_time())
+        elif self.type() == Clutter.EventType.SCROLL:
+            return ("<Scroll %d at (%d,%d); modifier: %s; time: %d; " +
+                    "source: %s>") % ( self.scroll.direction.value_nick,
+                            self.scroll.x, self.scroll.y, self.get_time(),
+                            actor_name(self.get_source()))
+        elif self.type() == Clutter.EventType.STAGE_STATE:
+            return '<Stage state %s on %s>' % (self.get_flags(),
+                    actor_name(self.get_stage()))
+        elif self.type() == Clutter.EventType.NOTHING:
+            return '<Nothing>'
+        else:
+            return '<Unkown event>'
+
+
 Event = override(Event)
 __all__.append('Event')
 
