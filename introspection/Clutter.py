@@ -700,7 +700,7 @@ __all__.append('Text')
 
 
 class CairoTexture(Clutter.CairoTexture):
-    def __init__(self, surface_width, surface_height, **kwargs):
+    def __init__(self, surface_width=1, surface_height=1, **kwargs):
         Clutter.CairoTexture.__init__(self, surface_width=surface_width,
                                       surface_height=surface_height, **kwargs)
 
