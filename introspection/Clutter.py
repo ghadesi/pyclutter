@@ -503,7 +503,7 @@ class Event(Clutter.Event):
                     actor_name(self.get_related()), self.get_time())
         elif self.type() == Clutter.EventType.SCROLL:
             return ("<Scroll %d at (%d,%d); modifier: %s; time: %d; " +
-                    "source: %s>") % ( self.scroll.direction.value_nick,
+                    "source: %s>") % (self.scroll.direction.value_nick,
                             self.scroll.x, self.scroll.y, self.get_time(),
                             actor_name(self.get_source()))
         elif self.type() == Clutter.EventType.STAGE_STATE:
@@ -967,6 +967,7 @@ class Path(Clutter.Path):
         Clutter.Path.__init__(self)
         if description:
             self.set_description(description)
+
 
 Path = override(Path)
 __all__.append('Path')
