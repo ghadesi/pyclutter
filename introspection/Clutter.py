@@ -594,8 +594,43 @@ class Container(Clutter.Container):
     def __iter__(self):
         return iter(self.get_children())
 
-    def __getitem__(self, index):
-        return self.get_children()[index]
+    def __getitem__(self, key):
+        children = self.get_children()
+        n_children = len(children)
+        if isinstance(key, int):
+            if key < 0:
+                key += n_children
+            if key < 0 or key >= n_children:
+                raise IndexError("index out of range: %d" % key)
+            return children[key]
+        elif isinstance(key, slice):
+            start, stop, step = key.indices(n_children)
+            ret = []
+            for i in range(start, stop, step):
+                ret.append(children[i])
+            return ret
+        else:
+            raise TypeError("indices must be integer or slice")
+
+    def __setitem__(self, key, value):
+        children = self.get_children()
+        n_children = len(children)
+        if isinstance(key, int):
+            if key < 0:
+                key += n_children
+            if key >= n_children:
+                raise IndexError("index out of range: %d" % key)
+            old = children[key]
+            if key < n_children:
+                silbing = children[key + 1]
+            else:
+                silbing = None
+            self.remove(old)
+            self.add(value)
+            if silbing:
+                self.lower_child(value, silbing)
+        else:
+            raise TypeError("indices must be integer")
 
     def add(self, *actors):
         for actor in actors:
