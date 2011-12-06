@@ -860,7 +860,10 @@ __all__.append('Timeline')
 class Alpha(Clutter.Alpha):
     def __init__(self, timeline=None, mode=Clutter.AnimationMode.LINEAR,
             **kwargs):
-        Clutter.Alpha.__init__(self, timeline=timeline, mode=mode, **kwargs)
+        Clutter.Alpha.__init__(self, timeline=timeline, **kwargs)
+        # FIXME: Setting :mode doesn't work via properties
+        if mode != Clutter.AnimationMode.CUSTOM_MODE:
+            self.set_mode(mode)
 
 Alpha = override(Alpha)
 __all__.append('Alpha')
