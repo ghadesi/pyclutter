@@ -38,6 +38,52 @@ else:
     _callable = callable
 
 
+def _gvalue_from_python(value_type, v):
+    # XXX: A similar function is also in Gtk.py, but IMHO this should
+    # live in a GObject.Value override. Either as a GValue classmethod
+    # or the GValue constructor.
+    value = GObject.Value()
+    value.init(value_type)
+    if value_type == GObject.TYPE_INT:
+        value.set_int(int(v))
+    elif value_type == GObject.TYPE_UINT:
+        value.set_uint(int(v))
+    elif value_type == GObject.TYPE_CHAR:
+        value.set_char(int(v))
+    elif value_type == GObject.TYPE_UCHAR:
+        value.set_uint(int(v))
+    elif value_type == GObject.TYPE_FLOAT:
+        value.set_float(float(v))
+    elif value_type == GObject.TYPE_DOUBLE:
+        value.set_double(float(v))
+    elif value_type == GObject.TYPE_LONG:
+        value.set_long(long(v))
+    elif value_type == GObject.TYPE_ULONG:
+        value.set_ulong(long(v))
+    elif value_type == GObject.TYPE_INT64:
+        value.set_int64(long(v))
+    elif value_type == GObject.TYPE_UINT64:
+        value.set_uint64(long(v))
+    elif value_type == GObject.TYPE_BOOLEAN:
+        value.set_boolean(bool(v))
+    elif value_type == GObject.TYPE_STRING:
+        if isinstance(v, str):
+            v = str(v)
+        elif sys.version_info < (3, 0):
+            if isinstance(v, unicode):
+                v = v.encode('UTF-8')
+            else:
+                raise ValueError("Expected string or unicode for property " + \
+                        "%s but got %s%s" % (prop_name, v, type(v)))
+        else:
+            raise ValueError("Expected string or unicode for property " + \
+                    "%s but got %s%s" % (prop_name, v, type(v)))
+        value.set_string(str(v))
+    else:
+        return v
+    return value
+
+
 class Color(Clutter.Color):
     def __new__(cls, *args, **kwargs):
         return Clutter.Color.__new__(cls)
@@ -909,58 +955,15 @@ Shader = override(Shader)
 __all__.append('Shader')
 
 
-def _gvalue_from_python(obj, prop_name, v):
-    try:
-        pspec = getattr(obj.__class__.props, prop_name)
-    except AttributeError:
-        raise AttributeError("Objects of type %s don't have a property '%s" %
-                             (type(obj), prop_name))
-    value = GObject.Value()
-    value.init(pspec.value_type)
-    if pspec.value_type == GObject.TYPE_INT:
-        value.set_int(int(v))
-    elif pspec.value_type == GObject.TYPE_UINT:
-        value.set_uint(int(v))
-    elif pspec.value_type == GObject.TYPE_CHAR:
-        value.set_char(int(v))
-    elif pspec.value_type == GObject.TYPE_UCHAR:
-        value.set_uint(int(v))
-    elif pspec.value_type == GObject.TYPE_FLOAT:
-        value.set_float(float(v))
-    elif pspec.value_type == GObject.TYPE_DOUBLE:
-        value.set_double(float(v))
-    elif pspec.value_type == GObject.TYPE_LONG:
-        value.set_long(long(v))
-    elif pspec.value_type == GObject.TYPE_ULONG:
-        value.set_ulong(long(v))
-    elif pspec.value_type == GObject.TYPE_INT64:
-        value.set_int64(long(v))
-    elif pspec.value_type == GObject.TYPE_UINT64:
-        value.set_uint64(long(v))
-    elif pspec.value_type == GObject.TYPE_BOOLEAN:
-        value.set_boolean(bool(v))
-    elif pspec.value_type == GObject.TYPE_STRING:
-        if isinstance(v, str):
-            v = str(v)
-        elif sys.version_info < (3, 0):
-            if isinstance(v, unicode):
-                v = v.encode('UTF-8')
-            else:
-                raise ValueError("Expected string or unicode for property " + \
-                        "%s but got %s%s" % (prop_name, v, type(v)))
-        else:
-            raise ValueError("Expected string or unicode for property " + \
-                    "%s but got %s%s" % (prop_name, v, type(v)))
-        value.set_string(str(v))
-    else:
-        return v
-    return value
-
-
 class Animator(Clutter.Animator):
-    def set_key(self, obj, prop, mode, progress, value):
-        return Clutter.Animator.set_key(self, obj, prop, mode, progress,
-                _gvalue_from_python(obj, prop, value))
+    def set_key(self, obj, property_name, mode, progress, value):
+        try:
+            pspec = getattr(obj.__class__.props, property_name)
+        except AttributeError:
+            raise AttributeError(("Objects of type '%s' don't have a " +
+                "property '%s'") % (type(obj), property_name))
+        return Clutter.Animator.set_key(self, obj, property_name, mode,
+                progress, _gvalue_from_python(pspec.value_type, value))
 
 
 Animator = override(Animator)
@@ -968,10 +971,16 @@ __all__.append('Animator')
 
 
 class State(Clutter.State):
-    def set_key(self, source_state, target_state, obj, prop, mode,
+    def set_key(self, source_state, target_state, obj, property_name, mode,
                 value, pre_delay=0.0, post_delay=0.0):
+        try:
+            pspec = getattr(obj.__class__.props, property_name)
+        except AttributeError:
+            raise AttributeError(("Objects of type '%s' don't have a " +
+                "property '%s'") % (type(obj), property_name))
         return Clutter.State.set_key(self, source_state, target_state, obj,
-                prop, mode, _gvalue_from_python(obj, prop, value),
+                property_name, mode,
+                _gvalue_from_python(pspec.value_type, value),
                 pre_delay, post_delay)
 
 State = override(State)
