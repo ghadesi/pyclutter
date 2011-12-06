@@ -730,7 +730,7 @@ class Box(Clutter.Box, Actor):
         layout_manager = self.get_layout_manager()
         if layout_manager:
             for k, v in kwargs.items():
-                layout_manager.child_set_property(actor, k, v)
+                layout_manager.child_set_property(self, actor, k, v)
 
     def pack_after(self, actor, silbing, **kwargs):
         self.add_actor(actor)
@@ -738,7 +738,7 @@ class Box(Clutter.Box, Actor):
         layout_manager = self.get_layout_manager()
         if layout_manager:
             for k, v in kwargs.items():
-                layout_manager.child_set_property(actor, k, v)
+                layout_manager.child_set_property(self, actor, k, v)
 
     def pack_before(self, actor, silbing, **kwargs):
         self.add_actor(actor)
@@ -746,7 +746,7 @@ class Box(Clutter.Box, Actor):
         layout_manager = self.get_layout_manager()
         if layout_manager:
             for k, v in kwargs.items():
-                layout_manager.child_set_property(actor, k, v)
+                layout_manager.child_set_property(self, actor, k, v)
 
 Box = override(Box)
 __all__.append('Box')
