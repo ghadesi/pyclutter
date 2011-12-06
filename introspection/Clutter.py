@@ -48,37 +48,43 @@ class Color(Clutter.Color):
     def __len__(self):
         return 4
 
-    def __getitem__(self, index):
-        if index == 0:
-            return self.red
-        elif index == 1:
-            return self.green
-        elif index == 2:
-            return self.blue
-        elif index == 3:
-            return self.alpha
-        elif isinstance(index, slice):
-            raise TypeError("sequence index must be integer, not 'slice'")
+    def __getitem__(self, key):
+        if isinstance(key, int):
+            if key == 0:
+                return self.red
+            elif key == 1:
+                return self.green
+            elif key == 2:
+                return self.blue
+            elif key == 3:
+                return self.alpha
+            else:
+                raise IndexError("index out of range")
         else:
-            raise IndexError("index out of range")
+            raise TypeError("sequence index must be integer")
 
     def __setitem__(self, index, value):
-        if index == 0:
-            self.red = value
-        elif index == 1:
-            self.green = value
-        elif index == 2:
-            self.blue = value
-        elif index == 3:
-            self.alpha = value
+        if isinstance(key, int):
+            if key == 0:
+                self.red = value
+            elif key == 1:
+                self.green = value
+            elif key == 2:
+                self.blue = value
+            elif key == 3:
+                self.alpha = value
+            else:
+                raise IndexError("index out of range")
         else:
-            raise IndexError("index out of range")
+            raise TypeError("sequence index must be integer")
 
     def __eq__(self, other):
-        return self.equal(other)
+        return self.red == other.red and self.green == other.green and \
+                self.blue == other.blue and self.alpha == other.alpha
 
     def __ne__(self, other):
-        return not self.equal(other)
+        return self.red != other.red or self.green != other.green or \
+                self.blue != other.blue or self.alpha != other.alpha
 
     @classmethod
     def from_string(cls, string):
@@ -120,37 +126,53 @@ class ActorBox(Clutter.ActorBox):
     def __len__(self):
         return 4
 
-    def __getitem__(self, index):
-        if index == 0:
-            return self.x1
-        elif index == 1:
-            return self.y1
-        elif index == 2:
-            return self.x2
-        elif index == 3:
-            return self.y2
-        elif isinstance(index, slice):
-            raise TypeError("sequence index must be integer, not 'slice'")
+    def __getitem__(self, key):
+        if isinstance(key, int):
+            if key == 0:
+                return self.x1
+            elif key == 1:
+                return self.y1
+            elif key == 2:
+                return self.x2
+            elif key == 3:
+                return self.y2
+            else:
+                raise IndexError("index out of range")
         else:
-            raise IndexError("index out of range")
+            raise TypeError("sequence index must be integer")
 
-    def __setitem__(self, index, value):
-        if index == 0:
-            self.x1 = value
-        elif index == 1:
-            self.y1 = value
-        elif index == 2:
-            self.x2 = value
-        elif index == 3:
-            self.y2 = value
+    def __setitem__(self, key, value):
+        if isinstance(key, int):
+            if key == 0:
+                self.x1 = value
+            elif key == 1:
+                self.y1 = value
+            elif key == 2:
+                self.x2 = value
+            elif key == 3:
+                self.y2 = value
+            else:
+                raise IndexError("index out of range")
         else:
-            raise IndexError("index out of range")
+            raise TypeError("sequence index must be integer")
 
     def __eq__(self, other):
-        return self.equal(other)
+        if isinstance(other, list):
+            return list(self) == other
+        elif isinstance(other, tuple):
+            return tuple(self) == other
+        elif isinstance(other, ActorBox):
+            return self.equal(other)
+        return False
 
     def __ne__(self, other):
-        return not self.equal(other)
+        if isinstance(other, list):
+            return list(self) != other
+        elif isinstance(other, tuple):
+            return tuple(self) != other
+        elif isinstance(other, ActorBox):
+            return self.equal(other)
+        return False
 
     @property
     def size(self):
@@ -184,33 +206,49 @@ class Vertex(Clutter.Vertex):
     def __len__(self):
         return 3
 
-    def __getitem__(self, index):
-        if index == 0:
-            return self.x
-        elif index == 1:
-            return self.y
-        elif index == 2:
-            return self.z
-        elif isinstance(index, slice):
-            raise TypeError("sequence index must be integer, not 'slice'")
+    def __getitem__(self, key):
+        if isinstance(key, int):
+            if key == 0:
+                return self.x
+            elif key == 1:
+                return self.y
+            elif key == 2:
+                return self.z
+            else:
+                raise IndexError("index out of range")
         else:
-            raise IndexError("index out of range")
+            raise TypeError("sequence index must be integer")
 
-    def __setitem__(self, index, value):
-        if index == 0:
-            self.x = value
-        elif index == 1:
-            self.y = value
-        elif index == 2:
-            self.y = value
+    def __setitem__(self, key, value):
+        if isinstance(key, int):
+            if key == 0:
+                self.x = value
+            elif key == 1:
+                self.y = value
+            elif key == 2:
+                self.y = value
+            else:
+                raise IndexError("index out of range")
         else:
-            raise IndexError("index out of range")
+            raise TypeError("sequence index must be integer")
 
     def __eq__(self, other):
-        return self.equal(other)
+        if isinstance(other, list):
+            return list(self) == other
+        elif isinstance(other, tuple):
+            return tuple(self) == other
+        elif isinstance(other, Vertex):
+            return self.equal(other)
+        return False
 
     def __ne__(self, other):
-        return not self.equal(other)
+        if isinstance(other, list):
+            return list(self) != other
+        elif isinstance(other, tuple):
+            return tuple(self) != other
+        elif isinstance(other, Vertex):
+            return not self.equal(other)
+        return False
 
 Vertex = override(Vertex)
 __all__.append('Vertex')
@@ -234,35 +272,46 @@ class Geometry(Clutter.Geometry):
     def __len__(self):
         return 4
 
-    def __getitem__(self, index):
-        if index == 0:
-            return self.x
-        elif index == 1:
-            return self.y
-        elif index == 2:
-            return self.width
-        elif index == 3:
-            return self.height
-        elif isinstance(index, slice):
-            raise TypeError("sequence index must be integer, not 'slice'")
+    def __getitem__(self, key):
+        if isinstance(key, int):
+            if key == 0:
+                return self.x
+            elif key == 1:
+                return self.y
+            elif key == 2:
+                return self.width
+            elif key == 3:
+                return self.height
+            else:
+                raise IndexError("index out of range")
         else:
-            raise IndexError("index out of range")
+            raise TypeError("sequence index must be integer")
 
-    def __setitem__(self, index, value):
-        if index == 0:
-            self.x = value
-        elif index == 1:
-            self.y = value
-        elif index == 2:
-            self.width = value
-        elif index == 3:
-            self.height = value
+    def __setitem__(self, key, value):
+        if isinstance(key, int):
+            if key == 0:
+                self.x = value
+            elif key == 1:
+                self.y = value
+            elif key == 2:
+                self.width = value
+            elif key == 3:
+                self.height = value
+            else:
+                raise IndexError("index out of range")
         else:
-            raise IndexError("index out of range")
+            raise TypeError("sequence index must be integer")
 
     def __eq__(self, other):
-        return self.x == other.x and self.y == other.y and \
-                self.width == other.width and self.height == other.height
+        if isinstance(other, list):
+            return list(self) == other
+        elif isinstance(other, tuple):
+            return tuple(self) == other
+        elif isinstance(other, Geometry):
+            return (self.x == other.x and self.y == other.y and
+                    self.width == other.width and self.height == other.height)
+        else:
+            return False
 
     def __ne__(self, other):
         return self.x != other.x or self.y != other.y or \
