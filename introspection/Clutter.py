@@ -321,6 +321,53 @@ Geometry = override(Geometry)
 __all__.append('Geometry')
 
 
+class Knot(Clutter.Knot):
+    def __new__(cls, *args, **kwargs):
+        return Clutter.Knot.__new__(cls)
+
+    def __init__(self, x=0, y=0):
+        Clutter.Knot.__init__(self)
+        self.x = x
+        self.y = y
+
+    def __repr__(self):
+        return '<Clutter.Knot(x=%d, y=%d)>' % (self.x, self.y)
+
+    def __len__(self):
+        return 2
+
+    def __getitem__(self, key):
+        if isinstance(key, int):
+            if key == 0:
+                return self.x
+            elif key == 1:
+                return self.y
+            else:
+                raise IndexError("index out of range")
+        else:
+            raise TypeError("sequence index must be integer")
+
+    def __setitem__(self, key, value):
+        if isinstance(key, int):
+            if key == 0:
+                self.x = value
+            elif key == 1:
+                self.y = value
+            else:
+                raise IndexError("index out of range")
+        else:
+            raise TypeError("sequence index must be integer")
+
+    def __eq__(self, other):
+        return self.x == other.x and self.y == other.y
+
+    def __ne__(self, other):
+        return self.x != other.x or self.y != other.y
+
+Knot = override(Knot)
+__all__.append('Knot')
+
+
 class Event(Clutter.Event):
     _UNION_MEMBERS = {
         Clutter.EventType.KEY_PRESS: 'key',
