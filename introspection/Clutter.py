@@ -811,28 +811,121 @@ class Model(Clutter.Model):
         if len(args) < 2 or len(args) % 2:
             raise ValueError("Clutter.Model.insert needs at least one " +
                     "column / value pair")
-            for column, value in zip(args[::2], args[1::2]):
-                self.insert_value(row, column, value)
+        for column, value in zip(args[::2], args[1::2]):
+            value = _gvalue_from_python(self.get_column_type(column), value)
+            self.insert_value(row, column, value)
 
     def append(self, *args):
         if len(args) < 2 or len(args) % 2:
             raise ValueError("Clutter.Model.append needs at least one " +
                     "column / value pair")
-            row = self.get_n_rows()
+        row = self.get_n_rows()
         self.insert(row, *args)
 
     def prepend(self, *args):
         if len(args) < 2 or len(args) % 2:
             raise ValueError("Clutter.Model.prepend needs at least one " +
                     "column / value pair")
-        # FIXME: This won't work
-        self.insert(-1, *args)
+        columns = []
+        values = []
+        for column, value in zip(args[::2], args[1::2]):
+            value = _gvalue_from_python(self.get_column_type(column), value)
+            columns.append(column)
+            values.append(value)
+        self.prependv(columns, values)
+
+    def __repr__(self):
+        return '<Clutter.%s rows: %d; columns: %d>' % (self.__class__.__name__,
+                self.get_n_rows(), self.get_n_columns())
+
+    def __len__(self):
+        return self.get_n_rows()
+
+    def __bool__(self):
+        return True
+
+    # alias for Python 2.x object protocol
+    __nonzero__ = __bool__
+
+    def __getitem__(self, key):
+        n_rows = self.get_n_rows()
+        if isinstance(key, int):
+            if key < 0:
+                key += n_rows
+            if key < 0 or key >= n_rows:
+                raise IndexError("Row index is out of bounds: %d" % key)
+            return self.get_iter_at_row(key)
+        elif isinstance(key, slice):
+            start, stop, step = key.indices(n_rows)
+            ret = []
+            for i in range(start, stop, step):
+                ret.append(self.get_iter_at_row(i))
+            return ret
+        else:
+            raise TypeError("indices must be integer or slice")
 
 Model = override(Model)
 __all__.append('Model')
 
 
-class ListModel(Clutter.ListModel):
+class ModelIter(Clutter.ModelIter):
+    def __len__(self):
+        return self.get_model().get_n_columns()
+
+    def __str__(self):
+        values = ''
+        for i in range(self.get_model().get_n_columns()):
+            values += '%d=%s; ' % (i, self.get_value(i))
+        return '<Clutter.ModelIter row %d; %s>' % (self.get_row(), values)
+
+    def __getitem__(self, key):
+        if isinstance(key, int):
+            return self.get_value(key)
+        elif isinstance(key, slice):
+            model = self.get_model()
+            start, stop, step = key.indices(model.get_n_columns())
+            ret = []
+            for i in range(start, stop, step):
+                ret.append(self.get_value(i))
+            return ret
+        elif isinstance(key, str):
+            model = self.get_model()
+            for i in range(model.get_n_columns()):
+                name = model.get_column_name(i)
+                if key == name:
+                    return self.get_value(i)
+            raise KeyError("no column named '%s'" % key)
+        else:
+            raise TypeError("index must be value or slice")
+
+    def __setitem__(self, key, value):
+        if isinstance(key, int):
+            self.set_value(key, value)
+        elif isinstance(key, slice):
+            model = self.get_model()
+            start, stop, step = key.indices(model.get_n_columns())
+            for i in range(start, stop, step):
+                self.set_value(i, value)
+        elif isinstance(key, str):
+            model = self.get_model()
+            for i in range(model.get_n_columns()):
+                name = model.get_column_name(i)
+                if key == name:
+                    self.set_value(i, value)
+                    return
+            raise KeyError("no column named '%s'" % key)
+        else:
+            raise TypeError("index must be int, slice or string")
+
+    @property
+    def model(self):
+        return self.get_model()
+
+ModelIter = override(ModelIter)
+__all__.append('ModelIter')
+
+
+class ListModel(Clutter.ListModel, Model):
     def __init__(self, *args):
         Clutter.ListModel.__init__(self)
         if len(args) < 2 or len(args) % 2:
