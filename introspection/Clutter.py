@@ -582,6 +582,12 @@ class Container(Clutter.Container):
     def __len__(self):
         return len(self.get_children())
 
+    def __bool__(self):
+        return True
+
+    # alias for Python 2.x object protocol
+    __nonzero__ = __bool__
+
     def __contains__(self, actor):
         return actor in self.get_children()
 
