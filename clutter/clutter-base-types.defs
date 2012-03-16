@@ -29,13 +29,6 @@
   (vtable "ClutterAnimatableIface")
 )
 
-(define-interface StageWindow
-  (in-module "Clutter")
-  (c-name "ClutterStageWindow")
-  (gtype-id "CLUTTER_TYPE_STAGE_WINDOW")
-  (vtable "ClutterStageWindowIface")
-)
-
 ; boxed types...
 
 (define-boxed Color
