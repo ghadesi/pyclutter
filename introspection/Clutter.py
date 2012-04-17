@@ -444,6 +444,14 @@ class Event(Clutter.Event):
         Clutter.EventType.SCROLL: 'scroll',
         Clutter.EventType.STAGE_STATE: 'stage_state'
     }
+    if clutter_version >= (1, 10, 0):
+        _UNION_MEMBERS.update({
+            Clutter.EventType.TOUCH_BEGIN: 'touch',
+            Clutter.EventType.TOUCH_END: 'touch',
+            Clutter.EventType.TOUCH_UPDATE: 'touch',
+            Clutter.EventType.TOUCH_CANCEL: 'touch'
+        })
+
 
     def __new__(cls, *args, **kwargs):
         return Clutter.Event.__new__(cls)
@@ -521,6 +529,30 @@ class Event(Clutter.Event):
                     actor_name(self.get_stage()))
         elif self.type() == Clutter.EventType.NOTHING:
             return '<Nothing>'
+        elif clutter_version >= (1, 10, 0) and \
+                self.type() == Clutter.EventType.TOUCH_BEGIN:
+            return ('<TouchBegin at (%d,%d); sequence: %s; modifier: %s; ' +
+                    'time: %d; source: %s>') % (self.touch.x, self.touch.y,
+                        str(self.touch.sequence), self.get_time(),
+                        actor_name(self.get_source()))
+        elif clutter_version >= (1, 10, 0) and \
+                self.type() == Clutter.EventType.TOUCH_UPDATE:
+            return ('<TouchUpdate at (%d,%d); sequence: %s; modifier: %s; ' +
+                    'time: %d; source: %s>') % (self.touch.x, self.touch.y,
+                        str(self.touch.sequence), self.get_time(),
+                        actor_name(self.get_source()))
+        elif clutter_version >= (1, 10, 0) and \
+                self.type() == Clutter.EventType.TOUCH_END:
+            return ('<TouchEnd at (%d,%d); sequence: %s; modifier: %s; ' +
+                    'time: %d; source: %s>') % (self.touch.x, self.touch.y,
+                        str(self.touch.sequence), self.get_time(),
+                        actor_name(self.get_source()))
+        elif clutter_version >= (1, 10, 0) and \
+                self.type() == Clutter.EventType.TOUCH_CANCEL:
+            return ('<TouchCancel at (%d,%d); sequence: %s; modifier: %s; ' +
+                    'time: %d; source: %s>') % (self.touch.x, self.touch.y,
+                        str(self.touch.sequence), self.get_time(),
+                        actor_name(self.get_source()))
         else:
             return '<Unkown event>'
 
