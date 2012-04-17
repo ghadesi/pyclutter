@@ -122,7 +122,7 @@ class Color(Clutter.Color):
         else:
             raise TypeError("sequence index must be integer")
 
-    def __setitem__(self, index, value):
+    def __setitem__(self, key, value):
         if isinstance(key, int):
             if key == 0:
                 self.red = value
