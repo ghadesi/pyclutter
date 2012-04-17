@@ -1204,6 +1204,39 @@ if clutter_version >= (1, 10, 0):
     __all__.append('Margin')
 
 
+    class ColorNode(Clutter.ColorNode):
+        def __new__(cls, color):
+            return Clutter.ColorNode.new(color)
+
+    ColorNode = override(ColorNode)
+    __all__.append('ColorNode')
+
+
+    class TextNode(Clutter.TextNode):
+        def __new__(cls, layout, color):
+            return Clutter.TextNode.new(layout, color)
+
+    TextNode = override(TextNode)
+    __all__.append('TextNode')
+
+
+    class TextureNode(Clutter.TextureNode):
+        def __new__(cls, texture, color, min_filter, mag_filter):
+            return Clutter.TextureNode.new(texture, color, min_filter,
+                    mag_filter)
+
+    TextureNode = override(TextureNode)
+    __all__.append('TextureNode')
+
+
+    class PipelineNode(Clutter.PipelineNode):
+        def __new__(cls, pipeline):
+            return Clutter.PipelineNode.new(pipeline)
+
+    PipelineNode = override(PipelineNode)
+    __all__.append('PipelineNode')
+
+
 # override the main_quit function to ignore additional arguments. This enables
 # common stuff like stage.connect('destroy', Clutter.main_quit)
 def main_quit(*args, **kwargs):
