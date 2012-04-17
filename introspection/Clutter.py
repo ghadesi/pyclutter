@@ -38,6 +38,11 @@ else:
     _callable = callable
 
 
+clutter_version = (Clutter.MAJOR_VERSION, Clutter.MINOR_VERSION,
+                   Clutter.MICRO_VERSION)
+__all__.append('clutter_version')
+
+
 def _gvalue_from_python(value_type, v):
     # XXX: A similar function is also in Gtk.py, but IMHO this should
     # live in a GObject.Value override. Either as a GValue classmethod
@@ -1094,11 +1099,6 @@ def main_quit(*args, **kwargs):
     Clutter.main_quit()
 
 __all__.append('main_quit')
-
-
-clutter_version = (Clutter.MAJOR_VERSION, Clutter.MINOR_VERSION,
-                   Clutter.MICRO_VERSION)
-__all__.append('clutter_version')
 
 
 # Initialize Clutter directly on import
