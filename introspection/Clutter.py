@@ -633,6 +633,11 @@ class Actor(Clutter.Actor):
         if success:
             return (x_out, y_out)
 
+    def get_transformed_position(self):
+        success, x, y = super(Actor, self).get_transformed_position()
+        if success:
+            return (x, y)
+
     def get_paint_box(self):
         success, box = super(Actor, self).get_paint_box()
         if success:
