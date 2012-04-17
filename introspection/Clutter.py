@@ -1116,6 +1116,94 @@ State = override(State)
 __all__.append('State')
 
 
+if clutter_version >= (1, 10, 0):
+    class Content(Clutter.Content):
+        def get_preferred_size(self):
+            success, width, height = super(Content, self).get_preferred_size()
+            if success:
+                return (width, height)
+
+    Content = override(Content)
+    __all__.append('Content')
+
+
+    class Margin(Clutter.Margin):
+        def __new__(cls, *args, **kwargs):
+            return Clutter.Margin.__new__(cls)
+
+        def __init__(self, *args, **kwargs):
+            Clutter.Margin.__init__(self)
+            # using css semantics
+            if len(args) == 1:
+                self.top = self.right = self.bottom = self.left = args[0]
+            elif len(args) == 2:
+                self.top = self.bottom = args[0]
+                self.right = self.left = args[1]
+            elif len(args) == 3:
+                self.top = args[0]
+                self.left = self.right = args[1]
+                self.bottom = args[2]
+            elif len(args) == 4:
+                self.top = args[0]
+                self.right = args[1]
+                self.bottom = args[2]
+                self.left = args[3]
+            else:
+                self.top = kwargs.get('top', 0.0)
+                self.right = kwargs.get('right', 0.0)
+                self.bottom = kwargs.get('bottom', 0.0)
+                self.left = kwargs.get('left', 0.0)
+
+        def __repr__(self):
+            return '<Clutter.Margin(left=%f, right=%f, top=%f, bottom=%f)>' \
+                    % (self.left, self.right, self.top, self.bottom)
+
+        def __len__(self):
+            return 4
+
+        def __getitem__(self, key):
+            if isinstance(key, int):
+                if key == 0:
+                    return self.top
+                elif key == 1:
+                    return self.right
+                elif key == 2:
+                    return self.bottom
+                elif key == 3:
+                    return self.left
+                else:
+                    raise IndexError("index out of range")
+            else:
+                raise TypeError("sequence index must be integer")
+
+        def __setitem__(self, key, value):
+            if isinstance(key, int):
+                if key == 0:
+                    self.top = value
+                elif key == 1:
+                    self.right = value
+                elif key == 2:
+                    self.bottom = value
+                elif key == 3:
+                    self.left = value
+                else:
+                    raise IndexError("index out of range")
+            else:
+                raise TypeError("sequence index must be integer")
+
+        def __eq__(self, other):
+            return self.top == other.top and \
+                    self.right == other.right and \
+                    self.bottom == other.bottom and \
+                    self.left == other.left
+
+        def __ne__(self, other):
+            return not self.__eq__(other)
+
+    Margin = override(Margin)
+    __all__.append('Margin')
+
+
 # override the main_quit function to ignore additional arguments. This enables
 # common stuff like stage.connect('destroy', Clutter.main_quit)
 def main_quit(*args, **kwargs):
