@@ -637,6 +637,10 @@ class Actor(Clutter.Actor):
         if success:
             return box
 
+    if clutter_version >= (1, 10, 0):
+        def __iter__(self):
+            return iter(self.get_children())
+
 Actor = override(Actor)
 __all__.append('Actor')
 
