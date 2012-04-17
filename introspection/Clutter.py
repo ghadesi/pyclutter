@@ -24,6 +24,7 @@ import sys
 from ..overrides import override
 from ..importer import modules
 from gi.repository import GObject
+from contextlib import contextmanager
 
 Clutter = modules['Clutter']._introspection_module
 
@@ -640,6 +641,24 @@ class Actor(Clutter.Actor):
     if clutter_version >= (1, 10, 0):
         def __iter__(self):
             return iter(self.get_children())
+
+        @contextmanager
+        def animated(self, duration=None, mode=None, delay=None):
+            """
+            Use the implicit animation api
+            >>> my_actor.set_size(100.0, 100.0)
+            >>> with my_actor.animated():
+            ...     my_actor.set_size(200.0, 200.0)
+            """
+            self.save_easing_state()
+            if duration is not None:
+                self.set_easing_duration(duration)
+            if mode is not None:
+                self.set_easing_mode(mode)
+            if delay is not None:
+                self.set_easing_delay(delay)
+            yield
+            self.restore_easing_state()
 
 Actor = override(Actor)
 __all__.append('Actor')
