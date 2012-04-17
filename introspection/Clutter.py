@@ -73,11 +73,11 @@ def _gvalue_from_python(value_type, v):
             if isinstance(v, unicode):
                 v = v.encode('UTF-8')
             else:
-                raise ValueError("Expected string or unicode for property " + \
-                        "%s but got %s%s" % (prop_name, v, type(v)))
+                raise ValueError("Expected string or unicode " \
+                        "but got %s%s" % (v, type(v)))
         else:
-            raise ValueError("Expected string or unicode for property " + \
-                    "%s but got %s%s" % (prop_name, v, type(v)))
+            raise ValueError("Expected string or unicode " \
+                    "but got %s%s" % (v, type(v)))
         value.set_string(str(v))
     else:
         return v
