@@ -228,6 +228,10 @@ class ActorBox(Clutter.ActorBox):
             return self.equal(other)
         return False
 
+    x = property(Clutter.ActorBox.get_x)
+
+    y = property(Clutter.ActorBox.get_y)
+
     @property
     def size(self):
         return (self.x2 - self.x1, self.y2 - self.y1)
