@@ -452,7 +452,6 @@ class Event(Clutter.Event):
             Clutter.EventType.TOUCH_CANCEL: 'touch'
         })
 
-
     def __new__(cls, *args, **kwargs):
         return Clutter.Event.__new__(cls)
 
@@ -664,11 +663,6 @@ class Actor(Clutter.Actor):
         success, x_out, y_out = super(Actor, self).transform_stage_point(x, y)
         if success:
             return (x_out, y_out)
-
-    def get_transformed_position(self):
-        success, x, y = super(Actor, self).get_transformed_position()
-        if success:
-            return (x, y)
 
     def get_paint_box(self):
         success, box = super(Actor, self).get_paint_box()
