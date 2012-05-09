@@ -1407,6 +1407,16 @@ if clutter_version >= (1, 10, 0):
     __all__.append('PipelineNode')
 
 
+    class PropertyTransition(Clutter.PropertyTransition):
+        def __init__(self, property_name=None, **kwargs):
+            if property_name is not None:
+                kwargs['property_name'] = property_name
+            Clutter.PropertyTransition.__init__(self, **kwargs)
+
+    PropertyTransition = override(PropertyTransition)
+    __all__.append('PropertyTransition')
+
+
 
 class Settings(Clutter.Settings):
     def __new__(cls, *args, **kwargs):
