@@ -1407,6 +1407,14 @@ if clutter_version >= (1, 10, 0):
     __all__.append('PipelineNode')
 
 
+
+class Settings(Clutter.Settings):
+    def __new__(cls, *args, **kwargs):
+        return Clutter.Settings.get_default()
+
+Settings = override(Settings)
+__all__.append('Settings')
+
 # override the main_quit function to ignore additional arguments. This enables
 # common stuff like stage.connect('destroy', Clutter.main_quit)
 def main_quit(*args, **kwargs):
