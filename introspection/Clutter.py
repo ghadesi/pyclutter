@@ -1173,6 +1173,42 @@ State = override(State)
 __all__.append('State')
 
 
+class Interval(Clutter.Interval):
+    def __init__(self, value_type, initial=None, final=None):
+        Clutter.Interval.__init__(self, value_type=value_type)
+        if initial is not None:
+            self.set_initial(initial)
+        if final is not None:
+            self.set_final(final)
+
+    def set_initial(self, value):
+        Clutter.Interval.set_initial(self,
+                _gvalue_from_python(self.props.value_type, value))
+
+    def get_initial(self):
+        try:
+            return self.peek_initial_value()
+        except TypeError:
+            return None
+
+    initial = property(get_initial, set_initial)
+
+    def set_final(self, value):
+        Clutter.Interval.set_final(self,
+                _gvalue_from_python(self.props.value_type, value))
+
+    def get_final(self):
+        try:
+            return self.peek_final_value()
+        except TypeError:
+            return None
+
+    final = property(get_final, set_final)
+
+Interval = override(Interval)
+__all__.append('Interval')
+
+
 class AlignConstraint(Clutter.AlignConstraint):
     def __init__(self, source=None, align_axis=None, factor=None, **kwargs):
         if source is not None:
