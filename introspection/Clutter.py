@@ -819,7 +819,9 @@ __all__.append('CairoTexture')
 
 class Clone(Clutter.Clone):
     def __init__(self, source=None, **kwargs):
-        Clutter.Clone.__init__(self, source=source, **kwargs)
+        if source is not None:
+            kwargs['source'] = source
+        Clutter.Clone.__init__(self, **kwargs)
 
 Clone = override(Clone)
 __all__.append('Clone')
@@ -836,6 +838,28 @@ class LayoutManager(Clutter.LayoutManager):
 
 LayoutManager = override(LayoutManager)
 __all__.append('LayoutManager')
+
+
+class BinLayout(Clutter.BinLayout):
+    def __init__(self, x_align=None, y_align=None, **kwargs):
+        if x_align is not None:
+            kwargs['x_align'] = x_align
+        if y_align is not None:
+            kwargs['y_align'] = y_align
+        Clutter.BinLayout.__init__(self, **kwargs)
+
+BinLayout = override(BinLayout)
+__all__.append('BinLayout')
+
+
+class FlowLayout(Clutter.FlowLayout):
+    def __init__(self, orientation=None, **kwargs):
+        if orientation is not None:
+            kwargs['orientation'] = orientation
+        Clutter.FlowLayout.__init__(self, **kwargs)
+
+FlowLayout = override(FlowLayout)
+__all__.append('FlowLayout')
 
 
 class Box(Clutter.Box, Actor):
@@ -1002,8 +1026,10 @@ __all__.append('ListModel')
 
 
 class Timeline(Clutter.Timeline):
-    def __init__(self, duration=1000, **kwargs):
-        Clutter.Timeline.__init__(self, duration=duration, **kwargs)
+    def __init__(self, duration=None, **kwargs):
+        if duration is not None:
+            kwargs['duration'] = duration
+        Clutter.Timeline.__init__(self, **kwargs)
 
     def list_markers(self, position=-1):
         markers, n_markers = Clutter.Timeline.list_markers(self, position)
@@ -1145,6 +1171,83 @@ class State(Clutter.State):
 
 State = override(State)
 __all__.append('State')
+
+
+class AlignConstraint(Clutter.AlignConstraint):
+    def __init__(self, source=None, align_axis=None, factor=None, **kwargs):
+        if source is not None:
+            kwargs['source'] = source
+        if align_axis is not None:
+            kwargs['align_axis'] = align_axis
+        if factor is not None:
+            kwargs['factor'] = factor
+        Clutter.AlignConstraint.__init__(self, **kwargs)
+
+AlignConstraint = override(AlignConstraint)
+__all__.append('AlignConstraint')
+
+
+class BindConstraint(Clutter.BindConstraint):
+    def __init__(self, source=None, coordinate=None, offset=None, **kwargs):
+        if source is not None:
+            kwargs['source'] = source
+        if coordinate is not None:
+            kwargs['coordinate'] = coordinate
+        if offset is not None:
+            kwargs['offset'] = offset
+        Clutter.BindConstraint.__init__(self, **kwargs)
+
+BindConstraint = override(BindConstraint)
+__all__.append('BindConstraint')
+
+
+class SnapConstraint(Clutter.SnapConstraint):
+    def __init__(self, source=None, from_edge=None, to_edge=None, offset=None,
+            **kwargs):
+        if source is not None:
+            kwargs['source'] = source
+        if from_edge is not None:
+            kwargs['from_edge'] = from_edge
+        if to_edge is not None:
+            kwargs['to_edge'] = to_edge
+        if offset is not None:
+            kwargs['offset'] = offset
+        Clutter.SnapConstraint.__init__(self, **kwargs)
+
+SnapConstraint = override(SnapConstraint)
+__all__.append('SnapConstraint')
+
+
+class PathConstraint(Clutter.PathConstraint):
+    def __init__(self, path=None, offset=None, **kwargs):
+        if path is not None:
+            kwargs['path'] = path
+        if offset is not None:
+            kwargs['offset'] = offset
+        Clutter.PathConstraint.__init__(self, **kwargs)
+
+PathConstraint = override(PathConstraint)
+__all__.append('PathConstraint')
+
+
+class ShaderEffect(Clutter.ShaderEffect):
+    def __init__(self, shader_type=None, **kwargs):
+        if shader_type is not None:
+            kwargs['shader_type'] = shader_type
+        Clutter.ShaderEffect.__init__(self, **kwargs)
+
+ShaderEffect = override(ShaderEffect)
+__all__.append('ShaderEffect')
+
+
+class ColorizeEffect(Clutter.ColorizeEffect):
+    def __init__(self, tint=None, **kwargs):
+        if tint is not None:
+            kwargs['tint'] = tint
+        Clutter.ColorizeEffect.__init__(self, **kwargs)
+
+ColorizeEffect = override(ColorizeEffect)
+__all__.append('ColorizeEffect')
 
 
 if clutter_version >= (1, 10, 0):
