@@ -674,12 +674,28 @@ class Actor(Clutter.Actor):
             return iter(self.get_children())
 
         @contextmanager
-        def animated(self, duration=None, mode=None, delay=None):
+        def easing_state(self, duration=None, mode=None, delay=None):
             """
-            Use the implicit animation api
-            >>> my_actor.set_size(100.0, 100.0)
-            >>> with my_actor.animated():
-            ...     my_actor.set_size(200.0, 200.0)
+            @duration: The optional easing duration in ms
+            @mode: The optional easing mode
+            @delay: An optional delay in ms
+
+            The easing_state() method allows a simple usage of Clutters
+            implicit animation API using a Python contextmanager.
+
+            To set an actors position to 100,100 and move it to 200,200 in 2s
+            using a linear animation you can call:
+            >>> my_actor.set_position(100, 100)
+            >>> with my_actor.easing_state(2000, Clutter.AnimationMode.LINEAR):
+            ...     my_actor.set_position(200, 200)
+
+            Instead of:
+            >>> my_actor.set_position(100, 100)
+            >>> my_actor.save_easing_state()
+            >>> my_actor.set_easing_duration(2000)
+            >>> my_actor.set_easing_mode(Clutter.AnimationMode.LINEAR)
+            >>> my_actor.set_position(200, 200)
+            >>> my_actor.restore_easing_state()
             """
             self.save_easing_state()
             if duration is not None:
