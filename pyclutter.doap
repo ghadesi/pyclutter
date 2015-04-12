@@ -6,20 +6,30 @@
          xmlns="http://usefulinc.com/ns/doap#">
 
   <name>PyClutter</name>
-  <created>2006-11-18</created>
-  <shortdesc xml:lang="en">PyClutter is a Python module binding Clutter</shortdesc>
-  <description xml:lang="en">PyClutter provides Python bindings for the Clutter library</description>
+  <shortname>pyclutter</shortname>
+  <category rdf:resource="http://api.gnome.org/doap-extensions#core" />
+
+  <shortdesc xml:lang="en">Python bindings for Clutter</shortdesc>
+
+  <description xml:lang="en">PyClutter provides Python bindings for Clutter,
+  an open source software library for creating fast, portable, compelling and
+  dynamic graphical user interfaces. Clutter uses OpenGL (and optionally
+  OpenGL|ES for use on Mobile and embedded platforms) for rendering, but with
+  an API which hides the underlying GL complexity from the developer. The
+  Clutter API is intended to be easy to use, efficient and flexible.</description>
 
   <homepage rdf:resource="http://www.clutter-project.org" />
-  <download-page rdf:resource="http://source.clutter-project.org/sources" />
   <license rdf:resource="http://usefulinc.com/doap/licenses/lgpl" />
-  <bug-database rdf:resource="http://bugzilla.clutter-project.com/enter_bug.cgi?product=pyclutter"/>
-  <programming-language>C</programming-language>
+  <bug-database rdf:resource="http://bugzilla.gnome.org/enter_bug.cgi?product=clutter"/>
+  <download-page rdf:resource="http://download.gnome.org/sources/pyclutter" />
+  <mailing-list rdf:resource="mailto:clutter-list@gnome.org.org" />
+
   <programming-language>Python</programming-language>
 
   <maintainer>
     <foaf:Person>
       <foaf:name>Emmanuele Bassi</foaf:name>
+      <foaf:mbox rdf:resource="mailto:ebassi@gnome.org"/>
       <gnome:userid>ebassi</gnome:userid>
     </foaf:Person>
   </maintainer>
@@ -36,5 +46,4 @@
       <location rdf:resource="git://git.gnome.org/pyclutter"/>
     </GitRepository>
   </repository>
-
 </Project>
