@@ -1,4 +1,1 @@
-NULL =
-
-EXTRA_DIST = \
-	$(NULL)
+EXTRA_DIST = $(NULL)

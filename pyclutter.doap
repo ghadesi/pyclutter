@@ -1,34 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
          xmlns:foaf="http://xmlns.com/foaf/0.1/"
-	 xmlns="http://usefulinc.com/ns/doap#">
+         xmlns:gnome="http://api.gnome.org/doap-extensions#"
+         xmlns="http://usefulinc.com/ns/doap#">
 
   <name>PyClutter</name>
-  <created>2006-11-18</created>
-  <shortdesc xml:lang="en">PyClutter is a Python module binding Clutter</shortdesc>
-  <description xml:lang="en">
-	Clutter is an open source software library for creating fast, visually
-	rich and animated graphical user interfaces. PyClutter provides Python
-	bindings for this library.
-  </description>
+  <shortname>pyclutter</shortname>
+  <category rdf:resource="http://api.gnome.org/doap-extensions#core" />
 
-  <homepage rdf:resource="http://labs.o-hand.com/clutter" />
-  <download-page rdf:resource="http://clutter-project.org/sources" />
+  <shortdesc xml:lang="en">Python bindings for Clutter</shortdesc>
+
+  <description xml:lang="en">PyClutter provides Python bindings for Clutter,
+  an open source software library for creating fast, portable, compelling and
+  dynamic graphical user interfaces. Clutter uses OpenGL (and optionally
+  OpenGL|ES for use on Mobile and embedded platforms) for rendering, but with
+  an API which hides the underlying GL complexity from the developer. The
+  Clutter API is intended to be easy to use, efficient and flexible.</description>
+
+  <homepage rdf:resource="http://www.clutter-project.org" />
   <license rdf:resource="http://usefulinc.com/doap/licenses/lgpl" />
-  <bug-database rdf:resource="http://bugzilla.o-hand.com/enter_bug.cgi?product=Clutter"/>
-  <os>linux</os>
-  <programming-language>C</programming-language>
-  <programming-language>Python</programming-language>
+  <bug-database rdf:resource="http://bugzilla.gnome.org/enter_bug.cgi?product=clutter"/>
+  <download-page rdf:resource="http://download.gnome.org/sources/pyclutter" />
+  <mailing-list rdf:resource="mailto:clutter-list@gnome.org.org" />
 
-  <category rdf:resource="http://labs.o-hand.com/doap/category/library"/>
-  <category rdf:resource="http://labs.o-hand.com/doap/category/graphics"/>
-  <category rdf:resource="http://labs.o-hand.com/doap/category/embedded"/>
-  <category rdf:resource="http://labs.o-hand.com/doap/category/bindings"/>
+  <programming-language>Python</programming-language>
 
   <maintainer>
     <foaf:Person>
       <foaf:name>Emmanuele Bassi</foaf:name>
+      <foaf:mbox rdf:resource="mailto:ebassi@gnome.org"/>
+      <gnome:userid>ebassi</gnome:userid>
     </foaf:Person>
   </maintainer>
+
 
   <maintainer>
     <foaf:Person>
@@ -37,50 +42,9 @@
   </maintainer>
 
   <repository>
-	<GitRepository>
-	  <browse rdf:resource="http://git.clutter-project.org/?r=bindings/pyclutter"/>
-	  <location rdf:resource="git://git.clutter-project.org/bindings/pyclutter"/>
-	</GitRepository>
+    <GitRepository>
+        <browse rdf:resource="http://git.gnome.org/browse/pyclutter/"/>
+      <location rdf:resource="git://git.gnome.org/pyclutter"/>
+    </GitRepository>
   </repository>
-
-  <release>
-    <Version>
-      <created>2007-01-18</created>
-      <revision>0.2.0</revision>
-      <file-release rdf:resource="http://www.clutter-project.org/sources/pyclutter/0.2/pyclutter-0.2.0.tar.gz"/>
-    </Version>
-  </release>
-
-  <release>
-    <Version>
-      <created>2007-08-07</created>
-      <revision>0.4.0</revision>
-      <file-release rdf:resource="http://www.clutter-project.org/sources/pyclutter/0.4/pyclutter-0.4.0.tar.gz"/>
-    </Version>
-  </release>
-
-  <release>
-    <Version>
-      <created>2008-02-19</created>
-      <revision>0.6.0</revision>
-      <file-release rdf:resource="http://www.clutter-project.org/sources/pyclutter/0.6/pyclutter-0.6.0.tar.gz"/>
-    </Version>
-  </release>
-
-  <release>
-    <Version>
-      <created>2008-08-15</created>
-      <revision>0.8.0</revision>
-      <file-release rdf:resource="http://www.clutter-project.org/sources/pyclutter/0.8/pyclutter-0.8.0.tar.gz"/>
-    </Version>
-  </release>
-
-  <release>
-    <Version>
-      <created>2009-08-28</created>
-      <revision>1.0.0</revision>
-      <file-release rdf:resource="http://www.clutter-project.org/sources/pyclutter/1.0/pyclutter-1.0.0.tar.gz"/>
-    </Version>
-  </release>
-
 </Project>

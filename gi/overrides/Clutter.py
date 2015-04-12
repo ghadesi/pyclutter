@@ -1,9 +1,10 @@
 # -*- Mode: Python; py-indent-offset: 4 -*-
 # vim: tabstop=4 shiftwidth=4 expandtab
 #
-# Copyright (C) 2009 Johan Dahlin <johan@gnome.org>
-#               2010 Simon van der Linden <svdlinden@src.gnome.org>
-#               2011 Bastian Winkler <buz@netbuz.org>
+# Copyright 2009 Johan Dahlin <johan@gnome.org>
+#           2010 Simon van der Linden <svdlinden@src.gnome.org>
+#           2011 Bastian Winkler <buz@netbuz.org>
+#           2015 Emmanuele Bassi
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -20,16 +21,16 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301
 # USA
 
-import sys
-from ..overrides import override
+from ..overrides import override, deprecated_init
 from ..importer import modules
+
+from gi import PyGIDeprecationWarning
 from gi.repository import GObject
+
 from contextlib import contextmanager
 
-Clutter = modules['Clutter']._introspection_module
-
-__all__ = []
-
+import sys
+import warnings
 
 if sys.version_info >= (3, 0):
     _basestring = str
@@ -39,56 +40,53 @@ else:
     _callable = callable
 
 
-clutter_version = (Clutter.MAJOR_VERSION, Clutter.MINOR_VERSION,
-                   Clutter.MICRO_VERSION)
+Clutter = modules['Clutter']._introspection_module
+__all__ = []
+
+clutter_version = (Clutter.MAJOR_VERSION, Clutter.MINOR_VERSION, Clutter.MICRO_VERSION)
 __all__.append('clutter_version')
 
-
-def _gvalue_from_python(value_type, v):
-    # XXX: A similar function is also in Gtk.py, but IMHO this should
-    # live in a GObject.Value override. Either as a GValue classmethod
-    # or the GValue constructor.
-    value = GObject.Value()
-    value.init(value_type)
-    if value_type == GObject.TYPE_INT:
-        value.set_int(int(v))
-    elif value_type == GObject.TYPE_UINT:
-        value.set_uint(int(v))
-    elif value_type == GObject.TYPE_CHAR:
-        value.set_char(int(v))
-    elif value_type == GObject.TYPE_UCHAR:
-        value.set_uint(int(v))
-    elif value_type == GObject.TYPE_FLOAT:
-        value.set_float(float(v))
-    elif value_type == GObject.TYPE_DOUBLE:
-        value.set_double(float(v))
-    elif value_type == GObject.TYPE_LONG:
-        value.set_long(long(v))
-    elif value_type == GObject.TYPE_ULONG:
-        value.set_ulong(long(v))
-    elif value_type == GObject.TYPE_INT64:
-        value.set_int64(long(v))
-    elif value_type == GObject.TYPE_UINT64:
-        value.set_uint64(long(v))
-    elif value_type == GObject.TYPE_BOOLEAN:
-        value.set_boolean(bool(v))
-    elif value_type == GObject.TYPE_STRING:
-        if isinstance(v, str):
-            v = str(v)
-        elif sys.version_info < (3, 0):
-            if isinstance(v, unicode):
-                v = v.encode('UTF-8')
-            else:
-                raise ValueError("Expected string or unicode " \
-                        "but got %s%s" % (v, type(v)))
-        else:
-            raise ValueError("Expected string or unicode " \
-                    "but got %s%s" % (v, type(v)))
-        value.set_string(str(v))
+def _extract_handler_and_args(obj_or_map, handler_name):
+    handler = None
+    if isinstance(obj_or_map, collections.Mapping):
+        handler = obj_or_map.get(handler_name, None)
     else:
-        return v
-    return value
+        handler = getattr(obj_or_map, handler_name, None)
 
+    if handler is None:
+        raise AttributeError('Handler %s not found' % handler_name)
+
+    args = ()
+    if isinstance(handler, collections.Sequence):
+        if len(handler) == 0:
+            raise TypeError("Handler %s tuple can not be empty" % handler)
+        args = handler[1:]
+        handler = handler[0]
+
+    elif not _callable(handler):
+        raise TypeError('Handler %s is not a method, function or tuple' % handler)
+
+    return handler, args
+
+def _builder_connect_callback(builder, gobj, signal_name, handler_name, connect_obj, flags, obj_or_map):
+    handler, args = _extract_handler_and_args(obj_or_map, handler_name)
+
+    after = flags & GObject.ConnectFlags.AFTER
+    if connect_obj is not None:
+        if after:
+            gobj.connect_object_after(signal_name, handler, connect_obj, *args)
+        else:
+            gobj.connect_object(signal_name, handler, connect_obj, *args)
+    else:
+        if after:
+            gobj.connect_after(signal_name, handler, *args)
+        else:
+            gobj.connect(signal_name, handler, *args)
+
+class PyClutterDeprecationWarning(PyGIDeprecationWarning):
+    pass
+
+__all__.append('PyClutterDeprecationWarning')
 
 class Color(Clutter.Color):
     def __new__(cls, *args, **kwargs):
@@ -806,14 +804,9 @@ __all__.append('Rectangle')
 
 
 class Text(Clutter.Text, Actor):
-    def __init__(self, font_name=None, text=None, color=None, **kwargs):
-        if font_name is not None:
-            kwargs['font_name'] = font_name
-        if text is not None:
-            kwargs['text'] = text
-        if color is not None:
-            kwargs['color'] = color
-        Clutter.Text.__init__(self, **kwargs)
+    __init__ = deprecated_init(Clutter.Text.__init__,
+                               arg_names=('font_name', 'text', 'color'),
+                               category=PyClutterDeprecationWarning)
 
     def position_to_coords(self, position):
         success, x, y, lh = Clutter.Text.position_to_coords(self, position)
@@ -825,9 +818,9 @@ __all__.append('Text')
 
 
 class CairoTexture(Clutter.CairoTexture):
-    def __init__(self, surface_width=1, surface_height=1, **kwargs):
-        Clutter.CairoTexture.__init__(self, surface_width=surface_width,
-                                      surface_height=surface_height, **kwargs)
+    __init__ = deprecated_init(Clutter.CairoTexture.__init__,
+                               arg_names=('surface_width', 'surface_height'),
+                               category=PyClutterDeprecationWarning)
 
 CairoTexture = override(CairoTexture)
 __all__.append('CairoTexture')
@@ -879,8 +872,9 @@ __all__.append('FlowLayout')
 
 
 class Box(Clutter.Box, Actor):
-    def __init__(self, layout_manager=None, **kwargs):
-        Clutter.Box.__init__(self, layout_manager=layout_manager, **kwargs)
+    __init__ = deprecated_init(Clutter.Box.__init__,
+                               arg_names=('layout_manager'),
+                               category=PyClutterDeprecationWarning)
 
     def pack(self, actor, **kwargs):
         self.add_actor(actor)
@@ -912,23 +906,20 @@ __all__.append('Box')
 class Model(Clutter.Model):
     def insert(self, row, *args):
         if len(args) < 2 or len(args) % 2:
-            raise ValueError("Clutter.Model.insert needs at least one " +
-                    "column / value pair")
+            raise ValueError("Clutter.Model.insert needs at least one column / value pair")
         for column, value in zip(args[::2], args[1::2]):
             value = _gvalue_from_python(self.get_column_type(column), value)
             self.insert_value(row, column, value)
 
     def append(self, *args):
         if len(args) < 2 or len(args) % 2:
-            raise ValueError("Clutter.Model.append needs at least one " +
-                    "column / value pair")
+            raise ValueError("Clutter.Model.append needs at least one column / value pair")
         row = self.get_n_rows()
         self.insert(row, *args)
 
     def prepend(self, *args):
         if len(args) < 2 or len(args) % 2:
-            raise ValueError("Clutter.Model.prepend needs at least one " +
-                    "column / value pair")
+            raise ValueError("Clutter.Model.prepend needs at least one column / value pair")
         columns = []
         values = []
         for column, value in zip(args[::2], args[1::2]):
@@ -1104,35 +1095,18 @@ class Script(Clutter.Script):
         return ret
 
     def connect_signals(self, obj_or_map):
-        def _full_callback(builder, gobj, signal_name, handler_name,
-                connect_obj, flags, obj_or_map):
-            handler = None
-            if isinstance(obj_or_map, dict):
-                handler = obj_or_map.get(handler_name, None)
-            else:
-                handler = getattr(obj_or_map, handler_name, None)
+        """Connect signals specified by this builder to a name, handler mapping.
 
-            if handler is None:
-                raise AttributeError('Handler %s not found' % handler_name)
+        Connect signal, name, and handler sets specified in the builder with
+        the given mapping "obj_or_map". The handler/value aspect of the mapping
+        can also contain a tuple in the form of (handler [,arg1 [,argN]])
+        allowing for extra arguments to be passed to the handler. For example:
 
-            if not _callable(handler):
-                raise TypeError('Handler %s is not a method or function' %
-                        handler_name)
+        .. code-block:: python
 
-            after = flags or GObject.ConnectFlags.AFTER
-            if connect_obj is not None:
-                if after:
-                    gobj.connect_object_after(signal_name, handler,
-                            connect_obj)
-                else:
-                    gobj.connect_object(signal_name, handler, connect_obj)
-            else:
-                if after:
-                    gobj.connect_after(signal_name, handler)
-                else:
-                    gobj.connect(signal_name, handler)
-
-        self.connect_signals_full(_full_callback, obj_or_map)
+            builder.connect_signals({'on_clicked': (on_clicked, arg1, arg2)})
+        """
+        self.connect_signals_full(_builder_connect_callback, obj_or_map)
 
 Script = override(Script)
 __all__.append('Script')
@@ -1193,13 +1167,12 @@ class Interval(Clutter.Interval):
     def __init__(self, value_type, initial=None, final=None):
         Clutter.Interval.__init__(self, value_type=value_type)
         if initial is not None:
-            self.set_initial(initial)
+            self.set_initial_value(initial)
         if final is not None:
-            self.set_final(final)
+            self.set_final_value(final)
 
     def set_initial(self, value):
-        Clutter.Interval.set_initial(self,
-                _gvalue_from_python(self.props.value_type, value))
+        Clutter.Interval.set_initial_value(self, value)
 
     def get_initial(self):
         try:
@@ -1210,8 +1183,7 @@ class Interval(Clutter.Interval):
     initial = property(get_initial, set_initial)
 
     def set_final(self, value):
-        Clutter.Interval.set_final(self,
-                _gvalue_from_python(self.props.value_type, value))
+        Clutter.Interval.set_final_value(self, value)
 
     def get_final(self):
         try:
