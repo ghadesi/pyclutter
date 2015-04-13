@@ -1,2 +1,3 @@
 EXTRA_DIST = \
-	basic-actor.py
+	basic-actor.py \
+	constraints.py
