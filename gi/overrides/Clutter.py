@@ -39,6 +39,12 @@ else:
     _basestring = basestring
     _callable = callable
 
+# Decorator for overridden classes
+def giclassoverride(cls):
+    name = cls.__name__
+    globals()[name] = override(cls)
+    __all__.append(name)
+    return cls
 
 Clutter = modules['Clutter']._introspection_module
 __all__ = []
@@ -88,6 +94,7 @@ class PyClutterDeprecationWarning(PyGIDeprecationWarning):
 
 __all__.append('PyClutterDeprecationWarning')
 
+@giclassoverride
 class Color(Clutter.Color):
     def __new__(cls, *args, **kwargs):
         return Clutter.Color.__new__(cls)
@@ -162,10 +169,7 @@ class Color(Clutter.Color):
         Clutter.Color.from_pixel(self, pixel)
         return self
 
-Color = override(Color)
-__all__.append('Color')
-
-
+@giclassoverride
 class ActorBox(Clutter.ActorBox):
     def __new__(cls, *args, **kwargs):
         return Clutter.ActorBox.__new__(cls)
@@ -248,10 +252,7 @@ class ActorBox(Clutter.ActorBox):
     def height(self):
         return self.y2 - self.y1
 
-ActorBox = override(ActorBox)
-__all__.append('ActorBox')
-
-
+@giclassoverride
 class Vertex(Clutter.Vertex):
     def __new__(cls, *args, **kwargs):
         return Clutter.Vertex.__new__(cls)
@@ -312,10 +313,7 @@ class Vertex(Clutter.Vertex):
             return not self.equal(other)
         return False
 
-Vertex = override(Vertex)
-__all__.append('Vertex')
-
-
+@giclassoverride
 class Geometry(Clutter.Geometry):
     def __new__(cls, *args, **kwargs):
         return Clutter.Geometry.__new__(cls)
@@ -379,10 +377,7 @@ class Geometry(Clutter.Geometry):
         return self.x != other.x or self.y != other.y or \
                 self.width != other.width or self.height != other.height
 
-Geometry = override(Geometry)
-__all__.append('Geometry')
-
-
+@giclassoverride
 class Knot(Clutter.Knot):
     def __new__(cls, *args, **kwargs):
         return Clutter.Knot.__new__(cls)
@@ -426,10 +421,7 @@ class Knot(Clutter.Knot):
     def __ne__(self, other):
         return self.x != other.x or self.y != other.y
 
-Knot = override(Knot)
-__all__.append('Knot')
-
-
+@giclassoverride
 class Event(Clutter.Event):
     _UNION_MEMBERS = {
         Clutter.EventType.KEY_PRESS: 'key',
@@ -553,11 +545,7 @@ class Event(Clutter.Event):
         else:
             return '<Unkown event>'
 
-
-Event = override(Event)
-__all__.append('Event')
-
-
+@giclassoverride
 class Actor(Clutter.Actor):
     def _update_animation(self, *args, **kwargs):
         def _detach_animation(animation):
@@ -705,10 +693,7 @@ class Actor(Clutter.Actor):
             yield
             self.restore_easing_state()
 
-Actor = override(Actor)
-__all__.append('Actor')
-
-
+@giclassoverride
 class Container(Clutter.Container):
     def __len__(self):
         return len(self.get_children())
@@ -779,28 +764,19 @@ class Container(Clutter.Container):
         meta = self.get_child_meta(child)
         meta.set_property(property_name, value)
 
-Container = override(Container)
-__all__.append('Container')
-
-
+@giclassoverride
 class Texture(Clutter.Texture, Actor):
     __init__ = deprecated_init(Clutter.Texture.__init__,
                                arg_names=('filename'),
                                category=PyClutterDeprecationWarning)
 
-Texture = override(Texture)
-__all__.append('Texture')
-
-
+@giclassoverride
 class Rectangle(Clutter.Rectangle, Actor):
     __init__ = deprecated_init(Clutter.Rectangle.__init__,
                                arg_names=('color'),
                                category=PyClutterDeprecationWarning)
 
-Rectangle = override(Rectangle)
-__all__.append('Rectangle')
-
-
+@giclassoverride
 class Text(Clutter.Text, Actor):
     __init__ = deprecated_init(Clutter.Text.__init__,
                                arg_names=('font_name', 'text', 'color'),
@@ -811,28 +787,19 @@ class Text(Clutter.Text, Actor):
         if success:
             return (x, y, lh)
 
-Text = override(Text)
-__all__.append('Text')
-
-
+@giclassoverride
 class CairoTexture(Clutter.CairoTexture):
     __init__ = deprecated_init(Clutter.CairoTexture.__init__,
                                arg_names=('surface_width', 'surface_height'),
                                category=PyClutterDeprecationWarning)
 
-CairoTexture = override(CairoTexture)
-__all__.append('CairoTexture')
-
-
+@giclassoverride
 class Clone(Clutter.Clone):
     __init__ = deprecated_init(Clutter.Clone.__init__,
                                arg_names=('source'),
                                category=PyClutterDeprecationWarning)
 
-Clone = override(Clone)
-__all__.append('Clone')
-
-
+@giclassoverride
 class LayoutManager(Clutter.LayoutManager):
     def child_set_property(self, container, child, property_name, value):
         meta = self.get_child_meta(container, child)
@@ -842,28 +809,19 @@ class LayoutManager(Clutter.LayoutManager):
         meta = self.get_child_meta(container, child)
         return meta.get_property(property_name)
 
-LayoutManager = override(LayoutManager)
-__all__.append('LayoutManager')
-
-
+@giclassoverride
 class BinLayout(Clutter.BinLayout):
     __init__ = deprecated_init(Clutter.BinLayout.__init__,
                                arg_names=('x_align', 'y_align'),
                                category=PyClutterDeprecationWarning)
 
-BinLayout = override(BinLayout)
-__all__.append('BinLayout')
-
-
+@giclassoverride
 class FlowLayout(Clutter.FlowLayout):
     __init__ = deprecated_init(Clutter.FlowLayout.__init__,
                                arg_names=('orientation'),
                                category=PyClutterDeprecationWarning)
 
-FlowLayout = override(FlowLayout)
-__all__.append('FlowLayout')
-
-
+@giclassoverride
 class Box(Clutter.Box, Actor):
     __init__ = deprecated_init(Clutter.Box.__init__,
                                arg_names=('layout_manager'),
@@ -892,10 +850,7 @@ class Box(Clutter.Box, Actor):
             for k, v in kwargs.items():
                 layout_manager.child_set_property(self, actor, k, v)
 
-Box = override(Box)
-__all__.append('Box')
-
-
+@giclassoverride
 class Model(Clutter.Model):
     def insert(self, row, *args):
         if len(args) < 2 or len(args) % 2:
@@ -951,10 +906,7 @@ class Model(Clutter.Model):
         else:
             raise TypeError("indices must be integer or slice")
 
-Model = override(Model)
-__all__.append('Model')
-
-
+@giclassoverride
 class ModelIter(Clutter.ModelIter):
     def __len__(self):
         return self.get_model().get_n_columns()
@@ -1008,10 +960,7 @@ class ModelIter(Clutter.ModelIter):
     def model(self):
         return self.get_model()
 
-ModelIter = override(ModelIter)
-__all__.append('ModelIter')
-
-
+@giclassoverride
 class ListModel(Clutter.ListModel, Model):
     def __init__(self, *args):
         Clutter.ListModel.__init__(self)
@@ -1021,10 +970,7 @@ class ListModel(Clutter.ListModel, Model):
         self.set_types(args[::2])
         self.set_names(args[1::2])
 
-ListModel = override(ListModel)
-__all__.append('ListModel')
-
-
+@giclassoverride
 class Timeline(Clutter.Timeline):
     __init__ = deprecated_init(Clutter.Timeline.__init__,
                                arg_names=('duration'),
@@ -1034,29 +980,19 @@ class Timeline(Clutter.Timeline):
         markers, n_markers = Clutter.Timeline.list_markers(self, position)
         return markers
 
-Timeline = override(Timeline)
-__all__.append('Timeline')
-
-
+@giclassoverride
 class Alpha(Clutter.Alpha):
     __init__ = deprecated_init(Clutter.Alpha.__init__,
                                arg_names=('timeline', 'mode'),
                                category=PyClutterDeprecationWarning)
 
-Alpha = override(Alpha)
-__all__.append('Alpha')
-
-
+@giclassoverride
 class Path(Clutter.Path):
     __init__ = deprecated_init(Clutter.Path.__init__,
                                arg_names=('description'),
                                category=PyClutterDeprecationWarning)
 
-
-Path = override(Path)
-__all__.append('Path')
-
-
+@giclassoverride
 class BehaviourPath(Clutter.BehaviourPath):
     def __init__(self, alpha=None, path=None, description=None):
         Clutter.BehaviourPath.__init__(self)
@@ -1067,10 +1003,7 @@ class BehaviourPath(Clutter.BehaviourPath):
             path = Path(description)
             self.set_path(path)
 
-BehaviourPath = override(BehaviourPath)
-__all__.append('BehaviourPath')
-
-
+@giclassoverride
 class Script(Clutter.Script):
     def load_from_data(self, data, length=-1):
         return Clutter.Script.load_from_data(self, data, length)
@@ -1096,19 +1029,13 @@ class Script(Clutter.Script):
         """
         self.connect_signals_full(_builder_connect_callback, obj_or_map)
 
-Script = override(Script)
-__all__.append('Script')
-
-
+@giclassoverride
 class BindingPool(Clutter.BindingPool):
     __init__ = deprecated_init(Clutter.BindingPool.__init__,
                                arg_names=('name'),
                                category=PyClutterDeprecationWarning)
 
-BindingPool = override(BindingPool)
-__all__.append('BindingPool')
-
-
+@giclassoverride
 class Shader(Clutter.Shader):
     def set_vertex_source(self, data, length=-1):
         Clutter.Shader.set_vertex_source(self, data, length)
@@ -1116,10 +1043,7 @@ class Shader(Clutter.Shader):
     def set_fragment_source(self, data, length=-1):
         Clutter.Shader.set_fragment_source(self, data, length)
 
-Shader = override(Shader)
-__all__.append('Shader')
-
-
+@giclassoverride
 class Animator(Clutter.Animator):
     def set_key(self, obj, property_name, mode, progress, value):
         try:
@@ -1130,11 +1054,7 @@ class Animator(Clutter.Animator):
         return Clutter.Animator.set_key(self, obj, property_name, mode,
                 progress, _gvalue_from_python(pspec.value_type, value))
 
-
-Animator = override(Animator)
-__all__.append('Animator')
-
-
+@giclassoverride
 class State(Clutter.State):
     def set_key(self, source_state, target_state, obj, property_name, mode,
                 value, pre_delay=0.0, post_delay=0.0):
@@ -1148,84 +1068,58 @@ class State(Clutter.State):
                 _gvalue_from_python(pspec.value_type, value),
                 pre_delay, post_delay)
 
-State = override(State)
-__all__.append('State')
-
-
+@giclassoverride
 class Interval(Clutter.Interval):
     __init__ = deprecated_init(Clutter.Interval.__init__,
                                arg_names=('value_type', 'initial', 'final'),
                                category=PyClutterDeprecationWarning)
 
-Interval = override(Interval)
-__all__.append('Interval')
-
-
+@giclassoverride
 class AlignConstraint(Clutter.AlignConstraint):
     __init__ = deprecated_init(Clutter.AlignConstraint.__init__,
                                arg_names=('source', 'align_axis', 'factor'),
                                category=PyClutterDeprecationWarning)
 
-AlignConstraint = override(AlignConstraint)
-__all__.append('AlignConstraint')
-
-
+@giclassoverride
 class BindConstraint(Clutter.BindConstraint):
     __init__ = deprecated_init(Clutter.BindConstraint.__init__,
                                arg_names=('source', 'coordinate', 'offset'),
                                category=PyClutterDeprecationWarning)
 
-BindConstraint = override(BindConstraint)
-__all__.append('BindConstraint')
-
-
+@giclassoverride
 class SnapConstraint(Clutter.SnapConstraint):
     __init__ = deprecated_init(Clutter.SnapConstraint.__init__,
                                arg_names=('source', 'from_edge', 'to_edge', 'offset'),
                                category=PyClutterDeprecationWarning)
 
-SnapConstraint = override(SnapConstraint)
-__all__.append('SnapConstraint')
-
-
+@giclassoverride
 class PathConstraint(Clutter.PathConstraint):
     __init__ = deprecated_init(Clutter.PathConstraint.__init__,
                                arg_names=('path', 'offset'),
                                category=PyClutterDeprecationWarning)
 
-PathConstraint = override(PathConstraint)
-__all__.append('PathConstraint')
-
-
+@giclassoverride
 class ShaderEffect(Clutter.ShaderEffect):
     __init__ = deprecated_init(Clutter.ShaderEffect.__init__,
                                arg_names=('shader_type'),
                                category=PyClutterDeprecationWarning)
 
-ShaderEffect = override(ShaderEffect)
-__all__.append('ShaderEffect')
-
-
+@giclassoverride
 class ColorizeEffect(Clutter.ColorizeEffect):
     __init__ = deprecated_init(Clutter.ColorizeEffect.__init__,
                                arg_names=('tint'),
                                category=PyClutterDeprecationWarning)
 
-ColorizeEffect = override(ColorizeEffect)
-__all__.append('ColorizeEffect')
-
 
 if clutter_version >= (1, 10, 0):
+    @giclassoverride
     class Content(Clutter.Content):
         def get_preferred_size(self):
             success, width, height = super(Content, self).get_preferred_size()
             if success:
                 return (width, height)
 
-    Content = override(Content)
-    __all__.append('Content')
-
-
+    @giclassoverride
     class Margin(Clutter.Margin):
         def __new__(cls, *args, **kwargs):
             return Clutter.Margin.__new__(cls)
@@ -1299,59 +1193,37 @@ if clutter_version >= (1, 10, 0):
         def __ne__(self, other):
             return not self.__eq__(other)
 
-    Margin = override(Margin)
-    __all__.append('Margin')
-
-
+    @giclassoverride
     class ColorNode(Clutter.ColorNode):
         def __new__(cls, color):
             return Clutter.ColorNode.new(color)
 
-    ColorNode = override(ColorNode)
-    __all__.append('ColorNode')
-
-
+    @giclassoverride
     class TextNode(Clutter.TextNode):
         def __new__(cls, layout, color):
             return Clutter.TextNode.new(layout, color)
 
-    TextNode = override(TextNode)
-    __all__.append('TextNode')
-
-
+    @giclassoverride
     class TextureNode(Clutter.TextureNode):
         def __new__(cls, texture, color, min_filter, mag_filter):
             return Clutter.TextureNode.new(texture, color, min_filter,
                     mag_filter)
 
-    TextureNode = override(TextureNode)
-    __all__.append('TextureNode')
-
-
+    @giclassoverride
     class PipelineNode(Clutter.PipelineNode):
         def __new__(cls, pipeline):
             return Clutter.PipelineNode.new(pipeline)
 
-    PipelineNode = override(PipelineNode)
-    __all__.append('PipelineNode')
-
-
+    @giclassoverride
     class PropertyTransition(Clutter.PropertyTransition):
         __init__ = deprecated_init(Clutter.PropertyTransition.__init__,
                                    arg_names=('property_name'),
                                    category=PyClutterDeprecationWarning)
 
-    PropertyTransition = override(PropertyTransition)
-    __all__.append('PropertyTransition')
-
-
-
+@giclassoverride
 class Settings(Clutter.Settings):
     def __new__(cls, *args, **kwargs):
         return Clutter.Settings.get_default()
-
-Settings = override(Settings)
-__all__.append('Settings')
 
 # override the main_quit function to ignore additional arguments. This enables
 # common stuff like stage.connect('destroy', Clutter.main_quit)
