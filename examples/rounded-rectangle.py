@@ -59,11 +59,11 @@ if __name__ == '__main__':
     stage.add_child(actor)
 
     # We use an explicit transition because we want to make it loop
-    transition = Clutter.PropertyTransition('rotation-angle-y')
+    transition = Clutter.PropertyTransition(property_name='rotation-angle-y',
+                                            duration=2000,
+                                            repeat_count=-1)
     transition.set_from(0)
     transition.set_to(360)
-    transition.set_duration(2000)
-    transition.set_repeat_count(-1)
     actor.add_transition('rotateActor', transition)
 
     # Connect to the 'draw' signal before invalidating, so that the canvas
