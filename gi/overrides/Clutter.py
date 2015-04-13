@@ -784,20 +784,18 @@ __all__.append('Container')
 
 
 class Texture(Clutter.Texture, Actor):
-    def __init__(self, filename=None, **kwargs):
-        if filename is not None:
-            kwargs['filename'] = filename
-        Clutter.Texture.__init__(self, **kwargs)
+    __init__ = deprecated_init(Clutter.Texture.__init__,
+                               arg_names=('filename'),
+                               category=PyClutterDeprecationWarning)
 
 Texture = override(Texture)
 __all__.append('Texture')
 
 
 class Rectangle(Clutter.Rectangle, Actor):
-    def __init__(self, color=None, **kwargs):
-        if color is not None:
-            kwargs['color'] = color
-        Clutter.Rectangle.__init__(self, **kwargs)
+    __init__ = deprecated_init(Clutter.Rectangle.__init__,
+                               arg_names=('color'),
+                               category=PyClutterDeprecationWarning)
 
 Rectangle = override(Rectangle)
 __all__.append('Rectangle')
@@ -827,10 +825,9 @@ __all__.append('CairoTexture')
 
 
 class Clone(Clutter.Clone):
-    def __init__(self, source=None, **kwargs):
-        if source is not None:
-            kwargs['source'] = source
-        Clutter.Clone.__init__(self, **kwargs)
+    __init__ = deprecated_init(Clutter.Clone.__init__,
+                               arg_names=('source'),
+                               category=PyClutterDeprecationWarning)
 
 Clone = override(Clone)
 __all__.append('Clone')
@@ -850,22 +847,18 @@ __all__.append('LayoutManager')
 
 
 class BinLayout(Clutter.BinLayout):
-    def __init__(self, x_align=None, y_align=None, **kwargs):
-        if x_align is not None:
-            kwargs['x_align'] = x_align
-        if y_align is not None:
-            kwargs['y_align'] = y_align
-        Clutter.BinLayout.__init__(self, **kwargs)
+    __init__ = deprecated_init(Clutter.BinLayout.__init__,
+                               arg_names=('x_align', 'y_align'),
+                               category=PyClutterDeprecationWarning)
 
 BinLayout = override(BinLayout)
 __all__.append('BinLayout')
 
 
 class FlowLayout(Clutter.FlowLayout):
-    def __init__(self, orientation=None, **kwargs):
-        if orientation is not None:
-            kwargs['orientation'] = orientation
-        Clutter.FlowLayout.__init__(self, **kwargs)
+    __init__ = deprecated_init(Clutter.FlowLayout.__init__,
+                               arg_names=('orientation'),
+                               category=PyClutterDeprecationWarning)
 
 FlowLayout = override(FlowLayout)
 __all__.append('FlowLayout')
@@ -1033,10 +1026,9 @@ __all__.append('ListModel')
 
 
 class Timeline(Clutter.Timeline):
-    def __init__(self, duration=None, **kwargs):
-        if duration is not None:
-            kwargs['duration'] = duration
-        Clutter.Timeline.__init__(self, **kwargs)
+    __init__ = deprecated_init(Clutter.Timeline.__init__,
+                               arg_names=('duration'),
+                               category=PyClutterDeprecationWarning)
 
     def list_markers(self, position=-1):
         markers, n_markers = Clutter.Timeline.list_markers(self, position)
@@ -1047,22 +1039,18 @@ __all__.append('Timeline')
 
 
 class Alpha(Clutter.Alpha):
-    def __init__(self, timeline=None, mode=Clutter.AnimationMode.LINEAR,
-            **kwargs):
-        Clutter.Alpha.__init__(self, timeline=timeline, **kwargs)
-        # FIXME: Setting :mode doesn't work via properties
-        if mode != Clutter.AnimationMode.CUSTOM_MODE:
-            self.set_mode(mode)
+    __init__ = deprecated_init(Clutter.Alpha.__init__,
+                               arg_names=('timeline', 'mode'),
+                               category=PyClutterDeprecationWarning)
 
 Alpha = override(Alpha)
 __all__.append('Alpha')
 
 
 class Path(Clutter.Path):
-    def __init__(self, description=None, **kwargs):
-        Clutter.Path.__init__(self)
-        if description:
-            self.set_description(description)
+    __init__ = deprecated_init(Clutter.Path.__init__,
+                               arg_names=('description'),
+                               category=PyClutterDeprecationWarning)
 
 
 Path = override(Path)
@@ -1113,8 +1101,9 @@ __all__.append('Script')
 
 
 class BindingPool(Clutter.BindingPool):
-    def __init__(self, name, **kwargs):
-        Clutter.BindingPool.__init__(self, name=name, **kwargs)
+    __init__ = deprecated_init(Clutter.BindingPool.__init__,
+                               arg_names=('name'),
+                               category=PyClutterDeprecationWarning)
 
 BindingPool = override(BindingPool)
 __all__.append('BindingPool')
@@ -1164,111 +1153,63 @@ __all__.append('State')
 
 
 class Interval(Clutter.Interval):
-    def __init__(self, value_type, initial=None, final=None):
-        Clutter.Interval.__init__(self, value_type=value_type)
-        if initial is not None:
-            self.set_initial_value(initial)
-        if final is not None:
-            self.set_final_value(final)
-
-    def set_initial(self, value):
-        Clutter.Interval.set_initial_value(self, value)
-
-    def get_initial(self):
-        try:
-            return self.peek_initial_value()
-        except TypeError:
-            return None
-
-    initial = property(get_initial, set_initial)
-
-    def set_final(self, value):
-        Clutter.Interval.set_final_value(self, value)
-
-    def get_final(self):
-        try:
-            return self.peek_final_value()
-        except TypeError:
-            return None
-
-    final = property(get_final, set_final)
+    __init__ = deprecated_init(Clutter.Interval.__init__,
+                               arg_names=('value_type', 'initial', 'final'),
+                               category=PyClutterDeprecationWarning)
 
 Interval = override(Interval)
 __all__.append('Interval')
 
 
 class AlignConstraint(Clutter.AlignConstraint):
-    def __init__(self, source=None, align_axis=None, factor=None, **kwargs):
-        if source is not None:
-            kwargs['source'] = source
-        if align_axis is not None:
-            kwargs['align_axis'] = align_axis
-        if factor is not None:
-            kwargs['factor'] = factor
-        Clutter.AlignConstraint.__init__(self, **kwargs)
+    __init__ = deprecated_init(Clutter.AlignConstraint.__init__,
+                               arg_names=('source', 'align_axis', 'factor'),
+                               category=PyClutterDeprecationWarning)
 
 AlignConstraint = override(AlignConstraint)
 __all__.append('AlignConstraint')
 
 
 class BindConstraint(Clutter.BindConstraint):
-    def __init__(self, source=None, coordinate=None, offset=None, **kwargs):
-        if source is not None:
-            kwargs['source'] = source
-        if coordinate is not None:
-            kwargs['coordinate'] = coordinate
-        if offset is not None:
-            kwargs['offset'] = offset
-        Clutter.BindConstraint.__init__(self, **kwargs)
+    __init__ = deprecated_init(Clutter.BindConstraint.__init__,
+                               arg_names=('source', 'coordinate', 'offset'),
+                               category=PyClutterDeprecationWarning)
 
 BindConstraint = override(BindConstraint)
 __all__.append('BindConstraint')
 
 
 class SnapConstraint(Clutter.SnapConstraint):
-    def __init__(self, source=None, from_edge=None, to_edge=None, offset=None,
-            **kwargs):
-        if source is not None:
-            kwargs['source'] = source
-        if from_edge is not None:
-            kwargs['from_edge'] = from_edge
-        if to_edge is not None:
-            kwargs['to_edge'] = to_edge
-        if offset is not None:
-            kwargs['offset'] = offset
-        Clutter.SnapConstraint.__init__(self, **kwargs)
+    __init__ = deprecated_init(Clutter.SnapConstraint.__init__,
+                               arg_names=('source', 'from_edge', 'to_edge', 'offset'),
+                               category=PyClutterDeprecationWarning)
 
 SnapConstraint = override(SnapConstraint)
 __all__.append('SnapConstraint')
 
 
 class PathConstraint(Clutter.PathConstraint):
-    def __init__(self, path=None, offset=None, **kwargs):
-        if path is not None:
-            kwargs['path'] = path
-        if offset is not None:
-            kwargs['offset'] = offset
-        Clutter.PathConstraint.__init__(self, **kwargs)
+    __init__ = deprecated_init(Clutter.PathConstraint.__init__,
+                               arg_names=('path', 'offset'),
+                               category=PyClutterDeprecationWarning)
 
 PathConstraint = override(PathConstraint)
 __all__.append('PathConstraint')
 
 
 class ShaderEffect(Clutter.ShaderEffect):
-    def __init__(self, shader_type=None, **kwargs):
-        if shader_type is not None:
-            kwargs['shader_type'] = shader_type
-        Clutter.ShaderEffect.__init__(self, **kwargs)
+    __init__ = deprecated_init(Clutter.ShaderEffect.__init__,
+                               arg_names=('shader_type'),
+                               category=PyClutterDeprecationWarning)
 
 ShaderEffect = override(ShaderEffect)
 __all__.append('ShaderEffect')
 
 
 class ColorizeEffect(Clutter.ColorizeEffect):
-    def __init__(self, tint=None, **kwargs):
-        if tint is not None:
-            kwargs['tint'] = tint
-        Clutter.ColorizeEffect.__init__(self, **kwargs)
+    __init__ = deprecated_init(Clutter.ColorizeEffect.__init__,
+                               arg_names=('tint'),
+                               category=PyClutterDeprecationWarning)
 
 ColorizeEffect = override(ColorizeEffect)
 __all__.append('ColorizeEffect')
@@ -1396,10 +1337,9 @@ if clutter_version >= (1, 10, 0):
 
 
     class PropertyTransition(Clutter.PropertyTransition):
-        def __init__(self, property_name=None, **kwargs):
-            if property_name is not None:
-                kwargs['property_name'] = property_name
-            Clutter.PropertyTransition.__init__(self, **kwargs)
+        __init__ = deprecated_init(Clutter.PropertyTransition.__init__,
+                                   arg_names=('property_name'),
+                                   category=PyClutterDeprecationWarning)
 
     PropertyTransition = override(PropertyTransition)
     __all__.append('PropertyTransition')
