@@ -150,12 +150,16 @@ class Color(Clutter.Color):
             raise TypeError("sequence index must be integer")
 
     def __eq__(self, other):
-        return self.red == other.red and self.green == other.green and \
-                self.blue == other.blue and self.alpha == other.alpha
+        return self.red == other.red and \
+               self.green == other.green and \
+               self.blue == other.blue and \
+               self.alpha == other.alpha
 
     def __ne__(self, other):
-        return self.red != other.red or self.green != other.green or \
-                self.blue != other.blue or self.alpha != other.alpha
+        return self.red != other.red or \
+               self.green != other.green or \
+               self.blue != other.blue or \
+               self.alpha != other.alpha
 
 @giclassoverride
 class ActorBox(Clutter.ActorBox):
