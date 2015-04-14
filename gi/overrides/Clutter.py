@@ -151,24 +151,6 @@ class Color(Clutter.Color):
         return self.red != other.red or self.green != other.green or \
                 self.blue != other.blue or self.alpha != other.alpha
 
-    @classmethod
-    def from_string(cls, string):
-        self = cls()
-        Clutter.Color.from_string(self, string)
-        return self
-
-    @classmethod
-    def from_hls(cls, hue, luminance, saturation):
-        self = cls()
-        Clutter.Color.from_hls(self, hue, luminance, saturation)
-        return self
-
-    @classmethod
-    def from_pixel(cls, pixel):
-        self = cls()
-        Clutter.Color.from_pixel(self, pixel)
-        return self
-
 @giclassoverride
 class ActorBox(Clutter.ActorBox):
     def __new__(cls, *args, **kwargs):
