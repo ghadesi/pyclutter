@@ -110,6 +110,12 @@ class Color(Clutter.Color):
         return '<Clutter.Color(red=%d, green=%d, blue=%d, alpha=%s)>' % (
             self.red, self.green, self.blue, self.alpha)
 
+    def __iter__(self):
+        yield self.red
+        yield self.green
+        yield self.blue
+        yield self.alpha
+
     def __len__(self):
         return 4
 
