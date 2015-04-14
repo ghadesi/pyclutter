@@ -414,6 +414,77 @@ class Knot(Clutter.Knot):
         return self.x != other.x or self.y != other.y
 
 @giclassoverride
+class Point(Clutter.Point):
+    def __new__(cls, *args, **kwargs):
+        return Clutter.Point.__new__(cls)
+
+    def __init__(self, x=0, y=0):
+        Clutter.Point.__init__(self)
+        self.x = x
+        self.y = y
+
+    def __repr__(self):
+        return 'Clutter.Point(x=%f, y=%f)' % (self.x, self.y)
+
+    def __eq__(self, other):
+        return self.x == other.x and self.y == other.y
+
+    def __ne__(self, other):
+        return self.x != other.x or self.y != other.y
+
+    def __iter__(self):
+        yield self.x
+        yield self.y
+
+@giclassoverride
+class Size(Clutter.Size):
+    def __new__(cls, *args, **kwargs):
+        return Clutter.Size.__new__(cls)
+
+    def __init__(self, width=0, height=0):
+        Clutter.Size.__init__(self)
+        self.width = width
+        self.height = height
+
+    def __repr__(self):
+        return 'Clutter.Size(width=%f, height=%f)' % (self.width, self.height)
+
+    def __eq__(self, other):
+        return self.width == other.width and self.height == other.height
+
+    def __ne__(self, other):
+        return self.width != other.width or self.height != other.height
+
+    def __iter__(self):
+        yield self.width
+        yield self.height
+
+@giclassoverride
+class Rect(Clutter.Rect):
+    def __new__(cls, *args, **kwargs):
+        return Clutter.Rect.__new__(cls)
+
+    def __init__(self, x=0, y=0, width=0, height=0):
+        Clutter.Rect.__init__(self)
+        self.origin = Clutter.Point(x, y)
+        self.size = Clutter.Size(width, height)
+
+    def __repr__(self):
+        return 'Clutter.Rect(x=%f, y=%f, width=%f, height=%f)' % (self.origin.x, self.origin.y, self.size.width, self.size.height)
+
+    def __eq__(self, other):
+        return self.origin == other.origin and self.size == other.size
+
+    def __ne__(self, other):
+        return self.origin != other.origin or self.size != other.size
+
+    def __iter__(self):
+        yield self.origin.x
+        yield self.origin.y
+        yield self.size.width
+        yield self.size.height
+
+@giclassoverride
 class Event(Clutter.Event):
     _UNION_MEMBERS = {
         Clutter.EventType.KEY_PRESS: 'key',
