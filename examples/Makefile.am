@@ -3,4 +3,5 @@ EXTRA_DIST = \
 	canvas.py \
 	constraints.py \
 	layout-manager.py \
-	rounded-rectangle.py
+	rounded-rectangle.py \
+	scroll-actor.py
