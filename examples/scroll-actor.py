@@ -20,29 +20,26 @@ class Menu(Clutter.Actor):
         self._current_idx = 0
 
     def select_next(self):
-        old_item = self.get_child_at_index(self._current_idx)
-        old_item.props.color = Clutter.Color.get_static(Clutter.StaticColor.WHITE)
-
-        self._current_idx += 1
-
-        if self._current_idx == self.get_n_children():
-            self._current_idx = 0
-
-        new_item = self.get_child_at_index(self._current_idx)
-        new_item.props.color = Clutter.Color.get_static(Clutter.StaticColor.SKY_BLUE_LIGHT)
-        return new_item
+        return self.select_item(self._current_idx + 1)
 
     def select_prev(self):
+        return self.select_item(self._current_idx - 1)
+
+    def select_item(self, idx):
         old_item = self.get_child_at_index(self._current_idx)
         old_item.props.color = Clutter.Color.get_static(Clutter.StaticColor.WHITE)
 
-        self._current_idx -= 1
+        self._current_idx = idx
 
-        if self._current_idx < 0:
-            self._current_idx = self.get_n_children() - 1;
+        n_children = self.get_n_children()
+        if self._current_idx >= n_children:
+            self._current_idx = 0
+        elif self._current_idx < 0:
+            self._current_idx = n_children - 1
 
         new_item = self.get_child_at_index(self._current_idx)
         new_item.props.color = Clutter.Color.get_static(Clutter.StaticColor.SKY_BLUE_LIGHT)
+
         return new_item
 
 def create_menu_actor(scroll):
