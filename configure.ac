@@ -100,6 +100,7 @@ AC_CONFIG_FILES([
     gi/Makefile
     gi/overrides/Makefile
     examples/Makefile
+    tests/Makefile
 ])
 
 AC_OUTPUT
