@@ -3,6 +3,15 @@ import cairo
 from gi.repository import GObject
 from gi.repository import Clutter
 
+# Use an ARGB visual on X11; we need to do this before initializing
+# Clutter, but only if the X11 API is available
+try:
+    from gi.repository import ClutterX11
+    ClutterX11.set_use_argb_visual(True)
+except ImportError:
+    # No ClutterX11 available
+    pass
+
 # The code for the rounded rectangle drawing is taken from the
 # Cairo documentation
 def draw_content(canvas, cr, surface_width, surface_height):
