@@ -1294,10 +1294,3 @@ def main_quit(*args, **kwargs):
     Clutter.main_quit()
 
 __all__.append('main_quit')
-
-
-# Initialize Clutter directly on import
-initialized, argv = Clutter.init(sys.argv)
-sys.argv = argv
-if not initialized:
-    raise RuntimeError("Could not initialize Cluttter")
