@@ -113,6 +113,8 @@ def on_key_press(stage, event):
     return False
 
 if __name__ == '__main__':
+    Clutter.init(None)
+
     stage = Clutter.Stage(title='Scroll Actor', user_resizable=True)
     stage.connect('destroy', Clutter.main_quit)
     stage.connect('key-press-event', on_key_press)

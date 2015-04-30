@@ -53,6 +53,8 @@ def on_crossing(actor, event):
     return True
 
 if __name__ == '__main__':
+    Clutter.init(None)
+
     stage = Clutter.Stage(title="Three Flowers in a Vase")
     stage.props.user_resizable = True
     stage.connect('destroy', Clutter.main_quit)

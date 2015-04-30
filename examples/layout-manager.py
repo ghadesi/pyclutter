@@ -184,6 +184,8 @@ def on_key_press(stage, event, layout):
     return False
 
 if __name__ == '__main__':
+    Clutter.init(None)
+
     stage = Clutter.Stage()
     stage.props.title = 'Multi-layout'
     stage.connect('destroy', Clutter.main_quit)

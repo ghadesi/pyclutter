@@ -1,6 +1,8 @@
 from gi.repository import Clutter
 
 if __name__ == '__main__':
+    Clutter.init(None)
+
     # The main stage
     stage = Clutter.Stage(title='Constraints', user_resizable=True)
     stage.props.background_color = Clutter.Color.get_static(Clutter.StaticColor.ALUMINIUM_1)

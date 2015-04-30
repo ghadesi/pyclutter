@@ -78,6 +78,8 @@ def on_actor_resize(actor, allocation, flags):
         resize_id = GLib.timeout_add(500, idle_resize, actor)
 
 if __name__ == '__main__':
+    Clutter.init(None)
+
     # Our stage
     stage = Clutter.Stage(title='2D Clock', user_resizable=True)
     stage.props.background_color = Clutter.Color.get_static(Clutter.StaticColor.SKY_BLUE_LIGHT)

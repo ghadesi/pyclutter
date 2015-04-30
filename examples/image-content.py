@@ -44,6 +44,8 @@ def on_tap(action, actor, text):
         current_gravity = 0
 
 if __name__ == '__main__':
+    Clutter.init(None)
+
     # Our stage
     stage = Clutter.Stage(title='Content Box', user_resizable=True)
     stage.set_margin(Clutter.Margin(12))
