@@ -42,10 +42,7 @@ class Menu(Clutter.Actor):
 
         return new_item
 
-def create_menu_actor(scroll):
-    menu = Menu()
-    scroll.add_child(menu)
-
+def create_menu_actor():
     menu_items = [
         'Option 1',
         'Option 2',
@@ -61,10 +58,13 @@ def create_menu_actor(scroll):
         'Option 12'
     ]
 
+    menu = Menu()
     for label in menu_items:
         menu.add_child(MenuItem(label))
 
     menu.select_item(0)
+
+    return menu
 
 def create_scroll_actor(stage):
     scroll = Clutter.ScrollActor(name='scroll')
@@ -73,8 +73,7 @@ def create_scroll_actor(stage):
     scroll.add_constraint(Clutter.BindConstraint(source=stage, coordinate=Clutter.BindCoordinate.HEIGHT, offset=-36))
     scroll.set_scroll_mode(Clutter.ScrollMode.VERTICALLY)
     scroll.set_easing_duration(250)
-
-    create_menu_actor(scroll)
+    scroll.add_child(create_menu_actor())
 
     stage.add_child(scroll)
 
