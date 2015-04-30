@@ -30,16 +30,20 @@ def draw_content(canvas, cr, surface_width, surface_height):
     cr.arc(x + radius,         y + radius,          radius, 180 * degrees, 270 * degrees)
     cr.close_path()
 
-    cr.set_source_rgb(0.5, 0.5, 1)
+    cr.set_source_rgba(0.5, 0.5, 1, 0.95)
     cr.fill()
 
     return True
 
 if __name__ == '__main__':
+    Clutter.init(None)
+
     # Create our stage
     stage = Clutter.Stage()
     stage.props.title = 'Rounded Rectangle'
     stage.props.background_color = Clutter.Color.get_static(Clutter.StaticColor.BLACK)
+    stage.props.use_alpha = True
+    stage.props.opacity = 64
     stage.set_size(500, 500)
     stage.connect('destroy', Clutter.main_quit)
     stage.show()
