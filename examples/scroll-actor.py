@@ -64,6 +64,8 @@ def create_menu_actor(scroll):
     for label in menu_items:
         menu.add_child(MenuItem(label))
 
+    menu.select_item(0)
+
 def create_scroll_actor(stage):
     scroll = Clutter.ScrollActor(name='scroll')
     scroll.set_position(0, 18)
