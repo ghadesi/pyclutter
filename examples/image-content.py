@@ -1,12 +1,8 @@
 # Clutter depends on Cogl 1.0 for public API, but Cogl ships with
 # introspection data for both 1.0 and 2.0; pygobject will prefer
-# the latter, so we need to explicitly version the Cogl module
-# before loading it
-import gi
-gi.require_version('Cogl', '1.0')
-
-from gi.repository import Cogl
+# the latter, so we need to load Clutter before Cogl
 from gi.repository import Clutter
+from gi.repository import Cogl
 from gi.repository import GdkPixbuf
 
 gravities = [
