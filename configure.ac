@@ -1,8 +1,8 @@
 AC_PREREQ([2.63])
 
-# clutter package version number, (as distinct from shared library version)
-# An odd micro number indicates in-progress development, (eg. from svn)
-# An even micro number indicates a released version.
+# pyclutter package version number
+# An odd micro number indicates we're building from Git
+# An even micro number indicates we're building from a release
 m4_define(pyclutter_version_major, 1)
 m4_define(pyclutter_version_minor, 99)
 m4_define(pyclutter_version_micro, 1)
@@ -23,7 +23,7 @@ AC_INIT([pyclutter], [pyclutter_version],
 AC_CONFIG_MACRO_DIR([build/autotools])
 AC_CONFIG_HEADERS([config.h])
 
-AM_INIT_AUTOMAKE([1.11 foreign -Wno-portability no-define no-dist-gzip dist-xz tar-ustar subdir-objects])
+AM_INIT_AUTOMAKE([1.13 foreign -Wno-portability no-define no-dist-gzip dist-xz tar-ustar subdir-objects])
 
 AM_SILENT_RULES([yes])
 
@@ -42,7 +42,7 @@ AC_CANONICAL_HOST
 JD_PATH_PYTHON(python_min_ver)
 
 # check if we are building for python 3
-AM_PYTHON_CHECK_VERSION([$PYTHON], [3.0], build_py3k=true, build_py3k=false)
+AM_PYTHON_CHECK_VERSION([$PYTHON], [3.0], [build_py3k=true], [build_py3k=false])
 
 # if building for python 3 make sure we have the minimum version supported
 AS_IF([ test $build_py3k = true ],
@@ -63,15 +63,6 @@ dnl check for pygobject
 PKG_CHECK_MODULES(PYGOBJECT, [pygobject-3.0 >= pygobject_required_version])
 AC_SUBST(PYGOBJECT_CFLAGS)
 AC_SUBST(PYGOBJECT_LIBS)
-
-dnl check for pycairo
-AS_IF([ test $build_py3k = true ],
-      [
-        PKG_CHECK_MODULES(PYCAIRO, py3cairo >= py3cairo_required_version)
-      ],
-      [
-        PKG_CHECK_MODULES(PYCAIRO, pycairo >= py2cairo_required_version)
-      ])
 
 dnl check for clutter
 PKG_CHECK_MODULES(CLUTTER, clutter-1.0 >= clutter_required_version)
@@ -96,9 +87,7 @@ AC_MSG_RESULT($PYGI_OVERRIDES_DIR)
 AC_CONFIG_FILES([
     Makefile
     build/Makefile
-    build/autotools/Makefile
     gi/Makefile
-    gi/overrides/Makefile
     examples/Makefile
     tests/Makefile
 ])
