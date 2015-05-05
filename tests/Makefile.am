@@ -9,3 +9,5 @@ TESTS_ENVIRONMENT = \
 	TESTS_BUILDDIR=$(builddir)
 
 check_SCRIPTS = run-tests.py
+
+EXTRA_DIST = run-tests.py $(test_files)
