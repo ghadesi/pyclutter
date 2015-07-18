@@ -1,4 +1,5 @@
-EXTRA_DIST = \
+examplesdir = $(pkgdatadir)/examples
+examples_DATA = \
 	actor-model.py \
 	basic-actor.py \
 	canvas.py \
