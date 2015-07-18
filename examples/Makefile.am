@@ -1,4 +1,5 @@
 EXTRA_DIST = \
+	actor-model.py \
 	basic-actor.py \
 	canvas.py \
 	clutter-gtk-style.py \
